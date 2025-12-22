@@ -1,12 +1,12 @@
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Cá Nhân Bùi Đức Thắng</title>
-    <!-- Add Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Add Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>TechCorp - Giải Pháp Công Nghệ Hàng Đầu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
     :root {
         --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -22,6 +22,9 @@
         --text-primary: #2d3748;
         --text-secondary: #4a5568;
         --text-light: #718096;
+        --bg-light: #f7fafc;
+        --primary-color: #667eea;
+        --secondary-color: #f093fb;
     }
 
     * {
@@ -36,10 +39,11 @@
         background-size: 400% 400%;
         animation: gradientShift 15s ease infinite;
         color: var(--text-primary);
-        font-size: 15px; /* 17px - 2px = 15px */
+        font-size: 15px;
         line-height: 1.7;
         min-height: 100vh;
         overflow-x: hidden;
+        padding-top: 80px; /* Add padding to prevent content overlap */
     }
 
     @keyframes gradientShift {
@@ -69,39 +73,103 @@
         }
     }
 
+    /* Fixed compact header */
     header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         background: var(--glass-bg);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid var(--glass-border);
-        margin: 20px;
-        border-radius: 24px;
-        padding: 40px 30px;
-        text-align: center;
+        border: none;
+        border-bottom: 1px solid var(--glass-border);
+        margin: 0;
+        border-radius: 0;
+        padding: 15px 20px;
         box-shadow: var(--shadow-light);
-        animation: slideInUp 0.8s ease-out;
-        position: relative;
-        overflow: hidden;
+        z-index: 1000;
+        height: 80px;
+        display: flex;
+        align-items: center;
     }
 
-    header::before {
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .nav-brand h2 {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        margin: 0;
+    }
+
+    .nav-menu a {
+        text-decoration: none;
+        color: var(--text-primary);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        font-size: 14px;
+    }
+
+    .nav-menu a::after {
         content: '';
         position: absolute;
-        top: 0;
-        left: -100%;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-gradient);
+        transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after {
         width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.5s;
+    }
+
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: var(--text-primary);
+        margin: 3px 0;
+        transition: 0.3s;
+    }
+
+    /* Remove old header styles */
+    header::before {
+        display: none;
     }
 
     header:hover::before {
-        left: 100%;
+        display: none;
     }
 
     h1 {
         font-family: 'Space Grotesk', 'Montserrat', sans-serif;
-        font-size: clamp(20px, 7vw, 4rem); /* 22px - 2px = 20px */
+        font-size: clamp(20px, 7vw, 4rem);
         font-weight: 700;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
         background-size: 200% 200%;
@@ -122,7 +190,6 @@
         100% { background-position: 0% 50%; }
     }
 
-    /* Thêm hiệu ứng glow cho H1 */
     h1::before {
         content: attr(data-text);
         position: absolute;
@@ -140,7 +207,6 @@
         animation: gradientMove 4s ease infinite;
     }
 
-    /* Hiệu ứng underline động */
     h1::after {
         content: '';
         position: absolute;
@@ -166,7 +232,7 @@
     }
 
     header p {
-        font-size: clamp(16px, 3vw, 1.4rem); /* 18px - 2px = 16px */
+        font-size: clamp(16px, 3vw, 1.4rem);
         color: var(--text-secondary);
         font-weight: 500;
         opacity: 0.9;
@@ -206,7 +272,7 @@
 
     h2 {
         font-family: 'Poppins', sans-serif;
-        font-size: clamp(20px, 4vw, 2rem); /* 22px - 2px = 20px */
+        font-size: clamp(20px, 4vw, 2rem);
         font-weight: 700;
         color: var(--text-primary);
         margin-bottom: 24px;
@@ -239,7 +305,7 @@
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        font-size: 15px; /* 17px - 2px = 15px */
+        font-size: 15px;
     }
 
     ul li:hover {
@@ -268,7 +334,7 @@
         color: var(--text-primary);
         text-decoration: none;
         font-weight: 600;
-        font-size: 16px; /* 18px - 2px = 16px */
+        font-size: 16px;
         transition: all 0.3s ease;
         position: relative;
     }
@@ -288,7 +354,7 @@
         border-radius: 12px;
         padding: 14px 22px;
         margin: 12px 8px 12px 0;
-        font-size: 16px; /* 18px - 2px = 16px */
+        font-size: 16px;
         font-weight: 700;
         cursor: pointer;
         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
@@ -315,7 +381,7 @@
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.3);
         font-weight: 700;
-        font-size: 16px; /* 18px - 2px = 16px */
+        font-size: 16px;
         transition: all 0.3s ease;
         min-height: 48px;
         display: inline-flex;
@@ -354,7 +420,7 @@
         border-radius: 20px;
         padding: 24px;
         text-align: center;
-        font-size: 15px; /* 17px - 2px = 15px */
+        font-size: 15px;
         color: var(--text-primary);
         position: relative;
         overflow: hidden;
@@ -376,7 +442,7 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 700;
-        font-size: 20px; /* 22px - 2px = 20px */
+        font-size: 20px;
     }
 
     .map-frame {
@@ -431,14 +497,14 @@
     .locket-client-card h3 {
         color: #5e7212;
         margin: 0 0 8px 0;
-        font-size: 20px; /* 22px - 2px = 20px */
+        font-size: 20px;
         font-weight: 700;
     }
 
     .locket-client-card p {
         color: #244e92;
         margin: 0 0 24px 0;
-        font-size: 15px; /* 17px - 2px = 15px */
+        font-size: 15px;
     }
 
     .locket-crown {
@@ -484,7 +550,7 @@
         text-decoration: none;
         padding: 18px 36px;
         border-radius: 16px;
-        font-size: 16px; /* 18px - 2px = 16px */
+        font-size: 16px;
         font-weight: 700;
         display: inline-block;
         box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
@@ -562,9 +628,860 @@
         filter: brightness(0) invert(1);
     }
 
+    /* New sections styles */
+    .features {
+        padding: 100px 0;
+        background: white;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 4rem;
+    }
+
+    .feature-item {
+        text-align: center;
+        padding: 2rem;
+        background: var(--bg-light);
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .team {
+        padding: 100px 0;
+        background: var(--bg-light);
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 4rem;
+    }
+
+    .team-member {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .team-member::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--primary-gradient);
+    }
+
+    .team-member:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .member-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: var(--primary-gradient);
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+    }
+
+    .member-name {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+    }
+
+    .member-role {
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .member-bio {
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    .testimonials {
+        padding: 100px 0;
+        background: white;
+    }
+
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 4rem;
+    }
+
+    .testimonial {
+        background: var(--bg-light);
+        padding: 2rem;
+        border-radius: 20px;
+        border-left: 5px solid var(--primary-color);
+        transition: all 0.3s ease;
+    }
+
+    .testimonial:hover {
+        transform: translateX(10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .testimonial-text {
+        font-style: italic;
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--secondary-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+    }
+
+    .author-info h4 {
+        color: var(--text-dark);
+        margin-bottom: 0.2rem;
+    }
+
+    .author-info p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    .pricing {
+        padding: 100px 0;
+        background: var(--bg-light);
+    }
+
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 4rem;
+    }
+
+    .pricing-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        border: 2px solid transparent;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        border-color: var(--primary-color);
+    }
+
+    .pricing-card.featured {
+        border-color: var(--primary-color);
+        transform: scale(1.05);
+    }
+
+    .pricing-card.featured::before {
+        content: 'Phổ biến';
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-gradient);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .plan-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+    }
+
+    .plan-price {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .plan-period {
+        color: var(--text-light);
+        margin-bottom: 2rem;
+    }
+
+    .plan-features {
+        list-style: none;
+        margin-bottom: 2rem;
+    }
+
+    .plan-features li {
+        padding: 0.5rem 0;
+        color: var(--text-light);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .plan-features li::before {
+        content: '✓';
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .blog {
+        padding: 100px 0;
+        background: white;
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 4rem;
+    }
+
+    .blog-post {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .blog-post:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .blog-image {
+        height: 200px;
+        background: var(--primary-gradient);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .blog-image::after {
+        content: '📰';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        opacity: 0.3;
+    }
+
+    .blog-content {
+        padding: 2rem;
+    }
+
+    .blog-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: var(--text-light);
+    }
+
+    .blog-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+    }
+
+    .blog-excerpt {
+        color: var(--text-light);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .read-more {
+        color: var(--primary-color);
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .read-more:hover {
+        color: var(--secondary-color);
+    }
+
+    .why-choose {
+        padding: 100px 0;
+        background: var(--bg-light);
+    }
+
+    .why-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        margin-top: 4rem;
+    }
+
+    .why-content h3 {
+        font-size: 1.5rem;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+    }
+
+    .why-content p {
+        color: var(--text-light);
+        line-height: 1.8;
+        margin-bottom: 2rem;
+    }
+
+    .why-points {
+        list-style: none;
+    }
+
+    .why-points li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .why-points li:hover {
+        transform: translateX(10px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .why-points li::before {
+        content: '🚀';
+        font-size: 1.5rem;
+    }
+
+    .process {
+        padding: 100px 0;
+        background: white;
+    }
+
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 4rem;
+    }
+
+    .process-step {
+        text-align: center;
+        position: relative;
+        padding: 2rem 1rem;
+    }
+
+    .process-step::after {
+        content: '';
+        position: absolute;
+        top: 60px;
+        right: -50%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary-color), transparent);
+        z-index: 1;
+    }
+
+    .process-step:last-child::after {
+        display: none;
+    }
+
+    .step-number {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--primary-gradient);
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .step-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+    }
+
+    .step-description {
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    /* Auth Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal-overlay.active {
+        display: flex;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .auth-modal {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        width: 90%;
+        max-width: 400px;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: slideInUp 0.3s ease-out;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-light);
+        padding: 0;
+        margin: 0;
+        min-height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+    }
+
+    .modal-close:hover {
+        color: var(--text-dark);
+        transform: none;
+    }
+
+    .auth-tabs {
+        display: flex;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid var(--bg-light);
+    }
+
+    .tab-btn {
+        flex: 1;
+        padding: 12px;
+        background: none;
+        border: none;
+        font-weight: 600;
+        color: var(--text-light);
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease;
+        margin: 0;
+        min-height: auto;
+        box-shadow: none;
+    }
+
+    .tab-btn.active {
+        color: var(--primary-color);
+    }
+
+    .tab-btn.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary-gradient);
+    }
+
+    .auth-form {
+        display: none;
+    }
+
+    .auth-form.active {
+        display: block;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-dark);
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid var(--bg-light);
+        border-radius: 10px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+
+    .password-toggle {
+        position: relative;
+    }
+
+    .password-toggle button {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--text-light);
+        cursor: pointer;
+        padding: 4px;
+        margin: 0;
+        min-height: auto;
+        box-shadow: none;
+    }
+
+    .auth-submit {
+        width: 100%;
+        padding: 14px;
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 1rem 0 0 0;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .auth-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+
+    .auth-divider {
+        text-align: center;
+        margin: 1.5rem 0;
+        position: relative;
+        color: var(--text-light);
+    }
+
+    .auth-divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--bg-light);
+    }
+
+    .auth-divider span {
+        background: white;
+        padding: 0 1rem;
+    }
+
+    .social-login {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .social-btn {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid var(--bg-light);
+        border-radius: 10px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 0;
+        min-height: auto;
+        box-shadow: none;
+    }
+
+    .social-btn:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+
+    .forgot-password {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .forgot-password a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .forgot-password a:hover {
+        text-decoration: underline;
+        transform: none;
+        background: none;
+        -webkit-text-fill-color: var(--primary-color);
+    }
+
+    /* User Menu Styles */
+    .user-menu {
+        position: relative;
+        display: none;
+    }
+
+    .user-menu.active {
+        display: block;
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--primary-gradient);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+        min-height: auto;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid white;
+    }
+
+    .user-dropdown {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        padding: 1rem 0;
+        min-width: 200px;
+        z-index: 1001;
+        display: none;
+    }
+
+    .user-dropdown.active {
+        display: block;
+        animation: slideInUp 0.2s ease-out;
+    }
+
+    .user-dropdown a {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: var(--text-dark);
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .user-dropdown a:hover {
+        background: var(--bg-light);
+        transform: none;
+        -webkit-text-fill-color: var(--text-dark);
+    }
+
+    .auth-trigger {
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 8px 20px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 0;
+        min-height: auto;
+        box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .auth-trigger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+    }
+
+    /* Purchase Protection */
+    .purchase-protection {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1999;
+    }
+
+    .purchase-protection.active {
+        display: flex;
+    }
+
+    .purchase-message {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        max-width: 400px;
+        margin: 0 20px;
+    }
+
+    .purchase-message h3 {
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+    }
+
+    .purchase-message p {
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .purchase-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .purchase-actions button {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0;
+        min-height: auto;
+    }
+
+    .btn-login {
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-cancel {
+        background: white;
+        color: var(--text-dark);
+        border: 2px solid var(--bg-light);
+        box-shadow: none;
+    }
+
+    .btn-cancel:hover {
+        border-color: var(--text-light);
+        transform: translateY(-2px);
+    }
+
+    /* Mobile responsive for auth */
+    @media (max-width: 768px) {
+        .auth-modal {
+            margin: 20px;
+            padding: 1.5rem;
+        }
+
+        .user-dropdown {
+            right: -20px;
+        }
+
+        .purchase-actions {
+            flex-direction: column;
+        }
+
+        .social-login {
+            flex-direction: column;
+        }
+    }
+
     /* Responsive Design */
     @media (min-width: 768px) {
-        body { font-size: 16px; } /* 18px - 2px = 16px */
+        body { font-size: 16px; }
         
         header, section, footer {
             margin: 24px 40px;
@@ -587,29 +1504,29 @@
 
     @media (max-width: 480px) {
         body {
-            font-size: 15px; /* 17px - 2px = 15px */
+            font-size: 15px;
             line-height: 1.6;
         }
         
         ul li {
             padding: 22px 18px;
-            font-size: 15px; /* 17px - 2px = 15px */
+            font-size: 15px;
         }
         
         button {
             padding: 16px 24px;
-            font-size: 16px; /* 18px - 2px = 16px */
+            font-size: 16px;
             min-height: 48px;
         }
         
         #phone-link {
             padding: 16px 24px;
-            font-size: 16px; /* 18px - 2px = 16px */
+            font-size: 16px;
             min-height: 48px;
         }
 
         a {
-            font-size: 16px; /* 18px - 2px = 16px */
+            font-size: 16px;
         }
     }
 
@@ -637,129 +1554,732 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1 data-text="Chào mừng đến với trang lưu giữ thông tin liên lạc!">Chào mừng đến với trang lưu giữ thông tin liên lạc!</h1>
-        <p><i class="fas fa-star"></i> Xin chào! Tôi là Bùi Đức Thắng, đây là một chút thông tin về tôi.</p>
-    </header>
-    
-    <section id="contact">
-        <h2><i class="fas fa-address-book"></i> Thông tin liên hệ</h2>
-        <div style="display: grid; gap: 20px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <i class="fas fa-envelope" style="color: #667eea; font-size: 1.2rem;"></i>
-                <span>Email: <a href="mailto:buiiducthangg@gmail.com">b*****g@gmail.com</a></span>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2>TechCorp</h2>
             </div>
-            <div class="phone-section">
-                <i class="fas fa-phone" style="color: #667eea; font-size: 1.2rem;"></i>
-                <span>Số điện thoại:</span>
-                <a href="tel:0355152212" id="phone-link">0355152212</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Trang Chủ</a></li>
+                <li><a href="#services">Dịch Vụ</a></li>
+                <li><a href="#features">Tính Năng</a></li>
+                <li><a href="#about">Về Chúng Tôi</a></li>
+                <li><a href="#team">Đội Ngũ</a></li>
+                <li><a href="#pricing">Bảng Giá</a></li>
+                <li><a href="#contact">Liên Hệ</a></li>
+            </ul>
+            
+            <!-- Auth Section -->
+            <div class="auth-section">
+                <button class="auth-trigger" onclick="openAuthModal()">Đăng Nhập</button>
+                <div class="user-menu" id="userMenu">
+                    <div class="user-avatar" onclick="toggleUserDropdown()">U</div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" onclick="showProfile()">Thông tin cá nhân</a>
+                        <a href="#" onclick="showOrders()">Đơn hàng của tôi</a>
+                        <a href="#" onclick="showSettings()">Cài đặt</a>
+                        <a href="#" onclick="logout()">Đăng xuất</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-    
-    <section id="social-media">
-        <h2><i class="fas fa-share-alt"></i> Mạng xã hội</h2>
-        <ul>
-            <li>
-                <img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" alt="FaceBook" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://www.facebook.com/buiiducthangg" target="_blank">
-                    Bùi Đức Thắng (Còi)
-                </a>
-            </li>
-            <li>
-                <img src="https://i.pinimg.com/736x/94/a3/c8/94a3c897a208704724c1e9d575e4d238.jpg" alt="TikTok" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://www.tiktok.com/@buiiducthangg" target="_blank">
-                    【Bùi Đức Thắng 19】🇻🇳
-                </a>
-            </li>
-            <li>
-                <img src="https://i.pinimg.com/736x/e3/54/a0/e354a08be90ae5b215ab06faa1927d40.jpg" alt="Telegram" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://t.me/buiiducthangg" target="_blank">
-                    buiiducthangg
-                </a>
-            </li>
-            <li>
-                <img src="https://i.pinimg.com/736x/76/05/e9/7605e9315b6ba82da2a3270c5fdd2dcb.jpg" alt="Zalo" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://zalo.me/0355152212" target="_blank">
-                    Bùi Đức Thắng
-                </a>
-            </li>
-            <li>
-                <img src="https://i.pinimg.com/736x/8a/34/10/8a34100dbb4163c46ee88678c564d839.jpg" alt="Locket" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://locket.camera/links/qya7ZwCDXWi5MfSQ6" target="_blank">
-                    Thắng pt
-                </a>
-            </li>
-        </ul>
-    </section>
-   </section>
-   
-    <section id="banking">
-        <h2><i class="fas fa-university"></i> Thông tin ngân hàng</h2>
-        <div style="text-align: center;">
-            <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 20px;">
-                <i class="fas fa-qrcode" style="color: #667eea; margin-right: 8px;"></i>
-                Quét mã QR để chuyển khoản nhanh chóng
-            </p>
-            <div style="background: white; padding: 18px; border-radius: 20px; display: inline-block; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);">
-                <img src="https://i.pinimg.com/736x/29/ea/6e/29ea6ed203f0bf3b1ec1234432afec77.jpg" 
-                     alt="QR Code Ngân hàng" 
-                     style="width: 280px; height: auto; border-radius: 16px;">
-            </div>
-            <div style="margin-top: 20px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); border-radius: 16px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.3);">
-                <p style="font-size: 15px; color: var(--text-primary); margin: 0;">
-                    <i class="fas fa-info-circle" style="color: #4caf50; margin-right: 8px;"></i>
-                    Vui lòng quét mã QR bằng ứng dụng ngân hàng để thực hiện chuyển khoản
-                </p>
-            </div>
-        </div>
-    </section>
 
-    <footer>
-        <p>© Tạo bởi Bùi Đức Thắng</p>
-        <div id="share-buttons" style="margin-top:18px;" bis_skin_checked="1">
-            <span style="font-size:1.05em;font-weight:600;color:#3793e0;">Chia sẻ trang này:</span><br>
-            <a href="#" onclick="shareFB();return false;" title="Chia sẻ Facebook" style="margin:0 8px;display:inline-block;"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="width:28px;height:28px;vertical-align:middle;filter:grayscale(0.2);"></a>
-            <a href="#" onclick="shareTiktok();return false;" title="Chia sẻ TikTok" style="margin:0 8px;display:inline-block;"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" style="width:28px;height:28px;vertical-align:middle;filter:grayscale(0.2);"></a>
-            <a href="#" onclick="shareTelegram();return false;" title="Chia sẻ Telegram" style="margin:0 8px;display:inline-block;"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram" style="width:28px;height:28px;vertical-align:middle;filter:grayscale(0.2);"></a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Giải Pháp Công Nghệ Đột Phá</h1>
+                <p class="hero-subtitle">Chúng tôi mang đến những giải pháp công nghệ tiên tiến nhất để phát triển doanh nghiệp của bạn</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Khám Phá Ngay</button>
+                    <button class="btn btn-secondary">Xem Demo</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-elements">
+                    <div class="floating-card card-1"></div>
+                    <div class="floating-card card-2"></div>
+                    <div class="floating-card card-3"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title">Dịch Vụ Của Chúng Tôi</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Phát Triển Web</h3>
+                        <p>Tạo ra những website hiện đại, responsive và tối ưu SEO cho doanh nghiệp của bạn</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Ứng Dụng Mobile</h3>
+                        <p>Phát triển ứng dụng di động đa nền tảng với trải nghiệm người dùng tuyệt vời</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3>Giải Pháp Cloud</h3>
+                        <p>Triển khai hạ tầng cloud an toàn và hiệu quả cho doanh nghiệp hiện đại</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Bảo Mật Mạng</h3>
+                        <p>Bảo vệ hệ thống và dữ liệu quan trọng với các giải pháp bảo mật tiên tiến</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Tại Sao Chọn TechCorp?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Hiệu Suất Cao</h3>
+                        <p>Tối ưu hóa hiệu suất để đảm bảo website và ứng dụng chạy nhanh nhất</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Bảo Mật Tuyệt Đối</h3>
+                        <p>Áp dụng các tiêu chuẩn bảo mật cao nhất để bảo vệ dữ liệu khách hàng</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <h3>Responsive Design</h3>
+                        <p>Thiết kế responsive hoàn hảo trên mọi thiết bị và kích thước màn hình</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Triển Khai Nhanh</h3>
+                        <p>Quy trình phát triển agile giúp triển khai dự án nhanh chóng và hiệu quả</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💡</div>
+                        <h3>Công Nghệ Mới Nhất</h3>
+                        <p>Sử dụng những công nghệ và framework tiên tiến nhất trong ngành</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Tối Ưu SEO</h3>
+                        <p>Tối ưu hóa SEO để website đạt thứ hạng cao trên Google</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="process">
+            <div class="container">
+                <h2 class="section-title">Quy Trình Làm Việc</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Tư Vấn & Phân Tích</h3>
+                        <p class="step-description">Tìm hiểu nhu cầu và mục tiêu kinh doanh của khách hàng</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Thiết Kế & Lên Kế Hoạch</h3>
+                        <p class="step-description">Tạo mockup và lập kế hoạch chi tiết cho dự án</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Phát Triển</h3>
+                        <p class="step-description">Coding và phát triển theo đúng timeline đã định</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Test & Triển Khai</h3>
+                        <p class="step-description">Kiểm thử toàn diện và triển khai lên production</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Về TechCorp</h2>
+                        <p class="lead">Với hơn 10 năm kinh nghiệm trong ngành công nghệ thông tin, chúng tôi đã giúp hàng trăm doanh nghiệp chuyển đổi số thành công.</p>
+                        <div class="stats">
+                            <div class="stat">
+                                <h3>500+</h3>
+                                <p>Dự Án Hoàn Thành</p>
+                            </div>
+                            <div class="stat">
+                                <h3>100+</h3>
+                                <p>Khách Hàng Hài Lòng</p>
+                            </div>
+                            <div class="stat">
+                                <h3>10+</h3>
+                                <p>Năm Kinh Nghiệm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <div class="team-photo"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="team">
+            <div class="container">
+                <h2 class="section-title">Đội Ngũ Chuyên Gia</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">👨‍💻</div>
+                        <h3 class="member-name">Nguyễn Văn A</h3>
+                        <p class="member-role">CEO & Founder</p>
+                        <p class="member-bio">Hơn 15 năm kinh nghiệm trong lĩnh vực công nghệ thông tin và quản lý dự án</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">👩‍💻</div>
+                        <h3 class="member-name">Trần Thị B</h3>
+                        <p class="member-role">CTO</p>
+                        <p class="member-bio">Chuyên gia về AI và Machine Learning với nhiều dự án thành công</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">👨‍🎨</div>
+                        <h3 class="member-name">Lê Văn C</h3>
+                        <p class="member-role">Lead Designer</p>
+                        <p class="member-bio">Thiết kế UI/UX sáng tạo với hơn 8 năm kinh nghiệm</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">👩‍🔧</div>
+                        <h3 class="member-name">Phạm Thị D</h3>
+                        <p class="member-role">DevOps Engineer</p>
+                        <p class="member-bio">Chuyên gia về cloud infrastructure và automation</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">👨‍💼</div>
+                        <h3 class="member-name">Hoàng Văn E</h3>
+                        <p class="member-role">Project Manager</p>
+                        <p class="member-bio">Quản lý dự án chuyên nghiệp với methodology Agile/Scrum</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">👩‍🔒</div>
+                        <h3 class="member-name">Võ Thị F</h3>
+                        <p class="member-role">Security Specialist</p>
+                        <p class="member-bio">Chuyên gia bảo mật với chứng chỉ CISSP và CEH</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+                <h2 class="section-title">Khách Hàng Nói Gì</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"TechCorp đã giúp chúng tôi chuyển đổi số hoàn toàn. Website mới tăng 300% lượng truy cập và chuyển đổi khách hàng rất cao."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AB</div>
+                            <div class="author-info">
+                                <h4>Anh Bùi - CEO</h4>
+                                <p>Công ty ABC Tech</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Ứng dụng mobile do TechCorp phát triển rất ổn định và người dùng đánh giá cao. Đội ngũ làm việc chuyên nghiệp."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">CD</div>
+                            <div class="author-info">
+                                <h4>Chị Diệu - Founder</h4>
+                                <p>StartupXYZ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Hệ thống ERP được customize rất phù hợp với quy trình làm việc của chúng tôi. ROI vượt mong đợi."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">EF</div>
+                            <div class="author-info">
+                                <h4>Anh Faris - CTO</h4>
+                                <p>Manufacturing Corp</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <h2 class="section-title">Bảng Giá Dịch Vụ</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Starter</h3>
+                        <div class="plan-price">15M</div>
+                        <p class="plan-period">VNĐ / dự án</p>
+                        <ul class="plan-features">
+                            <li>Website Landing Page</li>
+                            <li>Responsive Design</li>
+                            <li>SEO Cơ bản</li>
+                            <li>Hosting 1 năm</li>
+                            <li>Support 3 tháng</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="purchasePackage('starter')">Chọn Gói</button>
+                    </div>
+                    <div class="pricing-card featured">
+                        <h3 class="plan-name">Business</h3>
+                        <div class="plan-price">35M</div>
+                        <p class="plan-period">VNĐ / dự án</p>
+                        <ul class="plan-features">
+                            <li>Website Đa trang</li>
+                            <li>CMS quản lý nội dung</li>
+                            <li>SEO Pro</li>
+                            <li>Analytics Dashboard</li>
+                            <li>Support 6 tháng</li>
+                            <li>Tối ưu hiệu suất</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="purchasePackage('business')">Chọn Gói</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Enterprise</h3>
+                        <div class="plan-price">Liên hệ</div>
+                        <p class="plan-period">Tùy chỉnh</p>
+                        <ul class="plan-features">
+                            <li>Hệ thống phức tạp</li>
+                            <li>Mobile App</li>
+                            <li>Cloud Infrastructure</li>
+                            <li>Security cao cấp</li>
+                            <li>Support 24/7</li>
+                            <li>Đào tạo team</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="purchasePackage('enterprise')">Liên Hệ</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="blog">
+            <div class="container">
+                <h2 class="section-title">Blog & Tin Tức</h2>
+                <div class="blog-grid">
+                    <article class="blog-post">
+                        <div class="blog-image"></div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>25/12/2024</span>
+                                <span>Technology</span>
+                            </div>
+                            <h3 class="blog-title">Xu Hướng Công Nghệ 2025</h3>
+                            <p class="blog-excerpt">Khám phá những xu hướng công nghệ mới nhất sẽ định hình năm 2025, từ AI đến Web3...</p>
+                            <a href="#" class="read-more">Đọc thêm →</a>
+                        </div>
+                    </article>
+                    <article class="blog-post">
+                        <div class="blog-image"></div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>20/12/2024</span>
+                                <span>Development</span>
+                            </div>
+                            <h3 class="blog-title">Best Practices cho Web Development</h3>
+                            <p class="blog-excerpt">Tổng hợp những best practices quan trọng nhất mà mọi developer nên biết...</p>
+                            <a href="#" class="read-more">Đọc thêm →</a>
+                        </div>
+                    </article>
+                    <article class="blog-post">
+                        <div class="blog-image"></div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>15/12/2024</span>
+                                <span>Security</span>
+                            </div>
+                            <h3 class="blog-title">Bảo Mật Ứng Dụng Web</h3>
+                            <p class="blog-excerpt">Hướng dẫn chi tiết về cách bảo vệ ứng dụng web khỏi các mối thẻ bảo mật phổ biến...</p>
+                            <a href="#" class="read-more">Đọc thêm →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+                <h2 class="section-title">Dự Án Nổi Bật</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-image"></div>
+                        <div class="portfolio-overlay">
+                            <h3>E-Commerce Platform</h3>
+                            <p>Nền tảng thương mại điện tử hiện đại</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image"></div>
+                        <div class="portfolio-overlay">
+                            <h3>Banking App</h3>
+                            <p>Ứng dụng ngân hàng số an toàn</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image"></div>
+                        <div class="portfolio-overlay">
+                            <h3>IoT Dashboard</h3>
+                            <p>Bảng điều khiển IoT thông minh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Địa Chỉ</h3>
+                                <p>Số 8, Phố Bùi Xuân Phái, Nam Từ Liêm, Hà Nội</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>Điện Thoại</h3>
+                                <p>+84 355152212</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>Buiiducthangg@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Họ và tên" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="5" placeholder="Tin nhắn" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gửi Tin Nhắn</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Đăng Nhập</button>
+                <button class="tab-btn" onclick="switchTab('register')">Đăng Ký</button>
+            </div>
+
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Mật khẩu</label>
+                    <div class="password-toggle">
+                        <input type="password" id="loginPassword" required>
+                        <button type="button" onclick="togglePassword('loginPassword')">👁️</button>
+                    </div>
+                </div>
+                <button type="submit" class="auth-submit">Đăng Nhập</button>
+                <div class="forgot-password">
+                    <a href="#" onclick="showForgotPassword()">Quên mật khẩu?</a>
+                </div>
+            </form>
+
+            <!-- Register Form -->
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Họ và tên</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Số điện thoại</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Mật khẩu</label>
+                    <div class="password-toggle">
+                        <input type="password" id="registerPassword" required>
+                        <button type="button" onclick="togglePassword('registerPassword')">👁️</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Xác nhận mật khẩu</label>
+                    <div class="password-toggle">
+                        <input type="password" id="confirmPassword" required>
+                        <button type="button" onclick="togglePassword('confirmPassword')">👁️</button>
+                    </div>
+                </div>
+                <button type="submit" class="auth-submit">Đăng Ký</button>
+            </form>
+
+            <div class="auth-divider">
+                <span>Hoặc</span>
+            </div>
+
+            <div class="social-login">
+                <button class="social-btn" onclick="loginWithGoogle()">
+                    <span>🔴</span> Google
+                </button>
+                <button class="social-btn" onclick="loginWithFacebook()">
+                    <span>🔵</span> Facebook
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Protection -->
+    <div class="purchase-protection" id="purchaseProtection">
+        <div class="purchase-message">
+            <h3>Đăng nhập để mua hàng</h3>
+            <p>Bạn cần đăng nhập hoặc tạo tài khoản để có thể mua gói dịch vụ này. Việc đăng nhập giúp chúng tôi bảo vệ thông tin và đơn hàng của bạn.</p>
+            <div class="purchase-actions">
+                <button class="btn-login" onclick="openAuthModalForPurchase()">Đăng Nhập Ngay</button>
+                <button class="btn-cancel" onclick="closePurchaseProtection()">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TechCorp. Tất cả quyền được bảo lưu.</p>
         </div>
     </footer>
 
-    <script src="scripts/map.js"></script>
+    <script src="script.js"></script>
     <script>
-        function showQR(bank) {
-            // Ẩn tất cả QR
-            document.getElementById('qr-Sacombank').style.display = 'none';
-            document.getElementById('qr-MBbank').style.display = 'none';
-            document.getElementById('qr-ShinhanBank').style.display = 'none';
-            // Hiện QR được chọn
-            document.getElementById('qr-' + bank).style.display = 'block';
-        }
-        function hideQR(bank) {
-            document.getElementById('qr-' + bank).style.display = 'none';
-        }
+    // Auth system variables
+    let currentUser = null;
+    let pendingPurchase = null;
 
-        document.getElementById('copy-phone-btn').onclick = function() {
-            navigator.clipboard.writeText('0355152212').then(function() {
-                document.getElementById('copied-msg').style.display = 'inline';
-                setTimeout(function() {
-                    document.getElementById('copied-msg').style.display = 'none';
-                }, 1500);
-            });
-        };
+    // Auth Modal Functions
+    function openAuthModal() {
+        document.getElementById('authModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
 
-        function shareFB() {
-            var url = encodeURIComponent(window.location.href);
-            window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank');
+    function closeAuthModal() {
+        document.getElementById('authModal').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function openAuthModalForPurchase() {
+        closePurchaseProtection();
+        openAuthModal();
+    }
+
+    function switchTab(tab) {
+        // Remove active class from all tabs and forms
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+        
+        // Add active class to current tab and form
+        event.target.classList.add('active');
+        document.getElementById(tab + 'Form').classList.add('active');
+    }
+
+    function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        const button = event.target;
+        
+        if (field.type === 'password') {
+            field.type = 'text';
+            button.textContent = '🙈';
+        } else {
+            field.type = 'password';
+            button.textContent = '👁️';
         }
-        function shareTiktok() {
-            var url = encodeURIComponent(window.location.href);
-            window.open('https://www.tiktok.com/@buiiducthangg', '_blank');
+    }
+
+    // Purchase Protection
+    function purchasePackage(packageType) {
+        if (!currentUser) {
+            pendingPurchase = packageType;
+            document.getElementById('purchaseProtection').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            return;
         }
-        function shareTelegram() {
-            var url = encodeURIComponent(window.location.href);
-            window.open('https://t.me/share/url?url=' + url, '_blank');
+        
+        // User is logged in, proceed with purchase
+        processPurchase(packageType);
+    }
+
+    function closePurchaseProtection() {
+        document.getElementById('purchaseProtection').classList.remove('active');
+        document.body.style.overflow = 'auto';
+        pendingPurchase = null;
+    }
+
+    function processPurchase(packageType) {
+        alert(`Đang xử lý đơn hàng gói ${packageType.toUpperCase()}...\nCảm ơn bạn đã tin tưởng TechCorp!`);
+        // Here you would integrate with payment gateway
+    }
+
+    // User Menu Functions
+    function toggleUserDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        dropdown.classList.toggle('active');
+    }
+
+    function showProfile() {
+        alert('Chức năng thông tin cá nhân đang được phát triển...');
+        document.getElementById('userDropdown').classList.remove('active');
+    }
+
+    function showOrders() {
+        alert('Chức năng xem đơn hàng đang được phát triển...');
+        document.getElementById('userDropdown').classList.remove('active');
+    }
+
+    function showSettings() {
+        alert('Chức năng cài đặt đang được phát triển...');
+        document.getElementById('userDropdown').classList.remove('active');
+    }
+
+    function logout() {
+        currentUser = null;
+        updateAuthUI();
+        document.getElementById('userDropdown').classList.remove('active');
+        alert('Đã đăng xuất thành công!');
+    }
+
+    // Social Login
+    function loginWithGoogle() {
+        alert('Chức năng đăng nhập Google đang được phát triển...');
+    }
+
+    function loginWithFacebook() {
+        alert('Chức năng đăng nhập Facebook đang được phát triển...');
+    }
+
+    function showForgotPassword() {
+        alert('Chức năng quên mật khẩu đang được phát triển...');
+    }
+
+    // Form Handlers
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        
+        // Simple validation for demo
+        if (email && password) {
+            currentUser = {
+                email: email,
+                name: email.split('@')[0],
+                avatar: email.charAt(0).toUpperCase()
+            };
+            
+            updateAuthUI();
+            closeAuthModal();
+            
+            // If there was a pending purchase, process it now
+            if (pendingPurchase) {
+                processPurchase(pendingPurchase);
+                pendingPurchase = null;
+            }
+            
+            alert('Đăng nhập thành công!');
         }
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('registerName').value;
+               const email = document.getElementById('registerEmail').value;
+        const phone = document.getElementById('registerPhone').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (password !== confirmPassword) {
+            alert('Mật khẩu xác nhận không khớp!');
+            return;
+        }
+        
+        if (name && email && phone && password) {
+            currentUser = {
+                email: email,
+                name: name,
+                phone: phone,
+                avatar: name.charAt(0).toUpperCase()
+            };
+            
+            updateAuthUI();
+            closeAuthModal();
+            
+            // If there was a pending purchase, process it now
+            if (pendingPurchase) {
+                processPurchase(pendingPurchase);
+                pendingPurchase = null;
+            }
+            
+            alert('Đăng ký thành công!');
+        }
+    });
+
+    // Update UI based on auth state
+    function updateAuthUI() {
+        const authTrigger = document.querySelector('.auth-trigger');
+        const userMenu = document.getElementById('userMenu');
+        
+        if (currentUser) {
+            authTrigger.style.display = 'none';
+            userMenu.classList.add('active');
+            userMenu.querySelector('.user-avatar').textContent = currentUser.avatar;
+        } else {
+            authTrigger.style.display = 'block';
+            userMenu.classList.remove('active');
+        }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.user-menu')) {
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+        
+        if (!event.target.closest('.auth-modal') && !event.target.closest('.auth-trigger')) {
+            closeAuthModal();
+        }
+    });
+
+    // Initialize auth state
+    updateAuthUI();
     </script>
-
-</body></html>
+</body>
+</html>
