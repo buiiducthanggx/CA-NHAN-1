@@ -1,827 +1,1346 @@
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Cá Nhân Bùi Đức Thắng</title>
-    <!-- Add Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Add Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Bùi Đức Thắng - Trang Cá Nhân</title>
     <style>
-    :root {
-        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        --gold-gradient: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-        --blue-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        --purple-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        --green-gradient: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
-        --glass-bg: rgba(255, 255, 255, 0.25);
-        --glass-border: rgba(255, 255, 255, 0.18);
-        --shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.2);
-        --text-primary: #2d3748;
-        --text-secondary: #4a5568;
-        --text-light: #718096;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Inter', 'Poppins', system-ui, -apple-system, sans-serif;
-        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
-        color: var(--text-primary);
-        font-size: 15px; /* 17px - 2px = 15px */
-        line-height: 1.7;
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-
-    @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-    }
-
-    @keyframes slideInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    header {
-        background: var(--glass-bg);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid var(--glass-border);
-        margin: 20px;
-        border-radius: 24px;
-        padding: 40px 30px;
-        text-align: center;
-        box-shadow: var(--shadow-light);
-        animation: slideInUp 0.8s ease-out;
-        position: relative;
-        overflow: hidden;
-    }
-
-    header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.5s;
-    }
-
-    header:hover::before {
-        left: 100%;
-    }
-
-    h1 {
-        font-family: 'Space Grotesk', 'Montserrat', sans-serif;
-        font-size: clamp(20px, 7vw, 4rem); /* 22px - 2px = 20px */
-        font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        background-size: 200% 200%;
-        animation: gradientMove 4s ease infinite, float 3s ease-in-out infinite;
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 20px;
-        letter-spacing: -2px;
-        text-align: center;
-        position: relative;
-        text-shadow: none;
-    }
-
-    @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* Thêm hiệu ứng glow cho H1 */
-    h1::before {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        filter: blur(3px);
-        opacity: 0.5;
-        z-index: -1;
-        animation: gradientMove 4s ease infinite;
-    }
-
-    /* Hiệu ứng underline động */
-    h1::after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60%;
-        height: 4px;
-        background: linear-gradient(90deg, transparent, #667eea, #764ba2, #f093fb, transparent);
-        border-radius: 2px;
-        animation: underlineGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes underlineGlow {
-        0% {
-            opacity: 0.6;
-            transform: translateX(-50%) scaleX(0.8);
-        }
-        100% {
-            opacity: 1;
-            transform: translateX(-50%) scaleX(1.2);
-        }
-    }
-
-    header p {
-        font-size: clamp(16px, 3vw, 1.4rem); /* 18px - 2px = 16px */
-        color: var(--text-secondary);
-        font-weight: 500;
-        opacity: 0.9;
-    }
-
-    section {
-        background: var(--glass-bg);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid var(--glass-border);
-        margin: 24px 20px;
-        border-radius: 24px;
-        padding: 32px;
-        box-shadow: var(--shadow-light);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        animation: slideInUp 0.8s ease-out;
-        position: relative;
-        overflow: hidden;
-    }
-
-    section:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-hover);
-        border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: var(--primary-gradient);
-        border-radius: 24px 24px 0 0;
-    }
-
-    h2 {
-        font-family: 'Poppins', sans-serif;
-        font-size: clamp(20px, 4vw, 2rem); /* 22px - 2px = 20px */
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    h2::before {
-        content: '';
-        width: 6px;
-        height: 40px;
-        background: var(--primary-gradient);
-        border-radius: 3px;
-        display: block;
-    }
-
-    ul {
-        list-style: none;
-        display: grid;
-        gap: 16px;
-    }
-
-    ul li {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 16px;
-        padding: 20px;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        font-size: 15px; /* 17px - 2px = 15px */
-    }
-
-    ul li:hover {
-        transform: translateX(8px);
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    ul li::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: var(--blue-gradient);
-        transform: scaleY(0);
-        transition: transform 0.3s ease;
-    }
-
-    ul li:hover::before {
-        transform: scaleY(1);
-    }
-
-    a {
-        color: var(--text-primary);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 16px; /* 18px - 2px = 16px */
-        transition: all 0.3s ease;
-        position: relative;
-    }
-
-    a:hover {
-        background: var(--primary-gradient);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        transform: translateX(4px);
-    }
-
-    button {
-        background: var(--primary-gradient);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        padding: 14px 22px;
-        margin: 12px 8px 12px 0;
-        font-size: 16px; /* 18px - 2px = 16px */
-        font-weight: 700;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        min-height: 48px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .phone-section {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-
-    #phone-link {
-        background: var(--glass-bg);
-        backdrop-filter: blur(8px);
-        padding: 14px 22px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        font-weight: 700;
-        font-size: 16px; /* 18px - 2px = 16px */
-        transition: all 0.3s ease;
-        min-height: 48px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    img[alt^="QR"] {
-        border-radius: 20px;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        background: white;
-        padding: 16px;
-        width: 280px;
-        height: auto;
-        margin: 16px auto;
-        display: block;
-        transition: all 0.4s ease;
-    }
-
-    img[alt^="QR"]:hover {
-        transform: scale(1.05) rotate(2deg);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-    }
-
-    .map-info-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 24px;
-        margin-top: 24px;
-    }
-
-    .map-address {
-        background: var(--glass-bg);
-        backdrop-filter: blur(12px);
-        border: 1px solid var(--glass-border);
-        border-radius: 20px;
-        padding: 24px;
-        text-align: center;
-        font-size: 15px; /* 17px - 2px = 15px */
-        color: var(--text-primary);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .map-address::before {
-        content: '📍';
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        font-size: 3rem;
-        opacity: 0.1;
-        transform: rotate(15deg);
-    }
-
-    .map-address strong {
-        background: var(--primary-gradient);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 700;
-        font-size: 20px; /* 22px - 2px = 20px */
-    }
-
-    .map-frame {
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        background: white;
-        padding: 8px;
-        transition: all 0.4s ease;
-    }
-
-    .map-frame:hover {
-        transform: scale(1.02);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-    }
-
-    .map-frame iframe {
-        width: 100%;
-        height: 300px;
-        border: none;
-        border-radius: 16px;
-    }
-
-    .locket-section {
-        background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-        color: #f3f4f6;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .locket-section::before {
-        content: '👑';
-        position: absolute;
-        top: -20px;
-        right: -20px;
-        font-size: 8rem;
-        opacity: 0.1;
-        animation: float 4s ease-in-out infinite;
-    }
-
-    .locket-client-card {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(12px);
-        border-radius: 13px;
-        padding: 15px;
-        text-align: center;
-        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.1);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .locket-client-card h3 {
-        color: #5e7212;
-        margin: 0 0 8px 0;
-        font-size: 20px; /* 22px - 2px = 20px */
-        font-weight: 700;
-    }
-
-    .locket-client-card p {
-        color: #244e92;
-        margin: 0 0 24px 0;
-        font-size: 15px; /* 17px - 2px = 15px */
-    }
-
-    .locket-crown {
-        font-size: 4rem;
-        margin-bottom: 16px;
-        display: block;
-        animation: pulse 2s infinite;
-    }
-
-    .upgrade-steps {
-        display: grid;
-        gap: 16px;
-        margin: 24px 0;
-    }
-
-    .upgrade-step {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(8px);
-        border-radius: 16px;
-        padding: 20px;
-        border-left: 5px solid;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .upgrade-step:nth-child(1) { border-left-color: #ff5722; }
-    .upgrade-step:nth-child(2) { border-left-color: #ff9800; }
-    .upgrade-step:nth-child(3) { border-left-color: #ffc107; }
-    .upgrade-step:nth-child(4) { border-left-color: #4caf50; }
-    .upgrade-step:nth-child(5) { border-left-color: #2196f3; }
-    .upgrade-step:nth-child(6) { border-left-color: #9c27b0; }
-
-    .upgrade-step:hover {
-        transform: translateX(8px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    .download-btn {
-        background: var(--green-gradient);
-        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
-        color: white;
-        text-decoration: none;
-        padding: 18px 36px;
-        border-radius: 16px;
-        font-size: 16px; /* 18px - 2px = 16px */
-        font-weight: 700;
-        display: inline-block;
-        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .download-btn:hover {
-        transform: translateY(-4px) scale(1.05);
-        box-shadow: 0 15px 40px rgba(76, 175, 80, 0.6);
-        color: white;
-    }
-
-    footer {
-        background: var(--glass-bg);
-        backdrop-filter: blur(16px);
-        border: 1px solid var(--glass-border);
-        margin: 24px 20px 20px;
-        border-radius: 24px;
-        padding: 32px;
-        text-align: center;
-        box-shadow: var(--shadow-light);
-        position: relative;
-        overflow: hidden;
-    }
-
-    footer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: var(--secondary-gradient);
-        border-radius: 24px 24px 0 0;
-    }
-
-    .share-buttons {
-        margin-top: 24px;
-        display: flex;
-        justify-content: center;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-
-    .share-btn {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--glass-bg);
-        backdrop-filter: blur(8px);
-        border: 1px solid var(--glass-border);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .share-btn:hover {
-        transform: translateY(-4px) scale(1.1);
-        background: var(--primary-gradient);
-    }
-
-    .share-btn img {
-        width: 24px;
-        height: 24px;
-        filter: brightness(0.7);
-        transition: filter 0.3s ease;
-    }
-
-    .share-btn:hover img {
-        filter: brightness(0) invert(1);
-    }
-
-    /* Responsive Design */
-    @media (min-width: 768px) {
-        body { font-size: 16px; } /* 18px - 2px = 16px */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
         
-        header, section, footer {
-            margin: 24px 40px;
-            padding: 40px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .map-info-container {
-            grid-template-columns: 1fr 1fr;
-            align-items: start;
-        }
-        
-        ul {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-        
-        .upgrade-steps {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
 
-    @media (max-width: 480px) {
         body {
-            font-size: 15px; /* 17px - 2px = 15px */
-            line-height: 1.6;
+            background: linear-gradient(45deg, #f4f1e8, #e8dcc0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Crimson Text', serif;
+            padding: 20px;
+        }
+
+        .container {
+            width: 400px;
+            height: 711px; /* 9:16 ratio */
+            background: #faf8f3;
+            border: 8px solid #8b4513;
+            border-radius: 15px;
+            box-shadow: 
+                0 0 30px rgba(139, 69, 19, 0.3),
+                inset 0 0 20px rgba(139, 69, 19, 0.1);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .ornament {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 20"><path d="M5,10 Q20,2 40,10 Q60,18 75,10" stroke="%23654321" stroke-width="2" fill="none"/><circle cx="40" cy="10" r="3" fill="%23654321"/></svg>');
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            background: linear-gradient(180deg, #f5f2e8 0%, #faf8f3 100%);
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #d4af37;
+            margin: 0 auto 15px;
+            background-image: url('https://i.pinimg.com/736x/b7/2c/45/b72c45148ca44570fc75d09e936ff89f.jpg');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #654321;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #8b4513;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #666;
+            font-size: 12px;
+            border-left: 3px solid #d4af37;
+            padding-left: 10px;
+            margin: 0 20px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+        .section:nth-child(7) { animation-delay: 0.7s; }
+        .section:nth-child(8) { animation-delay: 0.8s; }
+        .section:nth-child(9) { animation-delay: 0.9s; }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #654321;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #d4af37;
+            padding-bottom: 5px;
+        }
+
+        .section-title::before {
+            content: "❦";
+            margin-right: 8px;
+            color: #d4af37;
+        }
+
+        .info-item {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #8b4513;
+            width: 80px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: #333;
+            flex: 1;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .skill-item {
+            background: #f0ead6;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            text-align: center;
+            border: 1px solid #d4af37;
+            color: #654321;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            background: #d4af37;
+            color: white;
+        }
+
+        .achievement {
+            background: #fff9e6;
+            padding: 8px;
+            margin: 5px 0;
+            border-left: 3px solid #d4af37;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .achievement:hover {
+            transform: translateX(10px);
+            background: #f0ead6;
+            border-left-width: 6px;
+        }
+
+        .contact-link {
+            display: inline-block;
+            background: #8b4513;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .contact-link:hover {
+            background: #654321;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            border-top: 2px solid #d4af37;
+            margin-top: 20px;
+            background: linear-gradient(180deg, #faf8f3 0%, #f5f2e8 100%);
+        }
+
+        .decorative-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 15px 0;
+        }
+
+        /* Scrollbar styling */
+        .container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 3px;
+        }
+
+        #social-media ul {
+            list-style: none;
+            padding: 0;
         }
         
-        ul li {
-            padding: 22px 18px;
-            font-size: 15px; /* 17px - 2px = 15px */
+        #social-media li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
         
-        button {
-            padding: 16px 24px;
-            font-size: 16px; /* 18px - 2px = 16px */
-            min-height: 48px;
+        #social-media a {
+            color: #654321;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        
+        #social-media a:hover {
+            color: #8b4513;
         }
         
         #phone-link {
-            padding: 16px 24px;
-            font-size: 16px; /* 18px - 2px = 16px */
-            min-height: 48px;
+            color: #8b4513;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        #phone-link:hover {
+            color: #654321;
         }
 
-        a {
-            font-size: 16px; /* 18px - 2px = 16px */
+        .vintage-player {
+            background: linear-gradient(145deg, #8b4513, #654321);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
         }
-    }
 
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
 
-    ::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 4px;
-    }
+        .play-btn, .next-btn, .prev-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #d4af37;
+            border: none;
+            color: #654321;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 3px;
+        }
 
-    ::-webkit-scrollbar-thumb {
-        background: var(--primary-gradient);
-        border-radius: 4px;
-    }
+        .play-btn {
+            width: 45px;
+            height: 45px;
+            font-size: 16px;
+        }
 
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--secondary-gradient);
-    }
+        .play-btn:hover, .next-btn:hover, .prev-btn:hover {
+            background: #f4d03f;
+            transform: scale(1.1);
+        }
 
-    /* Remove old AI Photo Editor styles */
-    /* ...existing code... */
+        .song-info {
+            color: #f5f2e8;
+            font-size: 12px;
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .volume-slider {
+            flex: 1;
+            margin: 0 10px;
+            -webkit-appearance: none;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(245, 242, 232, 0.3);
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #d4af37;
+            cursor: pointer;
+        }
+
+        .progress-container {
+            margin-top: 8px;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(245, 242, 232, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-current {
+            height: 100%;
+            background: #d4af37;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            color: #f5f2e8;
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .playlist {
+            max-height: 120px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+
+        .playlist-item {
+            padding: 5px;
+            cursor: pointer;
+            color: rgba(245, 242, 232, 0.8);
+            font-size: 11px;
+            border-radius: 3px;
+            margin: 2px 0;
+            transition: all 0.3s;
+        }
+
+        .playlist-item:hover {
+            background: rgba(245, 242, 232, 0.1);
+            color: #f5f2e8;
+        }
+
+        .playlist-item.active {
+            background: rgba(212, 175, 55, 0.3);
+            color: #f5f2e8;
+        }
+
+        .youtube-player {
+            background: linear-gradient(145deg, #8b4513, #654321);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .youtube-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .youtube-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            color: #f5f2e8;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .video-description {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .music-section-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .music-section-divider::before,
+        .music-section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #d4af37;
+        }
+
+        .music-section-divider span {
+            margin: 0 15px;
+            color: #654321;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff4444;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            color: #cc0000;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .fallback-player {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .fallback-player a {
+            color: #8b4513;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .fallback-player a:hover {
+            color: #654321;
+            text-decoration: underline;
+        }
+
+        .zing-player {
+            background: linear-gradient(145deg, #8b4513, #654321);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .zing-container {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .zing-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .song-label {
+            color: #f5f2e8;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+            padding: 5px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 5px;
+        }
+
+        .music-grid {
+            display: grid;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .player-note {
+            color: #f5f2e8;
+            font-size: 11px;
+            text-align: center;
+            margin: 10px 0;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .simple-music-player {
+            background: linear-gradient(145deg, #8b4513, #654321);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .music-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(245, 242, 232, 0.1);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .music-item:hover {
+            background: rgba(245, 242, 232, 0.2);
+            transform: translateX(5px);
+        }
+
+        .song-details {
+            flex: 1;
+        }
+
+        .song-name {
+            color: #f5f2e8;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        .song-artist {
+            color: rgba(245, 242, 232, 0.7);
+            font-size: 11px;
+        }
+
+        .play-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .play-link {
+            background: #d4af37;
+            color: #654321;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .play-link:hover {
+            background: #f4d03f;
+            transform: scale(1.05);
+        }
+
+        .music-note {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 15px 0;
+            text-align: center;
+            color: #654321;
+            font-size: 12px;
+        }
+
+        .vintage-audio-player {
+            background: rgba(245, 242, 232, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .vintage-audio-player audio {
+            width: 100%;
+            height: 40px;
+        }
+
+        .demo-player {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .demo-note {
+            color: #8b4513;
+            font-size: 11px;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* Sửa lỗi floating hearts chưa có CSS */
+        .floating-hearts {
+            position: absolute;
+            top: 20%;
+            right: 10px;
+            font-size: 18px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Sửa lỗi vintage-quote-box chưa có CSS */
+        .vintage-quote-box {
+            background: linear-gradient(45deg, #f5f2e8, #e8dcc0);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .vintage-quote-box::before {
+            content: "❝";
+            font-size: 40px;
+            color: #d4af37;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #faf8f3;
+            padding: 0 5px;
+        }
+
+        .quote-text {
+            font-style: italic;
+            color: #654321;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
+            transition: all 0.5s ease;
+        }
+
+        /* Sửa lỗi vintage-badge chưa có CSS */
+        .vintage-badge {
+            display: inline-block;
+            background: #8b4513;
+            color: #f5f2e8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+            margin-right: 8px;
+            border: 1px solid #d4af37;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Sửa lỗi easter-egg chưa có CSS */
+        .easter-egg {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background: #d4af37;
+            border-radius: 50%;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            border: 2px solid #8b4513;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .hidden-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #654321;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid #d4af37;
+            text-align: center;
+        }
+
+        /* Sửa lỗi typewriter effect chưa có CSS */
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #d4af37;
+            white-space: nowrap;
+            animation: typewriter 3s steps(40) 1s forwards, blink 0.5s step-end infinite;
+            width: 0;
+            display: inline-block;
+        }
+
+        /* Cải thiện progress bars cho skills */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #f4d03f);
+            border-radius: 3px;
+            transition: width 1s ease-in-out;
+            animation: fillProgress 2s ease-in-out;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: var(--target-width, 100%); }
+        }
+
+        /* Cải thiện animation delay cho sections */
+        .section:nth-child(7) { animation-delay: 0.7s; }
+        .section:nth-child(8) { animation-delay: 0.8s; }
+        .section:nth-child(9) { animation-delay: 0.9s; }
+
+        /* Cải thiện responsive cho container */
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                height: auto;
+                min-height: 95vh;
+                margin: 10px;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Cải thiện hover effects */
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+        }
+
+        /* Loading animation cho trang */
+        @keyframes pageLoad {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .container {
+            /* ...existing code... */
+            animation: pageLoad 0.8s ease-out;
+        }
+
+        /* Cải thiện music note styling */
+        .music-note {
+            /* ...existing code... */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-note::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1 data-text="Chào mừng đến với trang lưu giữ thông tin liên lạc!">Chào mừng đến với trang lưu giữ thông tin liên lạc!</h1>
-        <p><i class="fas fa-star"></i> Xin chào! Tôi là Bùi Đức Thắng, đây là một chút thông tin về tôi.</p>
-    </header>
-    
-    <section id="contact">
-        <h2><i class="fas fa-address-book"></i> Thông tin liên hệ</h2>
-        <div style="display: grid; gap: 20px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <i class="fas fa-envelope" style="color: #667eea; font-size: 1.2rem;"></i>
-                <span>Email: <a href="mailto:buiiducthangg@gmail.com">b*****g@gmail.com</a></span>
-            </div>
-            <div class="phone-section">
-                <i class="fas fa-phone" style="color: #667eea; font-size: 1.2rem;"></i>
-                <span>Số điện thoại:</span>
-                <a href="tel:0355152212" id="phone-link">0355152212</a>
-            </div>
-        </div>
-    </section>
-    
-    <section id="social-media">
-        <h2><i class="fas fa-share-alt"></i> Mạng xã hội</h2>
-        <ul>
-            <li>
-                <img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" alt="FaceBook" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://www.facebook.com/buiiducthangg" target="_blank">
-                    Bùi Đức Thắng (Còi)
-                </a>
-            </li>
-            <li>
-                <img src="https://i.pinimg.com/736x/94/a3/c8/94a3c897a208704724c1e9d575e4d238.jpg" alt="TikTok" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://www.tiktok.com/@buiiducthangg" target="_blank">
-                    【Bùi Đức Thắng 19】🇻🇳
-                </a>
-            </li>
-            <li>
-                <img src="https://i.pinimg.com/736x/e3/54/a0/e354a08be90ae5b215ab06faa1927d40.jpg" alt="Telegram" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://t.me/buiiducthangg" target="_blank">
-                    buiiducthangg
-                </a>
-            </li>
-            <li>
-                <img src="https://i.pinimg.com/736x/76/05/e9/7605e9315b6ba82da2a3270c5fdd2dcb.jpg" alt="Zalo" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://zalo.me/0355152212" target="_blank">
-                    Bùi Đức Thắng
-                </a>
-            </li>
-            <li>
-                <img src="https://i.pinimg.com/736x/8a/34/10/8a34100dbb4163c46ee88678c564d839.jpg" alt="Locket" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
-                <a href="https://locket.camera/links/qya7ZwCDXWi5MfSQ6" target="_blank">
-                    Thắng pt
-                </a>
-            </li>
-        </ul>
-    </section>
-     
-    <section id="upgrade-guide">
-         <h2><i class="fas fa-crown"></i> Locket Gold Premium</h2>
-        <div class="locket-client-card">
-            
-            <h3>Nâng cấp Locket Gold</h3>
-            <p>
-                💡 Hướng dẫn chi tiết giúp bạn hoàn tất quá trình nâng cấp Locket Gold một cách an toàn
-            </p>
-             <p style="color: #ea580c; margin: 0; font-size: 0.8rem; font-weight: 600;">
-                    💡 Đăng ký tài khoản và làm theo hướng dẫn bên dưới
-                </p>
-            <a href="https://chungchi365.com/client/locket" target="_blank" 
-               style="display: inline-block; background: linear-gradient(135deg, #1f2937 0%, #ea580c 100%); 
-                      color: rgb(254, 254, 254); text-decoration: none; padding: 10px 15px; border-radius: 16px; 
-                      font-size: 0.8rem; font-weight: 700; box-shadow: 0 8px 20px rgba(234, 88, 12, 0.4); 
-                      transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;">
-                🚀 Truy cập Locket Client
-            </a>
-        </div><br>
-        <h2><i class="fas fa-mobile-alt"></i> Hướng dẫn hoàn tất nâng cấp</h2>
+    <div class="container">
+        <div class="ornament"></div>
         
-        <div style="background: rgba(30, 30, 30, 0.95); border-radius: 16px; padding: 20px; margin-bottom: 20px; border-left: 6px solid #dc2626;">
-            <h3 style="color: #f87171; margin: 0 0 12px 0; font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
-                <i class="fas fa-exclamation-triangle"></i>
-                LƯU Ý QUAN TRỌNG:
-            </h3>
-            <p style="color: #fca5a5; margin: 0; font-weight: 500; font-size: 0.8rem;">
-                VUI LÒNG VÀO LOCKET KIỂM TRA XEM ĐÃ LÊN GOLD CHƯA, NẾU ĐÃ LÊN GOLD - TUYỆT ĐỐI KHÔNG ĐƯỢC THOÁT ỨNG DỤNG, SAU ĐÓ QUAY LẠI ĐÂY.
-            </p>
+        <div class="header">
+            <div class="avatar"></div>
+            <h1>Bùi Đức Thắng</h1>
+            <div class="subtitle">Sinh viên Công nghệ Thông tin</div>
+            <div class="quote typewriter">"Học hỏi không ngừng, phát triển bản thân mỗi ngày"</div>
+            <div class="floating-hearts">💖</div>
         </div>
 
-        <div style="background: linear-gradient(135deg, rgba(227, 242, 253, 0.9) 0%, rgba(243, 229, 245, 0.9) 100%); border-radius: 20px; padding: 28px; margin-bottom: 24px;">
-            <h3 style="color: #0891b2; margin: 0 0 20px 0; font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
-                <i class="fas fa-list-ol"></i>
-                Các bước thực hiện:
-            </h3>
-            
-            <div class="upgrade-steps">
-                <div class="upgrade-step">
-                    <strong style="color: #dc2626; font-size: 0.8rem;">Bước 1:</strong> 
-                    <span style="color: #1f2937; font-size: 0.8rem;">Tải profile về máy bằng cách nhấn nút bên dưới</span>
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Thông Tin Cá Nhân</div>
+                <div class="info-item">
+                    <span class="info-label">Mã SV:</span>
+                    <span class="info-value">Ẩn****</span>
                 </div>
-                
-                <div class="upgrade-step">
-                    <strong style="color: #ea580c; font-size: 0.8rem;">Bước 2:</strong> 
-                    <span style="color: #1f2937; font-size: 0.8rem;">Vào <strong>Cài đặt</strong> iPhone</span>
+                <div class="info-item">
+                    <span class="info-label">Ngày sinh:</span>
+                    <span class="info-value">15-06-2004</span>
                 </div>
-                
-                <div class="upgrade-step">
-                    <strong style="color: #ca8a04; font-size: 0.8rem;">Bước 3:</strong> 
-                    <span style="color: #1f2937; font-size: 0.8rem;">Chọn <strong>Cài đặt chung</strong></span>
+                <div class="info-item">
+                    <span class="info-label">Quê quán:</span>
+                    <span class="info-value">Xã Hiền Quan</span>
                 </div>
-                
-                <div class="upgrade-step">
-                    <strong style="color: #0891b2; font-size: 0.8rem;">Bước 4:</strong> 
-                    <span style="color: #1f2937; font-size: 0.8rem;">Kéo xuống dưới cùng, chọn <strong>Quản lý VPN & Thiết bị</strong></span>
-                </div>
-                
-                <div class="upgrade-step">
-                    <strong style="color: #0369a1; font-size: 0.8rem;">Bước 5:</strong> 
-                    <span style="color: #1f2937; font-size: 0.8rem;">Tiến hành cài đặt profile vừa tải về</span>
-                </div>
-                
-                <div class="upgrade-step">
-                    <strong style="color: #374151; font-size: 0.8rem;">Bước 6:</strong> 
-                    <span style="color: #1f2937; font-size: 0.8rem;">Mở app Locket và kiểm tra đã lên Gold</span>
+                <div class="info-item">
+                    <span class="info-label">Lớp:</span>
+                    <span class="info-value">Ẩn****</span>
                 </div>
             </div>
+
+            <div class="section">
+                <div class="section-title">Học Vấn</div>
+                <div class="achievement">
+                    <strong>Đại học Victoria Hòa Bình</strong><br>
+                    Chuyên ngành: Công nghệ Thông tin<br>
+                    Năm học: 2023 - 2027
+                </div>
+                
+            </div>
+
+            <div class="section">
+                <div class="section-title">Kỹ Năng</div>
+                <div class="skills-grid">
+                    <div class="skill-item" data-level="85">
+                        HTML/CSS
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-level="75">
+                        JavaScript
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-level="70">
+                        Python
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-level="65">
+                        Java
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-level="80">
+                        Database
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-level="90">
+                        Git
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-level="95">
+                        Office
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-level="100">
+                        Lươn lẹo
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Sở Thích</div>
+                <div class="info-item">
+                    <span class="info-label">Công nghệ:</span>
+                    <span class="info-value">Lập trình, AI, Web Development</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Thể thao:</span>
+                    <span class="info-value">Cầu lông</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Giải trí:</span>
+                    <span class="info-value">Đọc sách, Xem phim, Game, Touring Liên Tỉnh</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Mục Tiêu</div>
+                <div class="achievement">
+                    <strong>Ngắn hạn:</strong> Hoàn thành xuất sắc chương trình đại học, tích lũy kiến thức chuyên môn vững chắc
+                </div>
+                <div class="achievement">
+                    <strong>Dài hạn:</strong> Trở thành Software Engineer giỏi, đóng góp cho sự phát triển công nghệ Việt Nam
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Liên Hệ</div>
+                <div class="info-item">
+                    <span class="info-label">Số điện thoại:</span>
+                    <a href="tel:0355152212" id="phone-link">0355152212</a>
+                </div>
+            </div>
+            
+            <section id="social-media" class="section">
+                <div class="section-title">Mạng xã hội</div>
+                <ul>
+                    <li>
+                        <img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" alt="FaceBook" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
+                        <a href="https://www.facebook.com/buiiducthangg" target="_blank">
+                            Bùi Đức Thắng (Còi)
+                        </a>
+                    </li>
+                    <li>
+                        <img src="https://i.pinimg.com/736x/94/a3/c8/94a3c897a208704724c1e9d575e4d238.jpg" alt="TikTok" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
+                        <a href="https://www.tiktok.com/@buiiducthangg" target="_blank">
+                            【Bùi Đức Thắng 19】🇻🇳
+                        </a>
+                    </li>
+                    <li>
+                        <img src="https://i.pinimg.com/736x/e3/54/a0/e354a08be90ae5b215ab06faa1927d40.jpg" alt="Telegram" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
+                        <a href="https://t.me/buiiducthangg" target="_blank">
+                            buiiducthangg
+                        </a>
+                    </li>
+                    <li>
+                        <img src="https://i.pinimg.com/736x/76/05/e9/7605e9315b6ba82da2a3270c5fdd2dcb.jpg" alt="Zalo" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
+                        <a href="https://zalo.me/0355152212" target="_blank">
+                            Bùi Đức Thắng
+                        </a>
+                    </li>
+                    <li>
+                        <img src="https://i.pinimg.com/736x/8a/34/10/8a34100dbb4163c46ee88678c564d839.jpg" alt="Locket" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 4px;">
+                        <a href="https://locket.camera/links/qya7ZwCDXWi5MfSQ6" target="_blank">
+                            Thắng pt
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="section">
+                <div class="section-title">Thành Tích & Chứng Chỉ</div>
+                <div class="achievement">
+                    <span class="vintage-badge">NEW</span>
+                    <strong>Ăn Hại Hơn Xưa</strong> - Lươn lẹo 100%
+                </div>
+                <div class="achievement">
+                    <span class="vintage-badge">CERT</span>
+                    <strong>Mua Chứng Chỉ Để</strong> - Chơi Game Hackk 
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Âm Nhạc Yêu Thích</div>
+                
+                <!-- YouTube Video Player cho "Việt Nam Tôi" -->
+                <div class="youtube-player">
+                    <div class="video-info">
+                        <div class="video-title">🇻🇳 VIỆT NAM TÔI 🇻🇳</div>
+                        <div class="video-description">Video MV chính thức</div>
+                    </div>
+                    <div class="youtube-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/IdiMpjTTQ9Q?enablejsapi=1&rel=0&modestbranding=1&controls=1" 
+                            title="Việt Nam Tôi - YouTube video player" 
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="music-section-divider">
+                    <span>🎵 NHẠC VIỆT NAM YÊU NƯỚC 🎵</span>
+                </div>
+
+                <div class="music-note">
+                    💡 <strong>Lưu ý:</strong> nhạc sẽ mở trong tab mới. 
+                    Click vào các nút bên dưới để nghe nhạc!
+                </div>
+
+                <!-- Simple Music Player với Links -->
+                <div class="simple-music-player">
+                    <!-- Việt Nam Ơi -->
+                    <div class="music-item">
+                        <div class="song-details">
+                            <div class="song-name">🇻🇳 Việt Nam Ơi</div>
+                            <div class="song-artist">Nhạc yêu nước kinh điển</div>
+                        </div>
+                        <div class="play-options">
+                            <a href="https://zingmp3.vn/bai-hat/Viet-Nam-Oi-Various-Artists/ZWZDZ86A.html" target="_blank" class="play-link">ZingMP3</a>
+                            <a href="https://www.youtube.com/results?search_query=việt+nam+ơi" target="_blank" class="play-link">YouTube</a>
+                        </div>
+                    </div>
+
+                    <!-- Quê Hương Tôi -->
+                    <div class="music-item">
+                        <div class="song-details">
+                            <div class="song-name">🏠 Quê Hương Tôi</div>
+                            <div class="song-artist">Dân ca truyền thống</div>
+                        </div>
+                        <div class="play-options">
+                            <a href="https://zingmp3.vn/bai-hat/Que-Huong-Toi/ZW6OD90E.html" target="_blank" class="play-link">ZingMP3</a>
+                            <a href="https://www.youtube.com/results?search_query=quê+hương+tôi" target="_blank" class="play-link">YouTube</a>
+                        </div>
+                    </div>
+
+                    <!-- Tiến Quân Ca -->
+                    <div class="music-item">
+                        <div class="song-details">
+                            <div class="song-name">🎺 Tiến Quân Ca</div>
+                            <div class="song-artist">Quốc ca Việt Nam - Văn Cao</div>
+                        </div>
+                        <div class="play-options">
+                            <a href="https://zingmp3.vn/bai-hat/Tien-Quan-Ca/Z6ICC9A8.html" target="_blank" class="play-link">ZingMP3</a>
+                            <a href="https://www.youtube.com/results?search_query=tiến+quân+ca" target="_blank" class="play-link">YouTube</a>
+                        </div>
+                    </div>
+
+                    <!-- Đất Nước -->
+                    <div class="music-item">
+                        <div class="song-details">
+                            <div class="song-name">🌾 Đất Nước</div>
+                            <div class="song-artist">Trịnh Công Sơn</div>
+                        </div>
+                        <div class="play-options">
+                            <a href="https://zingmp3.vn/bai-hat/Dat-Nuoc/ZU87CE8W.html" target="_blank" class="play-link">ZingMP3</a>
+                            <a href="https://www.youtube.com/results?search_query=đất+nước+trịnh+công+sơn" target="_blank" class="play-link">YouTube</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo Audio Player -->
+                <div class="demo-player">
+                    <div class="music-note">
+                        🎼 Demo Audio Player 
+                    </div>
+                    <div class="vintage-audio-player">
+                        <audio controls>
+                            <source src="https://www.soundjay.com/misc/sounds/beep-28.mp3" type="audio/mpeg">
+                            <source src="https://www2.cs.uic.edu/~i101/SoundFiles/StarWars3.wav" type="audio/wav">
+                            Trình duyệt của bạn không hỗ trợ audio player.
+                        </audio>
+                        <div class="demo-note">
+                            ↑ Đây là demo player
+                        </div>
+                    </div>
+                </div>
+
+                <div class="player-note">
+                    🎼 Nhấn vào các nút để mở nhạc trong tab mới và thưởng thức! 🎼
+                </div>
+            </div>
+
+            <div class="vintage-quote-box">
+                <div class="quote-text" id="randomQuote">
+                    "Việt Nam - quê hương tôi!"
+                </div>
+            </div>
+
+            <div class="decorative-line"></div>
         </div>
 
-        <div style="text-align: center; margin: 28px 0;">
-            <a href="https://chungchi365.com/locket.mobileconfig" target="_blank" class="download-btn">
-                <i class="fas fa-download"></i> Tải Profile
-            </a>
-        </div>
-
-        <div style="background: rgba(248, 249, 250, 0.9); border-radius: 16px; padding: 20px; text-align: center;">
-            <p style="color: #4b5563; margin: 0; font-size: 0.8rem; font-style: italic; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i class="fas fa-lightbulb"></i>
-                Hướng dẫn chi tiết giúp bạn hoàn tất quá trình nâng cấp Locket Gold một cách an toàn
+        <div class="footer">
+            <p style="font-size: 12px; color: #8b4513; font-style: italic;">
+                "Tri thức là sức mạnh, học hỏi là chìa khóa thành công"
+            </p>
+            <p style="font-size: 10px; color: #999; margin-top: 5px;">
+                © 2024 Bùi Đức Thắng - Personal Portfolio
             </p>
         </div>
-    </section>
 
-    <footer>
-        <p>© Tạo bởi Bùi Đức Thắng</p>
-        <div id="share-buttons" style="margin-top:18px;" bis_skin_checked="1">
-            <span style="font-size:1.05em;font-weight:600;color:#3793e0;">Chia sẻ trang này:</span><br>
-            <a href="#" onclick="shareFB();return false;" title="Chia sẻ Facebook" style="margin:0 8px;display:inline-block;"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="width:28px;height:28px;vertical-align:middle;filter:grayscale(0.2);"></a>
-            <a href="#" onclick="shareTiktok();return false;" title="Chia sẻ TikTok" style="margin:0 8px;display:inline-block;"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" style="width:28px;height:28px;vertical-align:middle;filter:grayscale(0.2);"></a>
-            <a href="#" onclick="shareTelegram();return false;" title="Chia sẻ Telegram" style="margin:0 8px;display:inline-block;"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram" style="width:28px;height:28px;vertical-align:middle;filter:grayscale(0.2);"></a>
+        <div class="easter-egg" onclick="showEasterEgg()"></div>
+        
+        <div class="hidden-message" id="easterEggMsg">
+            <h3>🎉 Bạn đã tìm thấy Easter Egg!</h3>
+            <p>Cảm ơn bạn đã ghé thăm trang cá nhân của tôi!</p>
+            <button onclick="hideEasterEgg()" style="margin-top: 10px; padding: 5px 15px; border: none; border-radius: 5px; background: #d4af37; color: #654321; cursor: pointer;">Đóng</button>
         </div>
-    </footer>
+    </div>
 
-    <script src="scripts/map.js"></script>
     <script>
-        function showQR(bank) {
-            // Ẩn tất cả QR
-            document.getElementById('qr-Sacombank').style.display = 'none';
-            document.getElementById('qr-MBbank').style.display = 'none';
-            document.getElementById('qr-ShinhanBank').style.display = 'none';
-            // Hiện QR được chọn
-            document.getElementById('qr-' + bank).style.display = 'block';
-        }
-        function hideQR(bank) {
-            document.getElementById('qr-' + bank).style.display = 'none';
+        // Typewriter effect
+        setTimeout(() => {
+            const typewriter = document.querySelector('.typewriter');
+            if (typewriter) {
+                typewriter.style.borderRight = 'none';
+            }
+        }, 4000);
+
+        // Random quotes về Việt Nam
+        const quotes = [
+            "Việt Nam - quê hương tôi!",
+            "Tổ quốc là mái nhà chung của tất cả chúng ta.",
+            "Không có gì quý hơn độc lập tự do.",
+            "Sông có thể cạn, núi có thể mòn, nhưng chí này không thay đổi.",
+            "Việt Nam muôn năm! 🇻🇳",
+            "Đất nước ta có những điều tuyệt vời nhất.",
+            "Tình yêu quê hương là nguồn sức mạnh vô tận."
+        ];
+
+        function changeQuote() {
+            const quoteElement = document.getElementById('randomQuote');
+            if (quoteElement) {
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                quoteElement.style.opacity = '0';
+                quoteElement.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    quoteElement.textContent = randomQuote;
+                    quoteElement.style.opacity = '1';
+                    quoteElement.style.transform = 'translateY(0)';
+                }, 300);
+            }
         }
 
-        document.getElementById('copy-phone-btn').onclick = function() {
-            navigator.clipboard.writeText('0355152212').then(function() {
-                document.getElementById('copied-msg').style.display = 'inline';
-                setTimeout(function() {
-                    document.getElementById('copied-msg').style.display = 'none';
-                }, 1500);
+        setInterval(changeQuote, 5000);
+
+        // Khởi tạo với thông tin Việt Nam
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cập nhật quotes về Việt Nam
+            changeQuote();
+            
+            // Thêm hiệu ứng cho music items
+            const musicItems = document.querySelectorAll('.music-item');
+            musicItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+                item.style.animation = 'fadeInUp 0.6s ease-out forwards';
             });
+
+            // Kiểm tra audio support
+            const audio = document.querySelector('audio');
+            if (audio) {
+                audio.addEventListener('error', function() {
+                    console.log('Audio file không thể load');
+                });
+            }
+        });
+
+        // Easter egg
+        function showEasterEgg() {
+            const easterEggMsg = document.getElementById('easterEggMsg');
+            easterEggMsg.style.display = 'block';
+            easterEggMsg.style.animation = 'fadeInUp 0.5s ease-out';
+            
+            // Add confetti effect (simple version)
+            createConfetti();
+        }
+
+        function hideEasterEgg() {
+            const easterEggMsg = document.getElementById('easterEggMsg');
+            easterEggMsg.style.animation = 'fadeOut 0.3s ease-out';
+            setTimeout(() => {
+                easterEggMsg.style.display = 'none';
+            }, 300);
+        }
+
+        // Simple confetti effect
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                createConfettiPiece();
+            }
+        }
+
+        function createConfettiPiece() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = ['#d4af37', '#8b4513', '#f4d03f'][Math.floor(Math.random() * 3)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = '-10px';
+            confetti.style.zIndex = '9999';
+            confetti.style.borderRadius = '50%';
+            
+            document.body.appendChild(confetti);
+            
+            const animation = confetti.animate([
+                { transform: 'translateY(-10px) rotate(0deg)', opacity: 1 },
+                { transform: 'translateY(' + (window.innerHeight + 10) + 'px) rotate(360deg)', opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            });
+            
+            animation.onfinish = () => confetti.remove();
+        }
+
+        // Cải thiện progress bars với target width
+        document.querySelectorAll('.skill-item').forEach(item => {
+            const level = item.getAttribute('data-level');
+            const progressFill = item.querySelector('.progress-fill');
+            if (progressFill) {
+                progressFill.style.setProperty('--target-width', level + '%');
+            }
+            
+            // Improved hover effect
+            item.addEventListener('mouseenter', function() {
+                this.setAttribute('title', `Kỹ năng: ${level}%`);
+            });
+        });
+
+        // Smooth reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        function shareFB() {
-            var url = encodeURIComponent(window.location.href);
-            window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank');
-        }
-        function shareTiktok() {
-            var url = encodeURIComponent(window.location.href);
-            window.open('https://www.tiktok.com/@buiiducthangg', '_blank');
-        }
-        function shareTelegram() {
-            var url = encodeURIComponent(window.location.href);
-            window.open('https://t.me/share/url?url=' + url, '_blank');
-        }
-    </script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    
+                    // Animate progress bars when visible
+                    const progressBars = entry.target.querySelectorAll('.progress-fill');
+                    progressBars.forEach(bar => {
+                        bar.style.animation = 'fillProgress 2s ease-in-out';
+                    });
+                }
+            });
+        }, observerOptions);
 
-</body></html>
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Cải thiện change quote với fade effect
+        function changeQuote() {
+            const quoteElement = document.getElementById('randomQuote');
+            if (quoteElement) {
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                quoteElement.style.opacity = '0';
+                quoteElement.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    quoteElement.textContent = randomQuote;
+                    quoteElement.style.opacity = '1';
+                    quoteElement.style.transform = 'translateY(0)';
+                }, 300);
+            }
+        }
+
+        // Add loading indicator
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            
+            // Start animations after page load
+            setTimeout(() => {
+                const musicItems = document.querySelectorAll('.music-item');
+                musicItems.forEach((item, index) => {
+                    item.style.animationDelay = `${index * 0.1}s`;
+                    item.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
