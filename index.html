@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bùi Đức Thắng - Portfolio.js</title>
+    <title>Bùi Đức Thắng - Thông Tin</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #0d1117; /* GitHub Dark Mode bg */
+            background-color: #0d1117;
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
@@ -47,21 +47,19 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Thanh tiêu đề cửa sổ (Title bar) */
+        /* Thanh tiêu đề & Tabs (Window header) */
         .window-header {
             background: #010409;
-            padding: 10px 15px;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             border-bottom: 1px solid #30363d;
-            font-size: 12px;
-            color: #8b949e;
+            padding-top: 8px;
         }
 
         .window-controls {
             display: flex;
             gap: 6px;
-            margin-right: 15px;
+            padding: 0 15px 10px 15px;
         }
 
         .control-dot {
@@ -73,34 +71,59 @@
         .dot-min { background: #ffbd2e; }
         .dot-max { background: #27c93f; }
 
-        .editor-content {
+        .tabs {
+            display: flex;
+            flex: 1;
+            overflow-x: auto;
+        }
+
+        .tabs::-webkit-scrollbar { display: none; } /* Hide scrollbar for tabs */
+
+        .tab {
+            padding: 8px 15px;
+            font-size: 12px;
+            color: #8b949e;
+            background: #0d1117;
+            border-right: 1px solid #30363d;
+            border-top: 2px solid transparent;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .tab:hover { background: #161b22; }
+        .tab.active {
+            background: #161b22;
+            color: #c9d1d9;
+            border-top: 2px solid #58a6ff;
+        }
+        
+        .file-icon-js { color: #f1e05a; font-weight: bold; }
+        .file-icon-img { color: #a5d6ff; font-weight: bold; }
+
+        .view-content {
             padding: 20px;
             overflow-y: auto;
             flex: 1;
         }
 
-        .editor-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        .editor-content::-webkit-scrollbar-track {
-            background: #0d1117;
-        }
-        .editor-content::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 4px;
-        }
+        .view-content::-webkit-scrollbar { width: 8px; }
+        .view-content::-webkit-scrollbar-track { background: #0d1117; }
+        .view-content::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
         /* Phần Avatar & Header */
         .profile-header {
             text-align: center;
             margin-bottom: 30px;
-            position: relative;
         }
 
         .avatar {
             width: 100px;
             height: 100px;
-            border-radius: 20%; /* Dáng vuông bo góc công nghệ */
+            border-radius: 20%;
             border: 2px solid #58a6ff;
             margin: 0 auto 15px;
             background-image: url('https://i.pinimg.com/736x/b7/2c/45/b72c45148ca44570fc75d09e936ff89f.jpg');
@@ -115,25 +138,16 @@
             box-shadow: 0 0 25px rgba(88, 166, 255, 0.6);
         }
 
-        .dev-name {
-            font-size: 24px;
-            color: #58a6ff; /* Xanh đặc trưng IT */
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .dev-title {
-            color: #8b949e;
-            font-size: 13px;
-        }
+        .dev-name { font-size: 24px; color: #58a6ff; font-weight: 600; margin-bottom: 5px; }
+        .dev-title { color: #8b949e; font-size: 13px; }
 
         /* Colors cho cú pháp code */
-        .keyword { color: #ff7b72; } /* const, let */
-        .func { color: #d2a8ff; } /* console.log, function */
-        .string { color: #a5d6ff; } /* "Text" */
-        .bracket { color: #ffd33d; } /* { } [ ] */
-        .comment { color: #8b949e; font-style: italic; } /* // comment */
-        .operator { color: #79c0ff; } /* = : */
+        .keyword { color: #ff7b72; }
+        .func { color: #d2a8ff; }
+        .string { color: #a5d6ff; }
+        .bracket { color: #ffd33d; }
+        .comment { color: #8b949e; font-style: italic; }
+        .operator { color: #79c0ff; }
         
         .section {
             margin-bottom: 25px;
@@ -147,9 +161,7 @@
             transform: translateX(-10px);
         }
 
-        .section:hover {
-            border-color: #58a6ff;
-        }
+        .section:hover { border-color: #58a6ff; }
 
         .section-title {
             font-size: 15px;
@@ -167,99 +179,25 @@
             font-weight: bold;
         }
 
-        .info-row {
-            margin-bottom: 8px;
-            font-size: 13px;
-            line-height: 1.5;
-        }
+        .info-row { margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
 
-        /* Skills Progress Bar phong cách Terminal */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
+        /* Skills */
+        .skills-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .skill-item { font-size: 13px; }
+        .skill-header { display: flex; justify-content: space-between; margin-bottom: 4px; color: #c9d1d9; }
+        .progress-track { width: 100%; height: 6px; background: #21262d; border-radius: 3px; overflow: hidden; border: 1px solid #30363d; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #1f6feb, #58a6ff); box-shadow: 0 0 10px rgba(88, 166, 255, 0.5); transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
 
-        .skill-item {
-            font-size: 13px;
-        }
+        /* Achievement */
+        .achievement { background: #21262d; border: 1px solid #30363d; padding: 10px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; border-left: 3px solid #d2a8ff; }
+        .badge-tag { background: rgba(210, 168, 255, 0.1); color: #d2a8ff; padding: 2px 6px; border-radius: 10px; font-size: 10px; margin-right: 8px; border: 1px solid rgba(210, 168, 255, 0.4); }
 
-        .skill-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
-            color: #c9d1d9;
-        }
+        a { color: #58a6ff; text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #79c0ff; text-decoration: underline; }
 
-        .progress-track {
-            width: 100%;
-            height: 6px;
-            background: #21262d;
-            border-radius: 3px;
-            overflow: hidden;
-            border: 1px solid #30363d;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1f6feb, #58a6ff);
-            box-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
-            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        /* Nút Achievement dạng Badge Git */
-        .achievement {
-            background: #21262d;
-            border: 1px solid #30363d;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            font-size: 13px;
-            border-left: 3px solid #d2a8ff;
-        }
-
-        .badge-tag {
-            background: rgba(210, 168, 255, 0.1);
-            color: #d2a8ff;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 10px;
-            margin-right: 8px;
-            border: 1px solid rgba(210, 168, 255, 0.4);
-        }
-
-        /* Links */
-        a {
-            color: #58a6ff;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        a:hover {
-            color: #79c0ff;
-            text-decoration: underline;
-        }
-
-        #social-media ul {
-            list-style: none;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        
-        #social-media li {
-            display: flex;
-            align-items: center;
-            background: #21262d;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #30363d;
-            transition: background 0.2s;
-        }
-
-        #social-media li:hover {
-            background: #30363d;
-        }
+        #social-media ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        #social-media li { display: flex; align-items: center; background: #21262d; padding: 8px; border-radius: 4px; border: 1px solid #30363d; transition: background 0.2s; }
+        #social-media li:hover { background: #30363d; }
 
         .typewriter {
             display: inline-block;
@@ -273,94 +211,96 @@
             margin-top: 10px;
         }
 
+        /* Styles cho Gallery (Tab ảnh) */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            aspect-ratio: 1; /* Làm ảnh thành hình vuông cho đều */
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            cursor: zoom-in;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+            border-color: #58a6ff;
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.2);
+            z-index: 10;
+        }
+
+        .btn-terminal {
+            background: #21262d;
+            color: #3fb950;
+            border: 1px solid #30363d;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            margin-top: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-terminal:hover {
+            border-color: #3fb950;
+            background: rgba(63, 185, 80, 0.1);
+        }
+
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink-cursor { from, to { border-color: transparent } 50% { border-color: #58a6ff; } }
         @keyframes fadeIn { to { opacity: 1; transform: translateX(0); } }
 
-        .footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 11px;
-            color: #8b949e;
-            border-top: 1px solid #30363d;
-            background: #0d1117;
-        }
+        .footer { text-align: center; padding: 15px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; background: #0d1117; }
 
-        /* Easter Egg phong cách Bug / Terminal Error */
-        .easter-egg {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 15px;
-            height: 15px;
-            background: #ff7b72; /* Đỏ error */
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(255, 123, 114, 0.5);
-            animation: pulse-red 2s infinite;
-        }
-
-        @keyframes pulse-red {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 123, 114, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 123, 114, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 123, 114, 0); }
-        }
-
-        .hidden-message {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #010409;
-            color: #3fb950;
-            padding: 25px;
-            border-radius: 8px;
-            z-index: 1000;
-            border: 1px solid #3fb950;
-            box-shadow: 0 0 30px rgba(63, 185, 80, 0.2);
-            text-align: left;
-            width: 300px;
-        }
-
-        .btn-close {
-            margin-top: 15px;
-            padding: 6px 15px;
-            background: transparent;
-            border: 1px solid #3fb950;
-            color: #3fb950;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Fira Code', monospace;
-            transition: all 0.2s;
-        }
-        .btn-close:hover {
-            background: #3fb950;
-            color: #010409;
-        }
+        /* Easter Egg */
+        .easter-egg { position: absolute; bottom: 20px; right: 20px; width: 15px; height: 15px; background: #ff7b72; border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(255, 123, 114, 0.5); animation: pulse-red 2s infinite; }
+        @keyframes pulse-red { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 123, 114, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 123, 114, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 123, 114, 0); } }
+        .hidden-message { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #010409; color: #3fb950; padding: 25px; border-radius: 8px; z-index: 1000; border: 1px solid #3fb950; box-shadow: 0 0 30px rgba(63, 185, 80, 0.2); text-align: left; width: 300px; }
+        .btn-close { margin-top: 15px; padding: 6px 15px; background: transparent; border: 1px solid #3fb950; color: #3fb950; border-radius: 4px; cursor: pointer; font-family: 'Fira Code', monospace; transition: all 0.2s; }
+        .btn-close:hover { background: #3fb950; color: #010409; }
 
         @media (max-width: 480px) {
-            .container {
-                width: 100%;
-                height: 95vh;
-            }
+            .container { width: 100%; height: 95vh; }
             #social-media ul { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Fake Window Header -->
+        <!-- Window Header & Tabs (Mô phỏng VS Code) -->
         <div class="window-header">
             <div class="window-controls">
                 <div class="control-dot dot-close"></div>
                 <div class="control-dot dot-min"></div>
                 <div class="control-dot dot-max"></div>
             </div>
-            portfolio.js - Bùi Đức Thắng - Visual Studio Code
+            <div class="tabs">
+                <div class="tab active" id="tab-main" onclick="switchTab('main')">
+                    <span class="file-icon-js">JS</span> portfolio.js
+                </div>
+                <div class="tab" id="tab-gallery" onclick="switchTab('gallery')">
+                    <span class="file-icon-img">🖼️</span> gallery.png
+                </div>
+            </div>
         </div>
 
-        <div class="editor-content">
+        <!-- ================= VIEW 1: TRANG CHÍNH (PORTFOLIO) ================= -->
+        <div class="view-content" id="main-view">
             <div class="profile-header">
                 <div class="avatar"></div>
                 <div class="dev-name">&lt;Bùi Đức Thắng /&gt;</div>
@@ -368,7 +308,12 @@
                 <div class="typewriter">&gt; Nhập lệnh "Học hỏi không ngừng"..._</div>
             </div>
 
-            <!-- Dữ liệu Cá Nhân dạng JSON object -->
+            <!-- Nút truy cập nhanh sang Tab ảnh -->
+            <button class="btn-terminal" onclick="switchTab('gallery')" style="margin-bottom: 25px;">
+                > ./run_gallery.sh (Xem kho ảnh)
+            </button>
+
+            <!-- Dữ liệu Cá Nhân -->
             <div class="section" style="animation-delay: 0.2s;">
                 <div class="section-title">thong_tin.json</div>
                 <div class="info-row"><span class="keyword">const</span> <span class="func">profile</span> <span class="operator">=</span> <span class="bracket">{</span></div>
@@ -384,11 +329,10 @@
                 <div class="achievement">
                     <div style="color: #58a6ff; font-weight: bold;">Đại học Victoria Hòa Bình</div>
                     <div class="comment">|-- Ngành: Công nghệ Thông tin</div>
-                    <div class="comment">|-- Khóa: 2023 - 2027</div>
+                    <div class="comment">|-- CS1, Bùi Xuân Phái, Mỹ Đình 2, Từ Liêm, Hà Nội, Việt Nam</div>
                 </div>
             </div>
 
-            <!-- Kỹ năng với thanh load terminal -->
             <div class="section" style="animation-delay: 0.4s;">
                 <div class="section-title">skills.config.js</div>
                 <div class="skills-grid">
@@ -478,6 +422,28 @@
             </section>
         </div>
 
+        <!-- ================= VIEW 2: TRANG ẢNH (GALLERY) ================= -->
+        <div class="view-content" id="gallery-view" style="display: none;">
+            <div class="section-title" style="margin-top: 10px;">/storage/emulated/0/DCIM/Memories/</div>
+            <div class="comment" style="margin-bottom: 10px;">// Fetched 8 items from Pinterest API.</div>
+            
+            <div class="image-grid">
+                <img src="https://i.pinimg.com/736x/20/a6/26/20a626399546d5474138cf2c0ac5d639.jpg" class="gallery-img" alt="Gallery Image 1">
+                <img src="https://i.pinimg.com/736x/2b/7d/74/2b7d74f4bcfa2f9eaffaef207b638624.jpg" class="gallery-img" alt="Gallery Image 2">
+                <img src="https://i.pinimg.com/736x/9c/b5/e4/9cb5e49afd9639148d4ba6b88232dca2.jpg" class="gallery-img" alt="Gallery Image 3">
+                <img src="https://i.pinimg.com/736x/9c/a6/fe/9ca6fe094ecc8b51ada99eeb7a689406.jpg" class="gallery-img" alt="Gallery Image 4">
+                <img src="https://i.pinimg.com/736x/26/15/cc/2615cc1b637fa05314dcf884439f6847.jpg" class="gallery-img" alt="Gallery Image 5">
+                <img src="https://i.pinimg.com/736x/43/3b/84/433b8424fdb5fdfbc3ee472f02b75f85.jpg" class="gallery-img" alt="Gallery Image 6">
+                <img src="https://i.pinimg.com/736x/9b/dd/70/9bdd70382b62662d99e5fa5fc4725858.jpg" class="gallery-img" alt="Gallery Image 7">
+                <img src="https://i.pinimg.com/736x/a0/23/cd/a023cde00cead6270336f4f612ed5254.jpg" class="gallery-img" alt="Gallery Image 8">
+            </div>
+
+            <!-- Nút quay lại lệnh Terminal -->
+            <button class="btn-terminal" onclick="switchTab('main')">
+                > cd .. (Quay về thư mục gốc)
+            </button>
+        </div>
+
         <div class="footer">
             <span class="comment">// © 2024 Bùi Đức Thắng - System Exit(0)</span>
         </div>
@@ -494,7 +460,23 @@
     </div>
 
     <script>
-        // Animate thanh progress bars khi trang load
+        // JS Xử lý chuyển tab
+        function switchTab(tabId) {
+            // Update UI Tab (Chỉnh hiệu ứng Active trên thẻ Tab)
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            // Ẩn/Hiện phần Content (Ẩn trang chính, mở trang ảnh và ngược lại)
+            if (tabId === 'main') {
+                document.getElementById('main-view').style.display = 'block';
+                document.getElementById('gallery-view').style.display = 'none';
+            } else {
+                document.getElementById('main-view').style.display = 'none';
+                document.getElementById('gallery-view').style.display = 'block';
+            }
+        }
+
+        // JS Animate thanh progress bars khi trang load
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 document.querySelectorAll('.skill-item').forEach(item => {
