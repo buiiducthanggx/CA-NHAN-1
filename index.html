@@ -6,11 +6,7 @@
     <title>Bùi Đức Thắng - Portfolio.js</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: #0d1117;
@@ -23,23 +19,28 @@
             justify-content: center;
             align-items: center;
             font-family: 'Fira Code', monospace;
-            padding: 20px;
+            padding: 2vh 2vw; /* Đổi padding thành % để linh hoạt */
             color: #c9d1d9;
         }
 
-        /* Khung Editor / Terminal */
+        /* KHUNG TERMINAL LINH HOẠT TÙY MÀN HÌNH */
         .container {
-            width: 450px;
-            height: 800px;
+            width: 100%;
+            max-width: 900px; /* PC sẽ bành ra tối đa 900px */
+            height: 90vh; /* Cao bằng 90% màn hình */
             background: #161b22;
             border: 1px solid #30363d;
             border-radius: 10px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
-            overflow: hidden;
-            position: relative;
             display: flex;
             flex-direction: column;
             animation: bootUp 0.8s ease-out;
+            
+            /* TÍNH NĂNG CHẤT IT: Cho phép kéo dãn góc giống cửa sổ thật trên PC */
+            resize: both;
+            overflow: hidden; 
+            min-width: 320px;
+            min-height: 400px;
         }
 
         @keyframes bootUp {
@@ -47,78 +48,58 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Thanh tiêu đề & Tabs (Window header) */
+        /* Header */
         .window-header {
             background: #010409;
             display: flex;
             align-items: flex-end;
             border-bottom: 1px solid #30363d;
             padding-top: 8px;
+            flex-shrink: 0;
         }
-
-        .window-controls {
-            display: flex;
-            gap: 6px;
-            padding: 0 15px 10px 15px;
-        }
-
-        .control-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
+        .window-controls { display: flex; gap: 6px; padding: 0 15px 10px 15px; }
+        .control-dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot-close { background: #ff5f56; }
         .dot-min { background: #ffbd2e; }
         .dot-max { background: #27c93f; }
 
-        .tabs {
-            display: flex;
-            flex: 1;
-            overflow-x: auto;
-        }
-
+        /* Tabs */
+        .tabs { display: flex; flex: 1; overflow-x: auto; scrollbar-width: none; }
         .tabs::-webkit-scrollbar { display: none; }
-
         .tab {
-            padding: 8px 15px;
-            font-size: 12px;
-            color: #8b949e;
-            background: #0d1117;
-            border-right: 1px solid #30363d;
-            border-top: 2px solid transparent;
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: background 0.2s;
+            padding: 8px 15px; font-size: 12px; color: #8b949e; background: #0d1117;
+            border-right: 1px solid #30363d; border-top: 2px solid transparent;
+            cursor: pointer; user-select: none; display: flex; align-items: center; gap: 6px;
+            transition: background 0.2s; white-space: nowrap;
         }
-
         .tab:hover { background: #161b22; }
-        .tab.active {
-            background: #161b22;
-            color: #c9d1d9;
-            border-top: 2px solid #58a6ff;
-        }
-        
+        .tab.active { background: #161b22; color: #c9d1d9; border-top: 2px solid #58a6ff; }
         .file-icon-js { color: #f1e05a; font-weight: bold; }
         .file-icon-img { color: #a5d6ff; font-weight: bold; }
 
+        /* Nội dung Content */
         .view-content {
             padding: 20px;
             overflow-y: auto;
             flex: 1;
+            height: 100%;
+        }
+        .view-content::-webkit-scrollbar { width: 6px; }
+        .view-content::-webkit-scrollbar-track { background: transparent; }
+        .view-content::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+
+        /* Grid System phân chia nội dung trên Desktop */
+        .desktop-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Mặc định 1 cột (Mobile) */
+            gap: 20px;
         }
 
-        .view-content::-webkit-scrollbar { width: 8px; }
-        .view-content::-webkit-scrollbar-track { background: #0d1117; }
-        .view-content::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
-
-        /* Phần Avatar & Header */
-        .profile-header { text-align: center; margin-bottom: 30px; }
+        /* Profile Header */
+        .profile-header { text-align: center; margin-bottom: 25px; }
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: clamp(80px, 15vw, 110px); /* Tự động to nhỏ theo màn hình */
+            height: clamp(80px, 15vw, 110px);
             border-radius: 20%;
             border: 2px solid #58a6ff;
             margin: 0 auto 15px;
@@ -126,31 +107,23 @@
             background-size: cover;
             background-position: center;
             box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
         }
         .avatar:hover { transform: translateY(-5px); box-shadow: 0 0 25px rgba(88, 166, 255, 0.6); }
+        .dev-name { font-size: clamp(20px, 4vw, 24px); color: #58a6ff; font-weight: 600; margin-bottom: 5px; }
+        .dev-title { color: #8b949e; font-size: clamp(12px, 2.5vw, 14px); }
 
-        .dev-name { font-size: 24px; color: #58a6ff; font-weight: 600; margin-bottom: 5px; }
-        .dev-title { color: #8b949e; font-size: 13px; }
-
-        /* Colors cho cú pháp code */
-        .keyword { color: #ff7b72; }
-        .func { color: #d2a8ff; }
-        .string { color: #a5d6ff; }
-        .bracket { color: #ffd33d; }
-        .comment { color: #8b949e; font-style: italic; }
-        .operator { color: #79c0ff; }
+        /* Syntax & Sections */
+        .keyword { color: #ff7b72; } .func { color: #d2a8ff; } .string { color: #a5d6ff; }
+        .bracket { color: #ffd33d; } .comment { color: #8b949e; font-style: italic; } .operator { color: #79c0ff; }
         
         .section {
-            margin-bottom: 25px;
             background: rgba(13, 17, 23, 0.6);
             border: 1px solid #30363d;
             border-radius: 6px;
             padding: 15px;
             transition: border-color 0.3s;
-            animation: fadeIn 0.5s ease forwards;
-            opacity: 0;
-            transform: translateX(-10px);
+            height: 100%; /* Đảm bảo các box dài bằng nhau trên lưới */
         }
         .section:hover { border-color: #58a6ff; }
         .section-title { font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; border-bottom: 1px dashed #30363d; padding-bottom: 8px; }
@@ -159,155 +132,84 @@
 
         /* Skills */
         .skills-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .skill-item { font-size: 13px; }
-        .skill-header { display: flex; justify-content: space-between; margin-bottom: 4px; color: #c9d1d9; }
-        .progress-track { width: 100%; height: 6px; background: #21262d; border-radius: 3px; overflow: hidden; border: 1px solid #30363d; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #1f6feb, #58a6ff); box-shadow: 0 0 10px rgba(88, 166, 255, 0.5); transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+        .skill-header { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 13px;}
+        .progress-track { width: 100%; height: 6px; background: #21262d; border-radius: 3px; border: 1px solid #30363d; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #1f6feb, #58a6ff); box-shadow: 0 0 10px rgba(88, 166, 255, 0.5); transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1); width: 0; }
 
-        /* Achievement */
+        /* Links & Achievements */
         .achievement { background: #21262d; border: 1px solid #30363d; padding: 10px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; border-left: 3px solid #d2a8ff; }
         .badge-tag { background: rgba(210, 168, 255, 0.1); color: #d2a8ff; padding: 2px 6px; border-radius: 10px; font-size: 10px; margin-right: 8px; border: 1px solid rgba(210, 168, 255, 0.4); }
-
-        a { color: #58a6ff; text-decoration: none; transition: color 0.2s; }
-        a:hover { color: #79c0ff; text-decoration: underline; }
-
-        #social-media ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        #social-media li { display: flex; align-items: center; background: #21262d; padding: 8px; border-radius: 4px; border: 1px solid #30363d; transition: background 0.2s; }
+        a { color: #58a6ff; text-decoration: none; } a:hover { color: #79c0ff; text-decoration: underline; }
+        
+        #social-media ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+        #social-media li { display: flex; align-items: center; background: #21262d; padding: 8px; border-radius: 4px; border: 1px solid #30363d; font-size: 13px; transition: background 0.2s; }
         #social-media li:hover { background: #30363d; }
 
-        /* Gallery (Tab ảnh) */
+        /* Gallery Tự động co giãn (Auto-fit Grid) */
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Ma thuật: Điện thoại 2 ảnh, PC tự biến thành 3-4 ảnh */
             gap: 12px;
-            margin-top: 15px;
-            margin-bottom: 25px;
-            animation: fadeIn 0.5s ease forwards;
+            margin: 15px 0 25px;
         }
-        
         .gallery-img {
             width: 100%;
             aspect-ratio: 1; 
             object-fit: cover;
             border-radius: 6px;
             border: 1px solid #30363d;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
             cursor: zoom-in;
         }
+        .gallery-img:hover { transform: scale(1.05); border-color: #58a6ff; z-index: 10; position: relative;}
 
-        .gallery-img:hover {
-            transform: scale(1.05);
-            border-color: #58a6ff;
-            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.2);
-            z-index: 10;
-        }
-
-        /* 🌟 Image Viewer (Lightbox) 🌟 */
-        #imageViewer {
-            display: none; /* Ẩn mặc định */
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(1, 4, 9, 0.95); /* Đen mờ chuẩn Dark Mode */
-            backdrop-filter: blur(5px);
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            touch-action: none; /* Chống cuộn trang khi zoom */
-        }
-
-        #viewerImage {
-            max-width: 90%;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 0 40px rgba(88, 166, 255, 0.2);
-            transform-origin: center center;
-            transition: transform 0.1s ease-out; /* Mượt mà khi zoom */
-            user-select: none;
-        }
-
-        .viewer-header {
-            position: absolute;
-            top: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 30px;
-            z-index: 10000;
-        }
-
-        .viewer-title {
-            color: #3fb950;
-            font-size: 13px;
-        }
-
-        .close-viewer {
-            color: #ff7b72;
-            font-size: 20px;
-            cursor: pointer;
-            border: 1px solid #ff7b72;
-            padding: 2px 10px;
-            border-radius: 4px;
-            transition: all 0.2s;
-            background: rgba(255, 123, 114, 0.1);
-        }
-
-        .close-viewer:hover {
-            background: #ff7b72;
-            color: #010409;
-        }
-
-        .zoom-hint {
-            position: absolute;
-            bottom: 30px;
-            color: #8b949e;
-            font-size: 12px;
-            pointer-events: none;
-            background: rgba(13, 17, 23, 0.8);
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid #30363d;
-        }
-
-        .btn-terminal {
-            background: #21262d;
-            color: #3fb950;
-            border: 1px solid #30363d;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-family: 'Fira Code', monospace;
-            font-size: 13px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            margin-top: 10px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .btn-terminal:hover { border-color: #3fb950; background: rgba(63, 185, 80, 0.1); }
-        .footer { text-align: center; padding: 15px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; background: #0d1117; }
-        
+        /* Typewriter & Buttons */
         .typewriter { display: inline-block; border-right: 2px solid #58a6ff; white-space: nowrap; overflow: hidden; animation: typing 3s steps(40, end), blink-cursor .75s step-end infinite; width: 0; color: #3fb950; font-size: 13px; margin-top: 10px; }
+        .btn-terminal { background: #21262d; color: #3fb950; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 13px; cursor: pointer; display: flex; justify-content: center; width: 100%; transition: all 0.2s; margin-bottom: 25px;}
+        .btn-terminal:hover { border-color: #3fb950; background: rgba(63, 185, 80, 0.1); }
+        .footer { text-align: center; padding: 10px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; background: #010409; flex-shrink: 0;}
+
+        /* Lightbox (Zoom ảnh) */
+        #imageViewer { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(1, 4, 9, 0.95); backdrop-filter: blur(5px); align-items: center; justify-content: center; touch-action: none; }
+        #viewerImage { max-width: 90vw; max-height: 80vh; object-fit: contain; border-radius: 8px; box-shadow: 0 0 40px rgba(88,166,255,0.2); transition: transform 0.1s ease-out; user-select: none; }
+        .viewer-header { position: absolute; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; z-index: 10000; }
+        .viewer-title { color: #3fb950; font-size: 13px; }
+        .close-viewer { color: #ff7b72; font-size: 14px; cursor: pointer; border: 1px solid #ff7b72; padding: 4px 10px; border-radius: 4px; background: rgba(255,123,114,0.1); transition: 0.2s;}
+        .close-viewer:hover { background: #ff7b72; color: #010409; }
+        .zoom-hint { position: absolute; bottom: 30px; color: #8b949e; font-size: 12px; background: rgba(13,17,23,0.8); padding: 5px 15px; border-radius: 20px; border: 1px solid #30363d; pointer-events: none;}
+
+        /* ================= RESPONSIVE QUERIES ================= */
+        
+        /* 1. Màn hình Lớn (PC, Tablet ngang) */
+        @media (min-width: 768px) {
+            .desktop-grid {
+                grid-template-columns: 1fr 1fr; /* Chia 2 cột trên máy tính */
+            }
+            .section { margin-bottom: 0; } /* Bỏ margin do đã dùng gap của Grid */
+            .col-span-2 { grid-column: 1 / -1; } /* Phần tử chiếm 2 cột */
+        }
+
+        /* 2. Màn hình Nhỏ (Điện thoại) */
+        @media (max-width: 600px) {
+            body { padding: 0; } /* Xóa lề ngoài */
+            .container {
+                width: 100vw;
+                height: 100vh;
+                max-width: none;
+                border-radius: 0; /* App hóa - bỏ bo góc */
+                border: none;
+                resize: none; /* Tắt tính năng kéo giãn cửa sổ trên điện thoại */
+            }
+            .image-grid { grid-template-columns: repeat(2, 1fr); } /* Ép 2 ảnh 1 hàng trên đt */
+        }
+
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink-cursor { from, to { border-color: transparent } 50% { border-color: #58a6ff; } }
-        @keyframes fadeIn { to { opacity: 1; transform: translateX(0); } }
-
-        @media (max-width: 480px) {
-            .container { width: 100%; height: 95vh; }
-            #social-media ul { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Window Header & Tabs -->
+        <!-- Window Header -->
         <div class="window-header">
             <div class="window-controls">
                 <div class="control-dot dot-close"></div>
@@ -324,7 +226,7 @@
             </div>
         </div>
 
-        <!-- ================= VIEW 1: TRANG CHÍNH (PORTFOLIO) ================= -->
+        <!-- VIEW 1: TRANG CHÍNH -->
         <div class="view-content" id="main-view">
             <div class="profile-header">
                 <div class="avatar"></div>
@@ -333,51 +235,67 @@
                 <div class="typewriter">&gt; Nhập lệnh "Học hỏi không ngừng"..._</div>
             </div>
 
-            <!-- Nút truy cập nhanh sang Tab ảnh -->
-            <button class="btn-terminal" onclick="switchTab('gallery')" style="margin-bottom: 25px;">
+            <button class="btn-terminal" onclick="switchTab('gallery')">
                 > ./run_gallery.sh (Xem kho ảnh)
             </button>
 
-            <!-- Dữ liệu Cá Nhân -->
-            <div class="section" style="animation-delay: 0.2s;">
-                <div class="section-title">thong_tin.json</div>
-                <div class="info-row"><span class="keyword">const</span> <span class="func">profile</span> <span class="operator">=</span> <span class="bracket">{</span></div>
-                <div class="info-row">&nbsp;&nbsp;<span class="keyword">ma_sv</span><span class="operator">:</span> <span class="string">"Ẩn****"</span>,</div>
-                <div class="info-row">&nbsp;&nbsp;<span class="keyword">ngay_sinh</span><span class="operator">:</span> <span class="string">"15-06-2004"</span>,</div>
-                <div class="info-row">&nbsp;&nbsp;<span class="keyword">que_quan</span><span class="operator">:</span> <span class="string">"Hiền Quan, Phú Thọ"</span>,</div>
-                <div class="info-row">&nbsp;&nbsp;<span class="keyword">lop</span><span class="operator">:</span> <span class="string">"Ẩn****"</span></div>
-                <div class="info-row"><span class="bracket">}</span><span class="operator">;</span></div>
-            </div>
-
-            <!-- ... (Các section kỹ năng giữ nguyên) ... -->
-            <div class="section" style="animation-delay: 0.4s;">
-                <div class="section-title">skills.config.js</div>
-                <div class="skills-grid">
-                    <div class="skill-item" data-level="85"><div class="skill-header"><span>HTML/CSS</span> <span class="operator">85%</span></div><div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div></div>
-                    <div class="skill-item" data-level="75"><div class="skill-header"><span>JavaScript</span> <span class="operator">75%</span></div><div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div></div>
-                    <div class="skill-item" data-level="70"><div class="skill-header"><span>Python</span> <span class="operator">70%</span></div><div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div></div>
-                    <div class="skill-item" data-level="100"><div class="skill-header"><span class="keyword">Lươn_lẹo_skill</span> <span class="operator">MAX</span></div><div class="progress-track"><div class="progress-fill" style="background: linear-gradient(90deg, #da3633, #ff7b72); width: 0%;"></div></div></div>
+            <!-- LƯỚI GRID CHO DESKTOP -->
+            <div class="desktop-grid">
+                
+                <div class="section">
+                    <div class="section-title">thong_tin.json</div>
+                    <div class="info-row"><span class="keyword">const</span> <span class="func">profile</span> <span class="operator">=</span> <span class="bracket">{</span></div>
+                    <div class="info-row">&nbsp;&nbsp;<span class="keyword">ma_sv</span><span class="operator">:</span> <span class="string">"Ẩn****"</span>,</div>
+                    <div class="info-row">&nbsp;&nbsp;<span class="keyword">ngay_sinh</span><span class="operator">:</span> <span class="string">"15-06-2004"</span>,</div>
+                    <div class="info-row">&nbsp;&nbsp;<span class="keyword">que_quan</span><span class="operator">:</span> <span class="string">"Hiền Quan, Phú Thọ"</span>,</div>
+                    <div class="info-row">&nbsp;&nbsp;<span class="keyword">lop</span><span class="operator">:</span> <span class="string">"Ẩn****"</span></div>
+                    <div class="info-row"><span class="bracket">}</span><span class="operator">;</span></div>
                 </div>
-            </div>
 
-            <section id="social-media" class="section" style="animation-delay: 0.8s;">
-                <div class="section-title">connect.sh</div>
-                <div class="info-row" style="margin-bottom: 12px;">
-                    <span class="operator">Phone:</span> <a href="tel:0355152212" id="phone-link" class="string">"0355152212"</a>
+                <div class="section">
+                    <div class="section-title">skills.config.js</div>
+                    <div class="skills-grid">
+                        <div class="skill-item" data-level="85"><div class="skill-header"><span>HTML/CSS</span> <span class="operator">85%</span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+                        <div class="skill-item" data-level="75"><div class="skill-header"><span>JavaScript</span> <span class="operator">75%</span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+                        <div class="skill-item" data-level="70"><div class="skill-header"><span>Python</span> <span class="operator">70%</span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+                        <div class="skill-item" data-level="90"><div class="skill-header"><span>Git/GitHub</span> <span class="operator">90%</span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+                    </div>
                 </div>
-                <ul>
-                    <li><img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" alt="FB" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;"><a href="https://www.facebook.com/buiiducthangg" target="_blank">Facebook</a></li>
-                    <li><img src="https://i.pinimg.com/736x/94/a3/c8/94a3c897a208704724c1e9d575e4d238.jpg" alt="TT" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;"><a href="https://www.tiktok.com/@buiiducthangg" target="_blank">TikTok</a></li>
-                    <li><img src="https://i.pinimg.com/736x/e3/54/a0/e354a08be90ae5b215ab06faa1927d40.jpg" alt="TG" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;"><a href="https://t.me/buiiducthangg" target="_blank">Telegram</a></li>
-                </ul>
-            </section>
+
+                <div class="section">
+                    <div class="section-title">muc_tieu.log</div>
+                    <div class="achievement"><span class="badge-tag">SHORT</span> Tích lũy kiến thức chuyên môn vững chắc.</div>
+                    <div class="achievement"><span class="badge-tag" style="color:#79c0ff; background: rgba(121, 192, 255, 0.1);">LONG</span> Trở thành Software Eng. cống hiến ngành Tech.</div>
+                    
+                    <div class="section-title" style="margin-top:20px;">thanh_tich.exe</div>
+                    <div class="achievement"><span class="badge-tag" style="background:#da3633; color:#fff;">ERR</span> Ăn Hại Hơn Xưa <span class="comment">// 100% Lươn lẹo</span></div>
+                    <div class="achievement"><span class="badge-tag" style="background:#3fb950; color:#000;">CERT</span> Mua Chứng Chỉ <span class="comment">// Hackk game</span></div>
+                </div>
+
+                <!-- Section này chiếm 2 cột trên PC -->
+                <section id="social-media" class="section col-span-2">
+                    <div class="section-title">connect.sh</div>
+                    <div class="info-row" style="margin-bottom: 12px;">
+                        <span class="operator">Phone:</span> <a href="tel:0355152212" id="phone-link" class="string">"0355152212"</a>
+                    </div>
+                    <ul>
+                        <li><img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" style="width:16px; border-radius:4px;"><a href="https://www.facebook.com/buiiducthangg">Facebook</a></li>
+                        <li><img src="https://i.pinimg.com/736x/94/a3/c8/94a3c897a208704724c1e9d575e4d238.jpg" style="width:16px; border-radius:4px;"><a href="https://www.tiktok.com/@buiiducthangg">TikTok</a></li>
+                        <li><img src="https://i.pinimg.com/736x/e3/54/a0/e354a08be90ae5b215ab06faa1927d40.jpg" style="width:16px; border-radius:4px;"><a href="https://t.me/buiiducthangg">Telegram</a></li>
+                        <li><img src="https://i.pinimg.com/736x/76/05/e9/7605e9315b6ba82da2a3270c5fdd2dcb.jpg" style="width:16px; border-radius:4px;"><a href="https://zalo.me/0355152212">Zalo</a></li>
+                    </ul>
+                </section>
+                
+            </div>
+            <!-- END LƯỚI GRID -->
         </div>
 
-        <!-- ================= VIEW 2: TRANG ẢNH (GALLERY) ================= -->
+        <!-- VIEW 2: TRANG ẢNH (GALLERY) -->
         <div class="view-content" id="gallery-view" style="display: none;">
-            <div class="section-title" style="margin-top: 10px;">/storage/emulated/0/DCIM/Memories/</div>
-            <div class="comment" style="margin-bottom: 10px;">// Fetched 8 items from Pinterest API.<br>// Click vào ảnh để phóng to. Dùng 2 ngón tay để Zoom.</div>
+            <div class="section-title">/storage/emulated/0/DCIM/</div>
+            <div class="comment">// Nhấp để xem. 2 ngón để phóng to trên điện thoại.</div>
             
+            <!-- Grid ảnh tự động bẻ cột -->
             <div class="image-grid">
                 <img src="https://i.pinimg.com/736x/20/a6/26/20a626399546d5474138cf2c0ac5d639.jpg" class="gallery-img">
                 <img src="https://i.pinimg.com/736x/2b/7d/74/2b7d74f4bcfa2f9eaffaef207b638624.jpg" class="gallery-img">
@@ -389,29 +307,28 @@
                 <img src="https://i.pinimg.com/736x/a0/23/cd/a023cde00cead6270336f4f612ed5254.jpg" class="gallery-img">
             </div>
 
-            <!-- Nút quay lại lệnh Terminal -->
             <button class="btn-terminal" onclick="switchTab('main')">
-                > cd .. (Quay về trang chính)
+                > cd .. (Quay về thư mục gốc)
             </button>
         </div>
 
         <div class="footer">
-            <span class="comment">// © 2024 Bùi Đức Thắng - System Exit(0)</span>
+            <span class="comment">// © 2024 Bùi Đức Thắng - 100% Responsive Framework</span>
         </div>
     </div>
 
-    <!-- ================= LIGHTBOX (MÀN HÌNH XEM ẢNH ZOOM) ================= -->
+    <!-- LIGHTBOX ZOOM -->
     <div id="imageViewer">
         <div class="viewer-header">
             <div class="viewer-title">preview_image.png</div>
             <div class="close-viewer" onclick="closeViewer()">[X] Close</div>
         </div>
         <img id="viewerImage" src="" alt="Zoomed">
-        <div class="zoom-hint">✌️ Dùng 2 ngón tay để phóng to</div>
+        <div class="zoom-hint">✌️ Dùng 2 ngón tay hoặc con lăn để Zoom</div>
     </div>
 
     <script>
-        // 1. CHUYỂN TAB 
+        // Xử lý Tabs
         function switchTab(tabId) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.add('active');
@@ -425,25 +342,21 @@
             }
         }
 
-        // Load progress bar
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.querySelectorAll('.skill-item').forEach(item => {
-                    const level = item.getAttribute('data-level');
-                    const fill = item.querySelector('.progress-fill');
-                    if (fill) fill.style.width = level + '%';
-                });
-            }, 800);
-        });
+        // Animate thanh skill
+        setTimeout(() => {
+            document.querySelectorAll('.skill-item').forEach(item => {
+                const level = item.getAttribute('data-level');
+                const fill = item.querySelector('.progress-fill');
+                if (fill) fill.style.width = level + '%';
+            });
+        }, 500);
 
-        // 2. LOGIC LIGHTBOX VÀ PINCH-TO-ZOOM (Phóng to bằng 2 ngón)
+        // LIGHTBOX & ZOOM LOGIC
         const viewer = document.getElementById('imageViewer');
         const viewerImg = document.getElementById('viewerImage');
-        
         let currentScale = 1;
         let initialDistance = 0;
 
-        // Mở ảnh khi click
         document.querySelectorAll('.gallery-img').forEach(img => {
             img.addEventListener('click', function() {
                 viewerImg.src = this.src;
@@ -452,75 +365,48 @@
             });
         });
 
-        // Đóng ảnh
-        function closeViewer() {
-            viewer.style.display = 'none';
-            resetZoom();
-        }
+        function closeViewer() { viewer.style.display = 'none'; resetZoom(); }
+        viewer.addEventListener('click', (e) => { if (e.target === viewer) closeViewer(); });
 
-        // Ấn vào nền đen để đóng
-        viewer.addEventListener('click', (e) => {
-            if (e.target === viewer) closeViewer();
-        });
-
-        // Hàm Reset tỷ lệ Zoom
         function resetZoom() {
             currentScale = 1;
             viewerImg.style.transform = `scale(${currentScale})`;
         }
 
-        // Tính khoảng cách giữa 2 ngón tay
         function getDistance(touches) {
-            return Math.hypot(
-                touches[0].pageX - touches[1].pageX,
-                touches[0].pageY - touches[1].pageY
-            );
+            return Math.hypot(touches[0].pageX - touches[1].pageX, touches[0].pageY - touches[1].pageY);
         }
 
-        // Sự kiện khi bắt đầu chạm (Touch Start)
         viewer.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 initialDistance = getDistance(e.touches);
-                e.preventDefault(); // Chống vuốt trang
+                e.preventDefault();
             }
         }, {passive: false});
 
-        // Sự kiện khi di chuyển ngón tay (Touch Move - Zoom)
         viewer.addEventListener('touchmove', (e) => {
             if (e.touches.length === 2) {
-                e.preventDefault(); // Ngăn trình duyệt cuộn trang
-                const currentDistance = getDistance(e.touches);
-                
-                // Tính toán tỷ lệ Zoom mới dựa trên khoảng cách ngón tay
-                const scaleChange = currentDistance / initialDistance;
-                let newScale = currentScale * scaleChange;
-                
-                // Giới hạn zoom từ 1x đến 5x
-                newScale = Math.min(Math.max(1, newScale), 5); 
-                
+                e.preventDefault();
+                const scaleChange = getDistance(e.touches) / initialDistance;
+                let newScale = Math.min(Math.max(1, currentScale * scaleChange), 5); 
                 viewerImg.style.transform = `scale(${newScale})`;
             }
         }, {passive: false});
 
-        // Sự kiện khi thả tay ra (Touch End)
         viewer.addEventListener('touchend', (e) => {
             if (e.touches.length < 2) {
-                // Lưu lại scale hiện tại để lần zoom sau không bị giật
                 const transform = viewerImg.style.transform;
                 const match = transform.match(/scale\(([^)]+)\)/);
                 if (match) currentScale = parseFloat(match[1]);
             }
         });
 
-        // Cho phép Zoom bằng con lăn chuột (Dành cho PC)
         viewer.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const delta = e.deltaY > 0 ? -0.2 : 0.2; // Cuộn lên/xuống
-            currentScale += delta;
+            currentScale += e.deltaY > 0 ? -0.2 : 0.2;
             currentScale = Math.min(Math.max(1, currentScale), 5);
             viewerImg.style.transform = `scale(${currentScale})`;
         }, {passive: false});
-
     </script>
 </body>
 </html>
