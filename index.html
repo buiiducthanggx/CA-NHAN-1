@@ -34,6 +34,7 @@
                 inset 0 0 20px rgba(139, 69, 19, 0.1);
             overflow-y: auto;
             position: relative;
+            animation: pageLoad 0.8s ease-out;
         }
 
         .ornament {
@@ -101,6 +102,12 @@
             border: 1px solid rgba(212, 175, 55, 0.3);
             animation: fadeInUp 0.6s ease-out;
             animation-fill-mode: both;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
         }
 
         @keyframes fadeInUp {
@@ -120,9 +127,6 @@
         .section:nth-child(4) { animation-delay: 0.4s; }
         .section:nth-child(5) { animation-delay: 0.5s; }
         .section:nth-child(6) { animation-delay: 0.6s; }
-        .section:nth-child(7) { animation-delay: 0.7s; }
-        .section:nth-child(8) { animation-delay: 0.8s; }
-        .section:nth-child(9) { animation-delay: 0.9s; }
 
         .section-title {
             font-family: 'Playfair Display', serif;
@@ -201,22 +205,6 @@
             border-left-width: 6px;
         }
 
-        .contact-link {
-            display: inline-block;
-            background: #8b4513;
-            color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            margin: 5px;
-            font-size: 12px;
-            transition: background 0.3s;
-        }
-
-        .contact-link:hover {
-            background: #654321;
-        }
-
         .footer {
             text-align: center;
             padding: 15px;
@@ -276,370 +264,6 @@
             color: #654321;
         }
 
-        .vintage-player {
-            background: linear-gradient(145deg, #8b4513, #654321);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-        }
-
-        .player-controls {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .play-btn, .next-btn, .prev-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: #d4af37;
-            border: none;
-            color: #654321;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 0 3px;
-        }
-
-        .play-btn {
-            width: 45px;
-            height: 45px;
-            font-size: 16px;
-        }
-
-        .play-btn:hover, .next-btn:hover, .prev-btn:hover {
-            background: #f4d03f;
-            transform: scale(1.1);
-        }
-
-        .song-info {
-            color: #f5f2e8;
-            font-size: 12px;
-            flex: 1;
-            margin-left: 15px;
-        }
-
-        .volume-control {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .volume-slider {
-            flex: 1;
-            margin: 0 10px;
-            -webkit-appearance: none;
-            height: 4px;
-            border-radius: 2px;
-            background: rgba(245, 242, 232, 0.3);
-            outline: none;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #d4af37;
-            cursor: pointer;
-        }
-
-        .progress-container {
-            margin-top: 8px;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 4px;
-            background: rgba(245, 242, 232, 0.3);
-            border-radius: 2px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .progress-current {
-            height: 100%;
-            background: #d4af37;
-            border-radius: 2px;
-            width: 0%;
-            transition: width 0.1s;
-        }
-
-        .time-display {
-            display: flex;
-            justify-content: space-between;
-            color: #f5f2e8;
-            font-size: 10px;
-            margin-top: 5px;
-        }
-
-        .playlist {
-            max-height: 120px;
-            overflow-y: auto;
-            margin-top: 10px;
-        }
-
-        .playlist-item {
-            padding: 5px;
-            cursor: pointer;
-            color: rgba(245, 242, 232, 0.8);
-            font-size: 11px;
-            border-radius: 3px;
-            margin: 2px 0;
-            transition: all 0.3s;
-        }
-
-        .playlist-item:hover {
-            background: rgba(245, 242, 232, 0.1);
-            color: #f5f2e8;
-        }
-
-        .playlist-item.active {
-            background: rgba(212, 175, 55, 0.3);
-            color: #f5f2e8;
-        }
-
-        .youtube-player {
-            background: linear-gradient(145deg, #8b4513, #654321);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-        }
-
-        .youtube-container {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .youtube-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-info {
-            color: #f5f2e8;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .video-title {
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .video-description {
-            font-size: 11px;
-            opacity: 0.8;
-        }
-
-        .music-section-divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .music-section-divider::before,
-        .music-section-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #d4af37;
-        }
-
-        .music-section-divider span {
-            margin: 0 15px;
-            color: #654321;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .error-message {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid #ff4444;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-            color: #cc0000;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        .fallback-player {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid #d4af37;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 10px 0;
-            text-align: center;
-        }
-
-        .fallback-player a {
-            color: #8b4513;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .fallback-player a:hover {
-            color: #654321;
-            text-decoration: underline;
-        }
-
-        .zing-player {
-            background: linear-gradient(145deg, #8b4513, #654321);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 10px 0;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-        }
-
-        .zing-container {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            border-radius: 8px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .zing-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
-        }
-
-        .song-label {
-            color: #f5f2e8;
-            font-size: 12px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 8px;
-            padding: 5px;
-            background: rgba(212, 175, 55, 0.2);
-            border-radius: 5px;
-        }
-
-        .music-grid {
-            display: grid;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .player-note {
-            color: #f5f2e8;
-            font-size: 11px;
-            text-align: center;
-            margin: 10px 0;
-            opacity: 0.8;
-            font-style: italic;
-        }
-
-        .simple-music-player {
-            background: linear-gradient(145deg, #8b4513, #654321);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-        }
-
-        .music-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(245, 242, 232, 0.1);
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .music-item:hover {
-            background: rgba(245, 242, 232, 0.2);
-            transform: translateX(5px);
-        }
-
-        .song-details {
-            flex: 1;
-        }
-
-        .song-name {
-            color: #f5f2e8;
-            font-weight: bold;
-            font-size: 13px;
-            margin-bottom: 3px;
-        }
-
-        .song-artist {
-            color: rgba(245, 242, 232, 0.7);
-            font-size: 11px;
-        }
-
-        .play-options {
-            display: flex;
-            gap: 8px;
-        }
-
-        .play-link {
-            background: #d4af37;
-            color: #654321;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 10px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .play-link:hover {
-            background: #f4d03f;
-            transform: scale(1.05);
-        }
-
-        .music-note {
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid #d4af37;
-            border-radius: 8px;
-            padding: 12px;
-            margin: 15px 0;
-            text-align: center;
-            color: #654321;
-            font-size: 12px;
-        }
-
-        .vintage-audio-player {
-            background: rgba(245, 242, 232, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-        }
-
-        .vintage-audio-player audio {
-            width: 100%;
-            height: 40px;
-        }
-
-        .demo-player {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .demo-note {
-            color: #8b4513;
-            font-size: 11px;
-            font-style: italic;
-            margin-top: 8px;
-        }
-
-        /* Sửa lỗi floating hearts chưa có CSS */
         .floating-hearts {
             position: absolute;
             top: 20%;
@@ -653,39 +277,6 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Sửa lỗi vintage-quote-box chưa có CSS */
-        .vintage-quote-box {
-            background: linear-gradient(45deg, #f5f2e8, #e8dcc0);
-            border: 2px solid #d4af37;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .vintage-quote-box::before {
-            content: "❝";
-            font-size: 40px;
-            color: #d4af37;
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            background: #faf8f3;
-            padding: 0 5px;
-        }
-
-        .quote-text {
-            font-style: italic;
-            color: #654321;
-            text-align: center;
-            margin: 10px 0;
-            font-size: 14px;
-            transition: all 0.5s ease;
-        }
-
-        /* Sửa lỗi vintage-badge chưa có CSS */
         .vintage-badge {
             display: inline-block;
             background: #8b4513;
@@ -699,7 +290,6 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
-        /* Sửa lỗi easter-egg chưa có CSS */
         .easter-egg {
             position: absolute;
             bottom: 10px;
@@ -736,7 +326,6 @@
             text-align: center;
         }
 
-        /* Sửa lỗi typewriter effect chưa có CSS */
         @keyframes typewriter {
             from { width: 0; }
             to { width: 100%; }
@@ -755,7 +344,6 @@
             display: inline-block;
         }
 
-        /* Cải thiện progress bars cho skills */
         .progress-bar {
             width: 100%;
             height: 6px;
@@ -778,12 +366,6 @@
             to { width: var(--target-width, 100%); }
         }
 
-        /* Cải thiện animation delay cho sections */
-        .section:nth-child(7) { animation-delay: 0.7s; }
-        .section:nth-child(8) { animation-delay: 0.8s; }
-        .section:nth-child(9) { animation-delay: 0.9s; }
-
-        /* Cải thiện responsive cho container */
         @media (max-width: 480px) {
             .container {
                 width: 95%;
@@ -810,50 +392,13 @@
             }
         }
 
-        /* Smooth scroll behavior */
         html {
             scroll-behavior: smooth;
         }
 
-        /* Cải thiện hover effects */
-        .section:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
-        }
-
-        /* Loading animation cho trang */
         @keyframes pageLoad {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
-        }
-
-        .container {
-            /* ...existing code... */
-            animation: pageLoad 0.8s ease-out;
-        }
-
-        /* Cải thiện music note styling */
-        .music-note {
-            /* ...existing code... */
-            position: relative;
-            overflow: hidden;
-        }
-
-        .music-note::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            animation: shimmer 3s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
     </style>
 </head>
@@ -897,7 +442,6 @@
                     Chuyên ngành: Công nghệ Thông tin<br>
                     Năm học: 2023 - 2027
                 </div>
-                
             </div>
 
             <div class="section">
@@ -1036,122 +580,10 @@
                 </div>
             </div>
 
-            <div class="section">
-                <div class="section-title">Âm Nhạc Yêu Thích</div>
-                
-                <!-- YouTube Video Player cho "Việt Nam Tôi" -->
-                <div class="youtube-player">
-                    <div class="video-info">
-                        <div class="video-title">🇻🇳 VIỆT NAM TÔI 🇻🇳</div>
-                        <div class="video-description">Video MV chính thức</div>
-                    </div>
-                    <div class="youtube-container">
-                        <iframe 
-                            src="https://www.youtube.com/embed/IdiMpjTTQ9Q?enablejsapi=1&rel=0&modestbranding=1&controls=1" 
-                            title="Việt Nam Tôi - YouTube video player" 
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-
-                <div class="music-section-divider">
-                    <span>🎵 NHẠC VIỆT NAM YÊU NƯỚC 🎵</span>
-                </div>
-
-                <div class="music-note">
-                    💡 <strong>Lưu ý:</strong> nhạc sẽ mở trong tab mới. 
-                    Click vào các nút bên dưới để nghe nhạc!
-                </div>
-
-                <!-- Simple Music Player với Links -->
-                <div class="simple-music-player">
-                    <!-- Việt Nam Ơi -->
-                    <div class="music-item">
-                        <div class="song-details">
-                            <div class="song-name">🇻🇳 Việt Nam Ơi</div>
-                            <div class="song-artist">Nhạc yêu nước kinh điển</div>
-                        </div>
-                        <div class="play-options">
-                            <a href="https://zingmp3.vn/bai-hat/Viet-Nam-Oi-Various-Artists/ZWZDZ86A.html" target="_blank" class="play-link">ZingMP3</a>
-                            <a href="https://www.youtube.com/results?search_query=việt+nam+ơi" target="_blank" class="play-link">YouTube</a>
-                        </div>
-                    </div>
-
-                    <!-- Quê Hương Tôi -->
-                    <div class="music-item">
-                        <div class="song-details">
-                            <div class="song-name">🏠 Quê Hương Tôi</div>
-                            <div class="song-artist">Dân ca truyền thống</div>
-                        </div>
-                        <div class="play-options">
-                            <a href="https://zingmp3.vn/bai-hat/Que-Huong-Toi/ZW6OD90E.html" target="_blank" class="play-link">ZingMP3</a>
-                            <a href="https://www.youtube.com/results?search_query=quê+hương+tôi" target="_blank" class="play-link">YouTube</a>
-                        </div>
-                    </div>
-
-                    <!-- Tiến Quân Ca -->
-                    <div class="music-item">
-                        <div class="song-details">
-                            <div class="song-name">🎺 Tiến Quân Ca</div>
-                            <div class="song-artist">Quốc ca Việt Nam - Văn Cao</div>
-                        </div>
-                        <div class="play-options">
-                            <a href="https://zingmp3.vn/bai-hat/Tien-Quan-Ca/Z6ICC9A8.html" target="_blank" class="play-link">ZingMP3</a>
-                            <a href="https://www.youtube.com/results?search_query=tiến+quân+ca" target="_blank" class="play-link">YouTube</a>
-                        </div>
-                    </div>
-
-                    <!-- Đất Nước -->
-                    <div class="music-item">
-                        <div class="song-details">
-                            <div class="song-name">🌾 Đất Nước</div>
-                            <div class="song-artist">Trịnh Công Sơn</div>
-                        </div>
-                        <div class="play-options">
-                            <a href="https://zingmp3.vn/bai-hat/Dat-Nuoc/ZU87CE8W.html" target="_blank" class="play-link">ZingMP3</a>
-                            <a href="https://www.youtube.com/results?search_query=đất+nước+trịnh+công+sơn" target="_blank" class="play-link">YouTube</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Demo Audio Player -->
-                <div class="demo-player">
-                    <div class="music-note">
-                        🎼 Demo Audio Player 
-                    </div>
-                    <div class="vintage-audio-player">
-                        <audio controls>
-                            <source src="https://www.soundjay.com/misc/sounds/beep-28.mp3" type="audio/mpeg">
-                            <source src="https://www2.cs.uic.edu/~i101/SoundFiles/StarWars3.wav" type="audio/wav">
-                            Trình duyệt của bạn không hỗ trợ audio player.
-                        </audio>
-                        <div class="demo-note">
-                            ↑ Đây là demo player
-                        </div>
-                    </div>
-                </div>
-
-                <div class="player-note">
-                    🎼 Nhấn vào các nút để mở nhạc trong tab mới và thưởng thức! 🎼
-                </div>
-            </div>
-
-            <div class="vintage-quote-box">
-                <div class="quote-text" id="randomQuote">
-                    "Việt Nam - quê hương tôi!"
-                </div>
-            </div>
-
             <div class="decorative-line"></div>
         </div>
 
         <div class="footer">
-            <p style="font-size: 12px; color: #8b4513; font-style: italic;">
-                "Tri thức là sức mạnh, học hỏi là chìa khóa thành công"
-            </p>
             <p style="font-size: 10px; color: #999; margin-top: 5px;">
                 © 2024 Bùi Đức Thắng - Personal Portfolio
             </p>
@@ -1175,62 +607,13 @@
             }
         }, 4000);
 
-        // Random quotes về Việt Nam
-        const quotes = [
-            "Việt Nam - quê hương tôi!",
-            "Tổ quốc là mái nhà chung của tất cả chúng ta.",
-            "Không có gì quý hơn độc lập tự do.",
-            "Sông có thể cạn, núi có thể mòn, nhưng chí này không thay đổi.",
-            "Việt Nam muôn năm! 🇻🇳",
-            "Đất nước ta có những điều tuyệt vời nhất.",
-            "Tình yêu quê hương là nguồn sức mạnh vô tận."
-        ];
-
-        function changeQuote() {
-            const quoteElement = document.getElementById('randomQuote');
-            if (quoteElement) {
-                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                quoteElement.style.opacity = '0';
-                quoteElement.style.transform = 'translateY(10px)';
-                
-                setTimeout(() => {
-                    quoteElement.textContent = randomQuote;
-                    quoteElement.style.opacity = '1';
-                    quoteElement.style.transform = 'translateY(0)';
-                }, 300);
-            }
-        }
-
-        setInterval(changeQuote, 5000);
-
-        // Khởi tạo với thông tin Việt Nam
-        document.addEventListener('DOMContentLoaded', function() {
-            // Cập nhật quotes về Việt Nam
-            changeQuote();
-            
-            // Thêm hiệu ứng cho music items
-            const musicItems = document.querySelectorAll('.music-item');
-            musicItems.forEach((item, index) => {
-                item.style.animationDelay = `${index * 0.1}s`;
-                item.style.animation = 'fadeInUp 0.6s ease-out forwards';
-            });
-
-            // Kiểm tra audio support
-            const audio = document.querySelector('audio');
-            if (audio) {
-                audio.addEventListener('error', function() {
-                    console.log('Audio file không thể load');
-                });
-            }
-        });
-
         // Easter egg
         function showEasterEgg() {
             const easterEggMsg = document.getElementById('easterEggMsg');
             easterEggMsg.style.display = 'block';
             easterEggMsg.style.animation = 'fadeInUp 0.5s ease-out';
             
-            // Add confetti effect (simple version)
+            // Add confetti effect
             createConfetti();
         }
 
@@ -1273,7 +656,7 @@
             animation.onfinish = () => confetti.remove();
         }
 
-        // Cải thiện progress bars với target width
+        // Progress bars với target width
         document.querySelectorAll('.skill-item').forEach(item => {
             const level = item.getAttribute('data-level');
             const progressFill = item.querySelector('.progress-fill');
@@ -1281,7 +664,7 @@
                 progressFill.style.setProperty('--target-width', level + '%');
             }
             
-            // Improved hover effect
+            // Hover effect
             item.addEventListener('mouseenter', function() {
                 this.setAttribute('title', `Kỹ năng: ${level}%`);
             });
@@ -1312,34 +695,9 @@
             observer.observe(section);
         });
 
-        // Cải thiện change quote với fade effect
-        function changeQuote() {
-            const quoteElement = document.getElementById('randomQuote');
-            if (quoteElement) {
-                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                quoteElement.style.opacity = '0';
-                quoteElement.style.transform = 'translateY(10px)';
-                
-                setTimeout(() => {
-                    quoteElement.textContent = randomQuote;
-                    quoteElement.style.opacity = '1';
-                    quoteElement.style.transform = 'translateY(0)';
-                }, 300);
-            }
-        }
-
         // Add loading indicator
         window.addEventListener('load', function() {
             document.body.style.opacity = '1';
-            
-            // Start animations after page load
-            setTimeout(() => {
-                const musicItems = document.querySelectorAll('.music-item');
-                musicItems.forEach((item, index) => {
-                    item.style.animationDelay = `${index * 0.1}s`;
-                    item.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                });
-            }, 500);
         });
     </script>
 </body>
