@@ -21,77 +21,40 @@
             font-family: 'Fira Code', monospace;
             padding: 2vh 2vw;
             color: #c9d1d9;
-            overflow: hidden; /* Ngăn cuộn trang trong lúc Boot */
+            overflow: hidden;
         }
 
-        /* ================= BOOT SCREEN (MÀN HÌNH KHỞI ĐỘNG) ================= */
-        #boot-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
-            color: #c9d1d9;
-            z-index: 999999;
-            padding: 20px;
-            font-size: 14px;
-            display: flex;
-            flex-direction: column;
-            pointer-events: none;
-        }
-
-        #boot-text {
-            white-space: pre-wrap;
-            line-height: 1.6;
-        }
-
-        .boot-cursor {
-            display: inline-block;
-            width: 8px;
-            height: 15px;
-            background-color: #c9d1d9;
-            animation: blink-cursor 0.8s steps(2, start) infinite;
-            vertical-align: text-bottom;
-            margin-left: 2px;
-        }
+        /* ================= BOOT SCREEN ================= */
+        #boot-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #000; color: #c9d1d9; z-index: 999999; padding: 20px; font-size: 14px; display: flex; flex-direction: column; pointer-events: none; }
+        #boot-text { white-space: pre-wrap; line-height: 1.6; }
+        .boot-cursor { display: inline-block; width: 8px; height: 15px; background-color: #c9d1d9; animation: blink-cursor 0.8s steps(2, start) infinite; vertical-align: text-bottom; margin-left: 2px; }
 
         /* ================= KHUNG TERMINAL ================= */
         .container {
-            width: 100%;
-            max-width: 900px;
-            height: 90vh;
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 10px;
+            width: 100%; max-width: 900px; height: 90vh; background: #161b22;
+            border: 1px solid #30363d; border-radius: 10px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
-            display: none; /* Ẩn đi lúc đầu để nhường chỗ cho Boot Screen */
-            flex-direction: column;
+            display: none; flex-direction: column;
             animation: bootUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            resize: both;
-            overflow: hidden; 
-            min-width: 320px;
-            min-height: 400px;
+            resize: both; overflow: hidden; min-width: 320px; min-height: 400px;
         }
 
-        @keyframes bootUp {
-            0% { transform: scale(0.95) translateY(20px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
-        }
+        @keyframes bootUp { 0% { transform: scale(0.95) translateY(20px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
 
-        /* Header */
+        /* Header & Tabs */
         .window-header { background: #010409; display: flex; align-items: flex-end; border-bottom: 1px solid #30363d; padding-top: 8px; flex-shrink: 0; }
         .window-controls { display: flex; gap: 6px; padding: 0 15px 10px 15px; }
         .control-dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot-close { background: #ff5f56; } .dot-min { background: #ffbd2e; } .dot-max { background: #27c93f; }
 
-        /* Tabs */
         .tabs { display: flex; flex: 1; overflow-x: auto; scrollbar-width: none; }
         .tabs::-webkit-scrollbar { display: none; }
         .tab { padding: 8px 15px; font-size: 12px; color: #8b949e; background: #0d1117; border-right: 1px solid #30363d; border-top: 2px solid transparent; cursor: pointer; user-select: none; display: flex; align-items: center; gap: 6px; transition: background 0.2s; white-space: nowrap; }
         .tab:hover { background: #161b22; }
         .tab.active { background: #161b22; color: #c9d1d9; border-top: 2px solid #58a6ff; }
-        .file-icon-js { color: #f1e05a; font-weight: bold; } .file-icon-img { color: #a5d6ff; font-weight: bold; }
+        .file-icon-js { color: #f1e05a; font-weight: bold; } 
+        .file-icon-img { color: #a5d6ff; font-weight: bold; }
+        .file-icon-vid { color: #ff7b72; font-weight: bold; } /* Màu đỏ cho video */
 
         /* Nội dung Content */
         .view-content { padding: 20px; overflow-y: auto; flex: 1; height: 100%; }
@@ -133,14 +96,14 @@
         #social-media li { display: flex; align-items: center; background: #21262d; padding: 8px; border-radius: 4px; border: 1px solid #30363d; font-size: 13px; transition: background 0.2s; }
         #social-media li:hover { background: #30363d; }
 
-        /* Gallery Tự động co giãn (Auto-fit Grid) */
-        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 15px 0 25px; }
+        /* Gallery Tự động co giãn */
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin: 15px 0 25px; }
         .gallery-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; border: 1px solid #30363d; transition: transform 0.3s, border-color 0.3s; cursor: zoom-in; }
         .gallery-img:hover { transform: scale(1.05); border-color: #58a6ff; z-index: 10; position: relative;}
 
-        /* Typewriter & Buttons */
+        /* Nút và Typewriter */
         .typewriter { display: inline-block; border-right: 2px solid #58a6ff; white-space: nowrap; overflow: hidden; animation: typing 3s steps(40, end), blink-cursor .75s step-end infinite; width: 0; color: #3fb950; font-size: 13px; margin-top: 10px; }
-        .btn-terminal { background: #21262d; color: #3fb950; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 13px; cursor: pointer; display: flex; justify-content: center; width: 100%; transition: all 0.2s; margin-bottom: 25px;}
+        .btn-terminal { background: #21262d; color: #3fb950; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 13px; cursor: pointer; display: flex; justify-content: center; width: 100%; transition: all 0.2s; margin-bottom: 15px;}
         .btn-terminal:hover { border-color: #3fb950; background: rgba(63, 185, 80, 0.1); }
         .footer { text-align: center; padding: 10px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; background: #010409; flex-shrink: 0;}
 
@@ -162,7 +125,7 @@
         @media (max-width: 600px) {
             body { padding: 0; }
             .container { width: 100vw; height: 100vh; max-width: none; border-radius: 0; border: none; resize: none; }
-            .image-grid { grid-template-columns: repeat(2, 1fr); }
+            .image-grid { grid-template-columns: repeat(3, 1fr); } /* 3 ảnh 1 hàng cho vừa màn đt */
         }
 
         @keyframes typing { from { width: 0 } to { width: 100% } }
@@ -187,12 +150,16 @@
                 <div class="control-dot dot-min"></div>
                 <div class="control-dot dot-max"></div>
             </div>
+            <!-- Cập nhật hệ thống Tabs -->
             <div class="tabs">
                 <div class="tab active" id="tab-main" onclick="switchTab('main')">
                     <span class="file-icon-js">JS</span> portfolio.js
                 </div>
                 <div class="tab" id="tab-gallery" onclick="switchTab('gallery')">
                     <span class="file-icon-img">🖼️</span> gallery.png
+                </div>
+                <div class="tab" id="tab-video" onclick="switchTab('video')">
+                    <span class="file-icon-vid">🎥</span> video.mp4
                 </div>
             </div>
         </div>
@@ -206,13 +173,17 @@
                 <div class="typewriter">&gt; Nhập lệnh "Học hỏi không ngừng"..._</div>
             </div>
 
-            <button class="btn-terminal" onclick="switchTab('gallery')">
-                > ./run_gallery.sh (Xem kho ảnh)
-            </button>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-terminal" onclick="switchTab('gallery')">
+                    > ./gallery (Ảnh)
+                </button>
+                <button class="btn-terminal" onclick="switchTab('video')">
+                    > ./media (Video)
+                </button>
+            </div>
 
             <!-- LƯỚI GRID CHO DESKTOP -->
             <div class="desktop-grid">
-                
                 <div class="section">
                     <div class="section-title">thong_tin.json</div>
                     <div class="info-row"><span class="keyword">const</span> <span class="func">profile</span> <span class="operator">=</span> <span class="bracket">{</span></div>
@@ -243,7 +214,6 @@
                     <div class="achievement"><span class="badge-tag" style="background:#3fb950; color:#000;">CERT</span> Mua Chứng Chỉ <span class="comment">// Hackk game</span></div>
                 </div>
 
-                <!-- Section này chiếm 2 cột trên PC -->
                 <section id="social-media" class="section col-span-2">
                     <div class="section-title">connect.sh</div>
                     <div class="info-row" style="margin-bottom: 12px;">
@@ -256,15 +226,13 @@
                         <li><img src="https://i.pinimg.com/736x/76/05/e9/7605e9315b6ba82da2a3270c5fdd2dcb.jpg" style="width:16px; border-radius:4px;"><a href="https://zalo.me/0355152212">Zalo</a></li>
                     </ul>
                 </section>
-                
             </div>
-            <!-- END LƯỚI GRID -->
         </div>
 
         <!-- VIEW 2: TRANG ẢNH (GALLERY) -->
         <div class="view-content" id="gallery-view" style="display: none;">
             <div class="section-title">/storage/emulated/0/DCIM/</div>
-            <div class="comment">// Nhấp để xem. 2 ngón để phóng to trên điện thoại.</div>
+            <div class="comment">// Fetched 35 items. Chạm để phóng to.</div>
             
             <div class="image-grid">
                 <img src="https://i.pinimg.com/736x/20/a6/26/20a626399546d5474138cf2c0ac5d639.jpg" class="gallery-img">
@@ -309,12 +277,45 @@
             </button>
         </div>
 
+        <!-- VIEW 3: TRANG VIDEO (MỚI) -->
+        <div class="view-content" id="video-view" style="display: none;">
+            <div class="section-title">/storage/emulated/0/Movies/</div>
+            <div class="comment" style="margin-bottom: 20px;">// Streaming media...</div>
+            
+            <div class="section" style="text-align: center; border-color: #ffbd2e;">
+                <div class="info-row" style="color: #ffbd2e; font-weight: bold;">[!] CÁCH 1: NẾU BẠN CÓ FILE VIDEO GỐC (.MP4)</div>
+                <div class="comment" style="font-size: 11px; margin-bottom: 15px;">
+                    // Tải video từ Pinterest về máy, lưu ở đâu đó lấy link .mp4 rồi nhét vào thẻ video dưới đây. Đây là cách xịn và mượt nhất.
+                </div>
+                
+                <!-- Đây là thẻ video gốc (thay src bằng link file mp4 của bạn) -->
+                <video controls style="width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #30363d; margin-top: 10px;">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ thẻ video.
+                </video>
+            </div>
+
+            <div class="section" style="text-align: center; margin-top: 20px;">
+                <div class="info-row" style="color: #58a6ff; font-weight: bold;">[!] CÁCH 2: NHÚNG BẰNG IFRAME PINTEREST</div>
+                <div class="comment" style="font-size: 11px; margin-bottom: 15px;">
+                    // Link pin.it không chạy được. Phải lên Pinterest máy tính -> Ấn nút 3 chấm (...) -> Lấy mã nhúng (Get embed code) và thay vào ID bên dưới:
+                </div>
+                
+                <!-- Thay dòng ID = dãy số của video Pinterest của bạn vào src bên dưới -->
+                <iframe src="https://assets.pinterest.com/ext/embed.html?id=123456789012345" height="520" width="100%" frameborder="0" scrolling="no" style="border-radius: 8px; max-width: 250px; background: #010409;"></iframe>
+            </div>
+
+            <button class="btn-terminal" onclick="switchTab('main')">
+                > cd .. (Quay về trang chính)
+            </button>
+        </div>
+
         <div class="footer">
-            <span class="comment">// © 2026 Bùi Đức Thắng</span>
+            <span class="comment">// © 2026 Bùi Đức Thắng - System.Exit(0)</span>
         </div>
     </div>
 
-    <!-- LIGHTBOX ZOOM -->
+    <!-- LIGHTBOX ZOOM ẢNH -->
     <div id="imageViewer">
         <div class="viewer-header">
             <div class="viewer-title">preview_image.png</div>
@@ -346,32 +347,23 @@
             const bootScreen = document.getElementById('boot-screen');
             const mainContainer = document.getElementById('main-container');
 
-            // Chạy từng dòng lệnh với độ trễ ngẫu nhiên mô phỏng máy tính đang xử lý
             for (let i = 0; i < bootLines.length; i++) {
                 bootText.innerHTML += bootLines[i] + '<br>';
-                // Đợi một khoảng thời gian ngẫu nhiên từ 50ms đến 250ms
                 await new Promise(r => setTimeout(r, Math.random() * 200 + 50));
             }
 
-            // Đợi thêm 1 chút sau khi in xong lệnh cuối
             await new Promise(r => setTimeout(r, 600));
-
-            // Hiệu ứng mờ dần (Fade out)
             bootScreen.style.transition = 'opacity 0.6s ease';
             bootScreen.style.opacity = '0';
 
-            // Xóa Boot Screen và hiển thị giao diện chính
             setTimeout(() => {
                 bootScreen.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Cho phép cuộn lại
-                mainContainer.style.display = 'flex'; // Hiện giao diện
-
-                // Khởi chạy animation của thanh kỹ năng
+                document.body.style.overflow = 'auto';
+                mainContainer.style.display = 'flex';
                 triggerProgressBars();
             }, 600);
         }
 
-        // Kích hoạt Boot Screen khi vừa vào trang
         window.onload = runBootSequence;
 
         // ================= XỬ LÝ PROGRESS BAR =================
@@ -382,21 +374,19 @@
                     const fill = item.querySelector('.progress-fill');
                     if (fill) fill.style.width = level + '%';
                 });
-            }, 400); // Đợi UI load xong thì chạy thanh phần trăm
+            }, 400); 
         }
 
-        // ================= XỬ LÝ TABS =================
+        // ================= XỬ LÝ TABS (BÂY GIỜ LÀ 3 TABS) =================
         function switchTab(tabId) {
+            // Xóa active tất cả các tab
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.add('active');
+            // Ẩn tất cả các view
+            document.querySelectorAll('.view-content').forEach(v => v.style.display = 'none');
 
-            if (tabId === 'main') {
-                document.getElementById('main-view').style.display = 'block';
-                document.getElementById('gallery-view').style.display = 'none';
-            } else {
-                document.getElementById('main-view').style.display = 'none';
-                document.getElementById('gallery-view').style.display = 'block';
-            }
+            // Bật tab và view được chọn
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById(tabId + '-view').style.display = 'block';
         }
 
         // ================= LIGHTBOX & ZOOM LOGIC =================
