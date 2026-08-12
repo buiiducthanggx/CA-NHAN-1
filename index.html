@@ -136,7 +136,7 @@
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
             user-select: none;
-            position: relative; /* Để neo cái menu playlist */
+            position: relative;
         }
 
         .status-left, .status-right { display: flex; align-items: center; gap: 15px; }
@@ -155,7 +155,7 @@
         /* Popup Playlist (Menu chọn nhạc) */
         .playlist-popup {
             position: absolute;
-            bottom: 35px; /* Nổi lên từ status bar */
+            bottom: 35px;
             left: 10px;
             background: #252526;
             border: 1px solid #454545;
@@ -388,7 +388,7 @@
         <div class="status-bar">
             <!-- Thẻ audio ẩn chứa nhạc -->
             <audio id="bg-music">
-                <source id="audio-source" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+                <source id="audio-source" src="./giacmotinhco.mp3" type="audio/mpeg">
             </audio>
 
             <div class="status-left">
@@ -407,7 +407,7 @@
                             <div class="audio-bar"></div><div class="audio-bar"></div>
                         </div>
 
-                        <span id="music-text" class="song-name">Lofi Chill Beat (Paused)</span>
+                        <span id="music-text" class="song-name">Giấc Mơ Tình Cờ (Paused)</span>
                     </div>
                 </div>
             </div>
@@ -442,6 +442,7 @@
     <script>
         // ================= MUSIC PLAYER & PLAYLIST LOGIC =================
         const playlist = [
+            { name: "Giấc Mơ Tình Cờ", url: "./giacmotinhco.mp3" },
             { name: "Lofi Chill Beat", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
             { name: "Coffee Shop Vibes", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_106720d200.mp3" },
             { name: "Cyberpunk Hacker", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_213693e50d.mp3" },
