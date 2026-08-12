@@ -54,7 +54,6 @@
         .tab.active { background: #161b22; color: #c9d1d9; border-top: 2px solid #58a6ff; }
         .file-icon-js { color: #f1e05a; font-weight: bold; } 
         .file-icon-img { color: #a5d6ff; font-weight: bold; }
-        .file-icon-vid { color: #ff7b72; font-weight: bold; } /* Màu đỏ cho video */
 
         /* Nội dung Content */
         .view-content { padding: 20px; overflow-y: auto; flex: 1; height: 100%; }
@@ -103,7 +102,7 @@
 
         /* Nút và Typewriter */
         .typewriter { display: inline-block; border-right: 2px solid #58a6ff; white-space: nowrap; overflow: hidden; animation: typing 3s steps(40, end), blink-cursor .75s step-end infinite; width: 0; color: #3fb950; font-size: 13px; margin-top: 10px; }
-        .btn-terminal { background: #21262d; color: #3fb950; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 13px; cursor: pointer; display: flex; justify-content: center; width: 100%; transition: all 0.2s; margin-bottom: 15px;}
+        .btn-terminal { background: #21262d; color: #3fb950; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 13px; cursor: pointer; display: flex; justify-content: center; width: 100%; transition: all 0.2s; margin-bottom: 25px;}
         .btn-terminal:hover { border-color: #3fb950; background: rgba(63, 185, 80, 0.1); }
         .footer { text-align: center; padding: 10px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; background: #010409; flex-shrink: 0;}
 
@@ -150,16 +149,12 @@
                 <div class="control-dot dot-min"></div>
                 <div class="control-dot dot-max"></div>
             </div>
-            <!-- Cập nhật hệ thống Tabs -->
             <div class="tabs">
                 <div class="tab active" id="tab-main" onclick="switchTab('main')">
                     <span class="file-icon-js">JS</span> portfolio.js
                 </div>
                 <div class="tab" id="tab-gallery" onclick="switchTab('gallery')">
                     <span class="file-icon-img">🖼️</span> gallery.png
-                </div>
-                <div class="tab" id="tab-video" onclick="switchTab('video')">
-                    <span class="file-icon-vid">🎥</span> video.mp4
                 </div>
             </div>
         </div>
@@ -173,14 +168,9 @@
                 <div class="typewriter">&gt; Nhập lệnh "Học hỏi không ngừng"..._</div>
             </div>
 
-            <div style="display: flex; gap: 10px;">
-                <button class="btn-terminal" onclick="switchTab('gallery')">
-                    > ./gallery (Ảnh)
-                </button>
-                <button class="btn-terminal" onclick="switchTab('video')">
-                    > ./media (Video)
-                </button>
-            </div>
+            <button class="btn-terminal" onclick="switchTab('gallery')">
+                > ./gallery (Xem kho ảnh)
+            </button>
 
             <!-- LƯỚI GRID CHO DESKTOP -->
             <div class="desktop-grid">
@@ -277,39 +267,6 @@
             </button>
         </div>
 
-        <!-- VIEW 3: TRANG VIDEO (MỚI) -->
-        <div class="view-content" id="video-view" style="display: none;">
-            <div class="section-title">/storage/emulated/0/Movies/</div>
-            <div class="comment" style="margin-bottom: 20px;">// Streaming media...</div>
-            
-            <div class="section" style="text-align: center; border-color: #ffbd2e;">
-                <div class="info-row" style="color: #ffbd2e; font-weight: bold;">[!] CÁCH 1: NẾU BẠN CÓ FILE VIDEO GỐC (.MP4)</div>
-                <div class="comment" style="font-size: 11px; margin-bottom: 15px;">
-                    // Tải video từ Pinterest về máy, lưu ở đâu đó lấy link .mp4 rồi nhét vào thẻ video dưới đây. Đây là cách xịn và mượt nhất.
-                </div>
-                
-                <!-- Đây là thẻ video gốc (thay src bằng link file mp4 của bạn) -->
-                <video controls style="width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #30363d; margin-top: 10px;">
-                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ thẻ video.
-                </video>
-            </div>
-
-            <div class="section" style="text-align: center; margin-top: 20px;">
-                <div class="info-row" style="color: #58a6ff; font-weight: bold;">[!] CÁCH 2: NHÚNG BẰNG IFRAME PINTEREST</div>
-                <div class="comment" style="font-size: 11px; margin-bottom: 15px;">
-                    // Link pin.it không chạy được. Phải lên Pinterest máy tính -> Ấn nút 3 chấm (...) -> Lấy mã nhúng (Get embed code) và thay vào ID bên dưới:
-                </div>
-                
-                <!-- Thay dòng ID = dãy số của video Pinterest của bạn vào src bên dưới -->
-                <iframe src="https://assets.pinterest.com/ext/embed.html?id=123456789012345" height="520" width="100%" frameborder="0" scrolling="no" style="border-radius: 8px; max-width: 250px; background: #010409;"></iframe>
-            </div>
-
-            <button class="btn-terminal" onclick="switchTab('main')">
-                > cd .. (Quay về trang chính)
-            </button>
-        </div>
-
         <div class="footer">
             <span class="comment">// © 2026 Bùi Đức Thắng - System.Exit(0)</span>
         </div>
@@ -377,14 +334,11 @@
             }, 400); 
         }
 
-        // ================= XỬ LÝ TABS (BÂY GIỜ LÀ 3 TABS) =================
+        // ================= XỬ LÝ TABS =================
         function switchTab(tabId) {
-            // Xóa active tất cả các tab
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            // Ẩn tất cả các view
             document.querySelectorAll('.view-content').forEach(v => v.style.display = 'none');
 
-            // Bật tab và view được chọn
             document.getElementById('tab-' + tabId).classList.add('active');
             document.getElementById(tabId + '-view').style.display = 'block';
         }
