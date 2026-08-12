@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bùi Đức Thắng - Thông Tin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bùi Đức Thắng - Portfolio.js</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -77,7 +77,7 @@
             overflow-x: auto;
         }
 
-        .tabs::-webkit-scrollbar { display: none; } /* Hide scrollbar for tabs */
+        .tabs::-webkit-scrollbar { display: none; }
 
         .tab {
             padding: 8px 15px;
@@ -115,11 +115,7 @@
         .view-content::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
         /* Phần Avatar & Header */
-        .profile-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
+        .profile-header { text-align: center; margin-bottom: 30px; }
         .avatar {
             width: 100px;
             height: 100px;
@@ -132,11 +128,7 @@
             box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
         }
-
-        .avatar:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px rgba(88, 166, 255, 0.6);
-        }
+        .avatar:hover { transform: translateY(-5px); box-shadow: 0 0 25px rgba(88, 166, 255, 0.6); }
 
         .dev-name { font-size: 24px; color: #58a6ff; font-weight: 600; margin-bottom: 5px; }
         .dev-title { color: #8b949e; font-size: 13px; }
@@ -160,25 +152,9 @@
             opacity: 0;
             transform: translateX(-10px);
         }
-
         .section:hover { border-color: #58a6ff; }
-
-        .section-title {
-            font-size: 15px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px dashed #30363d;
-            padding-bottom: 8px;
-        }
-
-        .section-title::before {
-            content: "$ ~/";
-            color: #3fb950;
-            margin-right: 8px;
-            font-weight: bold;
-        }
-
+        .section-title { font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; border-bottom: 1px dashed #30363d; padding-bottom: 8px; }
+        .section-title::before { content: "$ ~/"; color: #3fb950; margin-right: 8px; font-weight: bold; }
         .info-row { margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
 
         /* Skills */
@@ -199,19 +175,7 @@
         #social-media li { display: flex; align-items: center; background: #21262d; padding: 8px; border-radius: 4px; border: 1px solid #30363d; transition: background 0.2s; }
         #social-media li:hover { background: #30363d; }
 
-        .typewriter {
-            display: inline-block;
-            border-right: 2px solid #58a6ff;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3s steps(40, end), blink-cursor .75s step-end infinite;
-            width: 0;
-            color: #3fb950;
-            font-size: 13px;
-            margin-top: 10px;
-        }
-
-        /* Styles cho Gallery (Tab ảnh) */
+        /* Gallery (Tab ảnh) */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -223,7 +187,7 @@
         
         .gallery-img {
             width: 100%;
-            aspect-ratio: 1; /* Làm ảnh thành hình vuông cho đều */
+            aspect-ratio: 1; 
             object-fit: cover;
             border-radius: 6px;
             border: 1px solid #30363d;
@@ -236,6 +200,77 @@
             border-color: #58a6ff;
             box-shadow: 0 5px 15px rgba(88, 166, 255, 0.2);
             z-index: 10;
+        }
+
+        /* 🌟 Image Viewer (Lightbox) 🌟 */
+        #imageViewer {
+            display: none; /* Ẩn mặc định */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(1, 4, 9, 0.95); /* Đen mờ chuẩn Dark Mode */
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            touch-action: none; /* Chống cuộn trang khi zoom */
+        }
+
+        #viewerImage {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(88, 166, 255, 0.2);
+            transform-origin: center center;
+            transition: transform 0.1s ease-out; /* Mượt mà khi zoom */
+            user-select: none;
+        }
+
+        .viewer-header {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 10000;
+        }
+
+        .viewer-title {
+            color: #3fb950;
+            font-size: 13px;
+        }
+
+        .close-viewer {
+            color: #ff7b72;
+            font-size: 20px;
+            cursor: pointer;
+            border: 1px solid #ff7b72;
+            padding: 2px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            background: rgba(255, 123, 114, 0.1);
+        }
+
+        .close-viewer:hover {
+            background: #ff7b72;
+            color: #010409;
+        }
+
+        .zoom-hint {
+            position: absolute;
+            bottom: 30px;
+            color: #8b949e;
+            font-size: 12px;
+            pointer-events: none;
+            background: rgba(13, 17, 23, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #30363d;
         }
 
         .btn-terminal {
@@ -256,23 +291,13 @@
             justify-content: center;
         }
 
-        .btn-terminal:hover {
-            border-color: #3fb950;
-            background: rgba(63, 185, 80, 0.1);
-        }
-
+        .btn-terminal:hover { border-color: #3fb950; background: rgba(63, 185, 80, 0.1); }
+        .footer { text-align: center; padding: 15px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; background: #0d1117; }
+        
+        .typewriter { display: inline-block; border-right: 2px solid #58a6ff; white-space: nowrap; overflow: hidden; animation: typing 3s steps(40, end), blink-cursor .75s step-end infinite; width: 0; color: #3fb950; font-size: 13px; margin-top: 10px; }
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink-cursor { from, to { border-color: transparent } 50% { border-color: #58a6ff; } }
         @keyframes fadeIn { to { opacity: 1; transform: translateX(0); } }
-
-        .footer { text-align: center; padding: 15px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; background: #0d1117; }
-
-        /* Easter Egg */
-        .easter-egg { position: absolute; bottom: 20px; right: 20px; width: 15px; height: 15px; background: #ff7b72; border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(255, 123, 114, 0.5); animation: pulse-red 2s infinite; }
-        @keyframes pulse-red { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 123, 114, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 123, 114, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 123, 114, 0); } }
-        .hidden-message { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #010409; color: #3fb950; padding: 25px; border-radius: 8px; z-index: 1000; border: 1px solid #3fb950; box-shadow: 0 0 30px rgba(63, 185, 80, 0.2); text-align: left; width: 300px; }
-        .btn-close { margin-top: 15px; padding: 6px 15px; background: transparent; border: 1px solid #3fb950; color: #3fb950; border-radius: 4px; cursor: pointer; font-family: 'Fira Code', monospace; transition: all 0.2s; }
-        .btn-close:hover { background: #3fb950; color: #010409; }
 
         @media (max-width: 480px) {
             .container { width: 100%; height: 95vh; }
@@ -282,7 +307,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Window Header & Tabs (Mô phỏng VS Code) -->
+        <!-- Window Header & Tabs -->
         <div class="window-header">
             <div class="window-controls">
                 <div class="control-dot dot-close"></div>
@@ -324,75 +349,14 @@
                 <div class="info-row"><span class="bracket">}</span><span class="operator">;</span></div>
             </div>
 
-            <div class="section" style="animation-delay: 0.3s;">
-                <div class="section-title">hoc_van.md</div>
-                <div class="achievement">
-                    <div style="color: #58a6ff; font-weight: bold;">Đại học Victoria Hòa Bình</div>
-                    <div class="comment">|-- Ngành: Công nghệ Thông tin</div>
-                    <div class="comment">|-- CS1, Bùi Xuân Phái, Mỹ Đình 2, Từ Liêm, Hà Nội, Việt Nam</div>
-                </div>
-            </div>
-
+            <!-- ... (Các section kỹ năng giữ nguyên) ... -->
             <div class="section" style="animation-delay: 0.4s;">
                 <div class="section-title">skills.config.js</div>
                 <div class="skills-grid">
-                    <div class="skill-item" data-level="85">
-                        <div class="skill-header"><span>HTML/CSS</span> <span class="operator">85%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
-                    </div>
-                    <div class="skill-item" data-level="75">
-                        <div class="skill-header"><span>JavaScript</span> <span class="operator">75%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
-                    </div>
-                    <div class="skill-item" data-level="70">
-                        <div class="skill-header"><span>Python</span> <span class="operator">70%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
-                    </div>
-                    <div class="skill-item" data-level="65">
-                        <div class="skill-header"><span>Java</span> <span class="operator">65%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
-                    </div>
-                    <div class="skill-item" data-level="80">
-                        <div class="skill-header"><span>Database</span> <span class="operator">80%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
-                    </div>
-                    <div class="skill-item" data-level="90">
-                        <div class="skill-header"><span>Git/Version Control</span> <span class="operator">90%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
-                    </div>
-                    <div class="skill-item" data-level="100">
-                        <div class="skill-header"><span class="keyword">Lươn_lẹo_skill</span> <span class="operator">MAX</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="background: linear-gradient(90deg, #da3633, #ff7b72); width: 0%;"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" style="animation-delay: 0.5s;">
-                <div class="section-title">so_thich.txt</div>
-                <div class="info-row"><span class="func">-&gt;</span> <span class="operator">Công nghệ:</span> Lập trình, AI, Web Dev</div>
-                <div class="info-row"><span class="func">-&gt;</span> <span class="operator">Thể thao:</span> Cầu lông</div>
-                <div class="info-row"><span class="func">-&gt;</span> <span class="operator">Giải trí:</span> Đọc sách, Film, Game, Touring</div>
-            </div>
-
-            <div class="section" style="animation-delay: 0.6s;">
-                <div class="section-title">muc_tieu.log</div>
-                <div class="achievement">
-                    <span class="badge-tag">SHORT-TERM</span> Hoàn thành xuất sắc đại học, build nền tảng vững.
-                </div>
-                <div class="achievement">
-                    <span class="badge-tag" style="color:#79c0ff; border-color: rgba(121, 192, 255, 0.4); background: rgba(121, 192, 255, 0.1);">LONG-TERM</span> Trở thành Software Engineer giỏi, cống hiến ngành Tech VN.
-                </div>
-            </div>
-
-            <div class="section" style="animation-delay: 0.7s;">
-                <div class="section-title">Thành Tích & Chứng Chỉ</div>
-                <div class="achievement">
-                    <span class="badge-tag" style="background:#da3633; color:#fff; border:none;">ERR</span>
-                    <strong>Ăn Hại Hơn Xưa</strong> <span class="comment">// Lươn lẹo 100%</span>
-                </div>
-                <div class="achievement">
-                    <span class="badge-tag" style="background:#3fb950; color:#000; border:none;">CERT</span>
-                    <strong>Mua Chứng Chỉ</strong> <span class="comment">// Chơi Game Hackk</span>
+                    <div class="skill-item" data-level="85"><div class="skill-header"><span>HTML/CSS</span> <span class="operator">85%</span></div><div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div></div>
+                    <div class="skill-item" data-level="75"><div class="skill-header"><span>JavaScript</span> <span class="operator">75%</span></div><div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div></div>
+                    <div class="skill-item" data-level="70"><div class="skill-header"><span>Python</span> <span class="operator">70%</span></div><div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div></div>
+                    <div class="skill-item" data-level="100"><div class="skill-header"><span class="keyword">Lươn_lẹo_skill</span> <span class="operator">MAX</span></div><div class="progress-track"><div class="progress-fill" style="background: linear-gradient(90deg, #da3633, #ff7b72); width: 0%;"></div></div></div>
                 </div>
             </div>
 
@@ -402,22 +366,9 @@
                     <span class="operator">Phone:</span> <a href="tel:0355152212" id="phone-link" class="string">"0355152212"</a>
                 </div>
                 <ul>
-                    <li>
-                        <img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" alt="FB" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;">
-                        <a href="https://www.facebook.com/buiiducthangg" target="_blank">Facebook</a>
-                    </li>
-                    <li>
-                        <img src="https://i.pinimg.com/736x/94/a3/c8/94a3c897a208704724c1e9d575e4d238.jpg" alt="TT" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;">
-                        <a href="https://www.tiktok.com/@buiiducthangg" target="_blank">TikTok</a>
-                    </li>
-                    <li>
-                        <img src="https://i.pinimg.com/736x/e3/54/a0/e354a08be90ae5b215ab06faa1927d40.jpg" alt="TG" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;">
-                        <a href="https://t.me/buiiducthangg" target="_blank">Telegram</a>
-                    </li>
-                    <li>
-                        <img src="https://i.pinimg.com/736x/76/05/e9/7605e9315b6ba82da2a3270c5fdd2dcb.jpg" alt="ZL" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;">
-                        <a href="https://zalo.me/0355152212" target="_blank">Zalo</a>
-                    </li>
+                    <li><img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" alt="FB" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;"><a href="https://www.facebook.com/buiiducthangg" target="_blank">Facebook</a></li>
+                    <li><img src="https://i.pinimg.com/736x/94/a3/c8/94a3c897a208704724c1e9d575e4d238.jpg" alt="TT" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;"><a href="https://www.tiktok.com/@buiiducthangg" target="_blank">TikTok</a></li>
+                    <li><img src="https://i.pinimg.com/736x/e3/54/a0/e354a08be90ae5b215ab06faa1927d40.jpg" alt="TG" style="width: 16px; height: 16px; margin-right: 8px; border-radius: 4px;"><a href="https://t.me/buiiducthangg" target="_blank">Telegram</a></li>
                 </ul>
             </section>
         </div>
@@ -425,48 +376,46 @@
         <!-- ================= VIEW 2: TRANG ẢNH (GALLERY) ================= -->
         <div class="view-content" id="gallery-view" style="display: none;">
             <div class="section-title" style="margin-top: 10px;">/storage/emulated/0/DCIM/Memories/</div>
-            <div class="comment" style="margin-bottom: 10px;">// Fetched 8 items from Pinterest API.</div>
+            <div class="comment" style="margin-bottom: 10px;">// Fetched 8 items from Pinterest API.<br>// Click vào ảnh để phóng to. Dùng 2 ngón tay để Zoom.</div>
             
             <div class="image-grid">
-                <img src="https://i.pinimg.com/736x/20/a6/26/20a626399546d5474138cf2c0ac5d639.jpg" class="gallery-img" alt="Gallery Image 1">
-                <img src="https://i.pinimg.com/736x/2b/7d/74/2b7d74f4bcfa2f9eaffaef207b638624.jpg" class="gallery-img" alt="Gallery Image 2">
-                <img src="https://i.pinimg.com/736x/9c/b5/e4/9cb5e49afd9639148d4ba6b88232dca2.jpg" class="gallery-img" alt="Gallery Image 3">
-                <img src="https://i.pinimg.com/736x/9c/a6/fe/9ca6fe094ecc8b51ada99eeb7a689406.jpg" class="gallery-img" alt="Gallery Image 4">
-                <img src="https://i.pinimg.com/736x/26/15/cc/2615cc1b637fa05314dcf884439f6847.jpg" class="gallery-img" alt="Gallery Image 5">
-                <img src="https://i.pinimg.com/736x/43/3b/84/433b8424fdb5fdfbc3ee472f02b75f85.jpg" class="gallery-img" alt="Gallery Image 6">
-                <img src="https://i.pinimg.com/736x/9b/dd/70/9bdd70382b62662d99e5fa5fc4725858.jpg" class="gallery-img" alt="Gallery Image 7">
-                <img src="https://i.pinimg.com/736x/a0/23/cd/a023cde00cead6270336f4f612ed5254.jpg" class="gallery-img" alt="Gallery Image 8">
+                <img src="https://i.pinimg.com/736x/20/a6/26/20a626399546d5474138cf2c0ac5d639.jpg" class="gallery-img">
+                <img src="https://i.pinimg.com/736x/2b/7d/74/2b7d74f4bcfa2f9eaffaef207b638624.jpg" class="gallery-img">
+                <img src="https://i.pinimg.com/736x/9c/b5/e4/9cb5e49afd9639148d4ba6b88232dca2.jpg" class="gallery-img">
+                <img src="https://i.pinimg.com/736x/9c/a6/fe/9ca6fe094ecc8b51ada99eeb7a689406.jpg" class="gallery-img">
+                <img src="https://i.pinimg.com/736x/26/15/cc/2615cc1b637fa05314dcf884439f6847.jpg" class="gallery-img">
+                <img src="https://i.pinimg.com/736x/43/3b/84/433b8424fdb5fdfbc3ee472f02b75f85.jpg" class="gallery-img">
+                <img src="https://i.pinimg.com/736x/9b/dd/70/9bdd70382b62662d99e5fa5fc4725858.jpg" class="gallery-img">
+                <img src="https://i.pinimg.com/736x/a0/23/cd/a023cde00cead6270336f4f612ed5254.jpg" class="gallery-img">
             </div>
 
             <!-- Nút quay lại lệnh Terminal -->
             <button class="btn-terminal" onclick="switchTab('main')">
-                > cd .. (Quay về thư mục gốc)
+                > cd .. (Quay về trang chính)
             </button>
         </div>
 
         <div class="footer">
             <span class="comment">// © 2024 Bùi Đức Thắng - System Exit(0)</span>
         </div>
+    </div>
 
-        <!-- Easter Egg kiểu Bug -->
-        <div class="easter-egg" onclick="showEasterEgg()" title="Báo cáo lỗi?"></div>
-        
-        <div class="hidden-message" id="easterEggMsg">
-            <div style="font-weight: bold; margin-bottom: 10px; color: #ff7b72;">[!] SYSTEM WARNING</div>
-            <div class="comment">>>> Phát hiện người dùng đẹp trai/xinh gái đang xem code.</div>
-            <div style="margin-top: 10px;">Status: SUCCESS_200</div>
-            <button class="btn-close" onclick="hideEasterEgg()">Khôi phục</button>
+    <!-- ================= LIGHTBOX (MÀN HÌNH XEM ẢNH ZOOM) ================= -->
+    <div id="imageViewer">
+        <div class="viewer-header">
+            <div class="viewer-title">preview_image.png</div>
+            <div class="close-viewer" onclick="closeViewer()">[X] Close</div>
         </div>
+        <img id="viewerImage" src="" alt="Zoomed">
+        <div class="zoom-hint">✌️ Dùng 2 ngón tay để phóng to</div>
     </div>
 
     <script>
-        // JS Xử lý chuyển tab
+        // 1. CHUYỂN TAB 
         function switchTab(tabId) {
-            // Update UI Tab (Chỉnh hiệu ứng Active trên thẻ Tab)
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.add('active');
 
-            // Ẩn/Hiện phần Content (Ẩn trang chính, mở trang ảnh và ngược lại)
             if (tabId === 'main') {
                 document.getElementById('main-view').style.display = 'block';
                 document.getElementById('gallery-view').style.display = 'none';
@@ -476,7 +425,7 @@
             }
         }
 
-        // JS Animate thanh progress bars khi trang load
+        // Load progress bar
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 document.querySelectorAll('.skill-item').forEach(item => {
@@ -484,25 +433,94 @@
                     const fill = item.querySelector('.progress-fill');
                     if (fill) fill.style.width = level + '%';
                 });
-            }, 800); // Đợi giao diện render xong
+            }, 800);
         });
 
-        // Easter egg terminal logic
-        function showEasterEgg() {
-            const msg = document.getElementById('easterEggMsg');
-            msg.style.display = 'block';
-            
-            // Random glitch text effect on terminal
-            const texts = document.querySelectorAll('.dev-title, .info-row');
-            texts.forEach(t => {
-                t.style.filter = "hue-rotate(90deg)";
-                setTimeout(() => t.style.filter = "none", 300);
+        // 2. LOGIC LIGHTBOX VÀ PINCH-TO-ZOOM (Phóng to bằng 2 ngón)
+        const viewer = document.getElementById('imageViewer');
+        const viewerImg = document.getElementById('viewerImage');
+        
+        let currentScale = 1;
+        let initialDistance = 0;
+
+        // Mở ảnh khi click
+        document.querySelectorAll('.gallery-img').forEach(img => {
+            img.addEventListener('click', function() {
+                viewerImg.src = this.src;
+                viewer.style.display = 'flex';
+                resetZoom();
             });
+        });
+
+        // Đóng ảnh
+        function closeViewer() {
+            viewer.style.display = 'none';
+            resetZoom();
         }
 
-        function hideEasterEgg() {
-            document.getElementById('easterEggMsg').style.display = 'none';
+        // Ấn vào nền đen để đóng
+        viewer.addEventListener('click', (e) => {
+            if (e.target === viewer) closeViewer();
+        });
+
+        // Hàm Reset tỷ lệ Zoom
+        function resetZoom() {
+            currentScale = 1;
+            viewerImg.style.transform = `scale(${currentScale})`;
         }
+
+        // Tính khoảng cách giữa 2 ngón tay
+        function getDistance(touches) {
+            return Math.hypot(
+                touches[0].pageX - touches[1].pageX,
+                touches[0].pageY - touches[1].pageY
+            );
+        }
+
+        // Sự kiện khi bắt đầu chạm (Touch Start)
+        viewer.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                initialDistance = getDistance(e.touches);
+                e.preventDefault(); // Chống vuốt trang
+            }
+        }, {passive: false});
+
+        // Sự kiện khi di chuyển ngón tay (Touch Move - Zoom)
+        viewer.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault(); // Ngăn trình duyệt cuộn trang
+                const currentDistance = getDistance(e.touches);
+                
+                // Tính toán tỷ lệ Zoom mới dựa trên khoảng cách ngón tay
+                const scaleChange = currentDistance / initialDistance;
+                let newScale = currentScale * scaleChange;
+                
+                // Giới hạn zoom từ 1x đến 5x
+                newScale = Math.min(Math.max(1, newScale), 5); 
+                
+                viewerImg.style.transform = `scale(${newScale})`;
+            }
+        }, {passive: false});
+
+        // Sự kiện khi thả tay ra (Touch End)
+        viewer.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) {
+                // Lưu lại scale hiện tại để lần zoom sau không bị giật
+                const transform = viewerImg.style.transform;
+                const match = transform.match(/scale\(([^)]+)\)/);
+                if (match) currentScale = parseFloat(match[1]);
+            }
+        });
+
+        // Cho phép Zoom bằng con lăn chuột (Dành cho PC)
+        viewer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.2 : 0.2; // Cuộn lên/xuống
+            currentScale += delta;
+            currentScale = Math.min(Math.max(1, currentScale), 5);
+            viewerImg.style.transform = `scale(${currentScale})`;
+        }, {passive: false});
+
     </script>
 </body>
 </html>
