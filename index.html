@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bùi Đức Thắng - Portfolio.js</title>
+    <title>Bùi Đức Thắng - Thông Tin</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,9 +54,10 @@
         
         .file-icon-js { color: #f1e05a; font-weight: bold; } 
         .file-icon-img { color: #a5d6ff; font-weight: bold; }
-        .file-icon-admin { color: #ff7b72; font-weight: bold; } /* Icon cho tab ẩn */
+        .file-icon-admin { color: #ff7b72; font-weight: bold; }
 
-        /* Unlock Animation */
+        .hidden-tab { display: none !important; }
+
         @keyframes unlockTab { 0% { opacity: 0; transform: translateY(-10px); background: #ff7b72;} 100% { opacity: 1; transform: translateY(0); } }
 
         .view-content { padding: 20px; overflow-y: auto; flex: 1; height: 100%; }
@@ -74,10 +75,9 @@
             background-image: url('https://i.pinimg.com/736x/b7/2c/45/b72c45148ca44570fc75d09e936ff89f.jpg'); 
             background-size: cover; background-position: center; 
             box-shadow: 0 0 15px rgba(88, 166, 255, 0.3); 
-            transition: transform 0.1s; /* Giảm thời gian để click 3 lần mượt hơn */
-            cursor: pointer; /* Hiệu ứng ngón tay khi trỏ vào */
+            transition: transform 0.1s; cursor: pointer;
         }
-        .avatar:active { transform: scale(0.9); } /* Hiệu ứng lún khi click */
+        .avatar:active { transform: scale(0.9); } 
         
         .dev-name { font-size: clamp(20px, 4vw, 24px); color: #58a6ff; font-weight: 600; margin-bottom: 5px; }
         .dev-title { color: #8b949e; font-size: clamp(12px, 2.5vw, 14px); }
@@ -93,15 +93,7 @@
         .info-row { margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
 
         /* Secret Analytics Box */
-        .analytics-box {
-            background: rgba(255, 123, 114, 0.05);
-            border: 1px solid #ff7b72;
-            border-radius: 6px;
-            padding: 20px;
-            font-size: 13px;
-            color: #c9d1d9;
-            box-shadow: inset 0 0 20px rgba(255, 123, 114, 0.1);
-        }
+        .analytics-box { background: rgba(255, 123, 114, 0.05); border: 1px solid #ff7b72; border-radius: 6px; padding: 20px; font-size: 13px; color: #c9d1d9; box-shadow: inset 0 0 20px rgba(255, 123, 114, 0.1); }
         .analytics-title { color: #ff7b72; font-weight: bold; margin-bottom: 15px; font-size: 16px; display: flex; align-items: center;}
         .analytics-title::before { content: "⚠️"; margin-right: 8px; }
 
@@ -129,7 +121,63 @@
         .typewriter { display: inline-block; border-right: 2px solid #58a6ff; white-space: nowrap; overflow: hidden; animation: typing 3s steps(40, end), blink-cursor .75s step-end infinite; width: 0; color: #3fb950; font-size: 13px; margin-top: 10px; }
         .btn-terminal { background: #21262d; color: #3fb950; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 13px; cursor: pointer; display: flex; justify-content: center; width: 100%; transition: all 0.2s; margin-bottom: 25px;}
         .btn-terminal:hover { border-color: #3fb950; background: rgba(63, 185, 80, 0.1); }
-        .footer { text-align: center; padding: 10px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; background: #010409; flex-shrink: 0;}
+
+        /* ================= VS CODE STATUS BAR & MUSIC PLAYER ================= */
+        .status-bar {
+            background-color: #007acc; /* Màu xanh chuẩn VS Code */
+            color: #ffffff;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 15px;
+            flex-shrink: 0;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            user-select: none;
+        }
+
+        .status-left, .status-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Nút phát nhạc */
+        .music-player {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.2s;
+        }
+
+        .music-player:hover { background: rgba(255, 255, 255, 0.25); }
+
+        .play-icon { margin-right: 8px; font-size: 10px;}
+        .song-name { max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px;}
+
+        /* Hiệu ứng sóng nhạc (Visualizer) */
+        .audio-bars {
+            display: none; /* Ẩn khi chưa Play */
+            align-items: flex-end;
+            gap: 2px;
+            height: 12px;
+            margin-right: 8px;
+        }
+        .audio-bar { width: 3px; background-color: #fff; animation: dance 0.5s ease-in-out infinite alternate; border-radius: 2px;}
+        .audio-bar:nth-child(1) { animation-delay: 0.1s; }
+        .audio-bar:nth-child(2) { animation-delay: 0.3s; }
+        .audio-bar:nth-child(3) { animation-delay: 0.0s; }
+        .audio-bar:nth-child(4) { animation-delay: 0.2s; }
+
+        @keyframes dance { 0% { height: 3px; } 100% { height: 12px; } }
+
+        /* Bố cục icon nhỏ góc phải */
+        .status-item { display: flex; align-items: center; gap: 5px; cursor: pointer; transition: color 0.2s; opacity: 0.9;}
+        .status-item:hover { opacity: 1; color: #ffd33d; }
 
         /* Lightbox */
         #imageViewer { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(1, 4, 9, 0.95); backdrop-filter: blur(5px); align-items: center; justify-content: center; touch-action: none; }
@@ -148,6 +196,9 @@
             body { padding: 0; }
             .container { width: 100vw; height: 100vh; max-width: none; border-radius: 0; border: none; resize: none; }
             .image-grid { grid-template-columns: repeat(3, 1fr); }
+            .status-bar { border-radius: 0; padding: 8px 10px;}
+            .song-name { max-width: 100px; }
+            .hide-mobile { display: none; } /* Ẩn bớt info trên mobile cho gọn */
         }
 
         @keyframes typing { from { width: 0 } to { width: 100% } }
@@ -180,8 +231,8 @@
                     <span class="file-icon-img">🖼️</span> gallery.png
                 </div>
                 
-                <!-- TAB ẨN: ADMIN LOG (Mặc định không hiển thị) -->
-                <div class="tab" id="tab-admin" style="display: none;" onclick="switchTab('admin')">
+                <!-- TAB ẨN -->
+                <div class="tab hidden-tab" id="tab-admin" onclick="switchTab('admin')">
                     <span class="file-icon-admin">🔒</span> admin.log
                 </div>
             </div>
@@ -190,10 +241,10 @@
         <!-- VIEW 1: TRANG CHÍNH -->
         <div class="view-content" id="main-view">
             <div class="profile-header">
-                <!-- THÊM SỰ KIỆN CLICK VÀO AVATAR -->
+                <!-- Click Avatar 3 lần để mở khóa bí mật -->
                 <div class="avatar" onclick="handleSecretClick()" title="Nhấp 3 lần để mở khóa bí mật"></div>
                 <div class="dev-name">&lt;Bùi Đức Thắng /&gt;</div>
-                <div class="dev-title"><span class="comment">// IT Student @ Victoria Hoa Binh Univ</span></div>
+                <div class="dev-title"><span class="comment">// Sinh Vien DH Victoria Hoa Binh </span></div>
                 <div class="typewriter">&gt; Nhập lệnh "Học hỏi không ngừng"..._</div>
             </div>
 
@@ -316,8 +367,41 @@
             </button>
         </div>
 
-        <div class="footer">
-            <span class="comment">// © 2026 Bùi Đức Thắng - System.Exit(0)</span>
+        <!-- STATUS BAR (THAY THẾ CHÂN TRANG CŨ) -->
+        <div class="status-bar">
+            <!-- Khu vực Music Player bên trái -->
+            <div class="status-left">
+                <!-- Thẻ audio ẩn chứa nhạc Lo-fi miễn phí -->
+                <audio id="bg-music" loop>
+                    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+                </audio>
+
+                <div class="music-player" onclick="toggleMusic()" title="Phát nhạc Lo-fi">
+                    <span id="music-icon" class="play-icon">▶</span>
+                    
+                    <!-- Hiệu ứng sóng nhạc nhảy múa -->
+                    <div class="audio-bars" id="audio-visualizer">
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                    </div>
+
+                    <span id="music-text" class="song-name">Lofi Coding Vibes - Paused</span>
+                </div>
+            </div>
+
+            <!-- Các thông số ảo bên phải (Mô phỏng VS Code) -->
+            <div class="status-right hide-mobile">
+                <div class="status-item" title="0 Lỗi, 0 Cảnh báo">
+                    <span style="color: #c9d1d9;">✖ 0 ⚠ 0</span>
+                </div>
+                <div class="status-item">UTF-8</div>
+                <div class="status-item">
+                    <span style="color: #f1e05a;">{ }</span> JavaScript
+                </div>
+                <div class="status-item">Prettier</div>
+            </div>
         </div>
     </div>
 
@@ -331,6 +415,28 @@
     </div>
 
     <script>
+        // ================= XỬ LÝ MUSIC PLAYER =================
+        const music = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        const musicText = document.getElementById('music-text');
+        const visualizer = document.getElementById('audio-visualizer');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicIcon.innerText = '▶';
+                musicText.innerText = 'Lofi Coding Vibes - Paused';
+                visualizer.style.display = 'none'; // Tắt sóng nhạc
+            } else {
+                music.play();
+                musicIcon.innerText = '⏸';
+                musicText.innerText = 'Playing... Lofi Beat';
+                visualizer.style.display = 'flex'; // Bật sóng nhạc
+            }
+            isPlaying = !isPlaying;
+        }
+
         // ================= XỬ LÝ SỰ KIỆN MỞ KHÓA BÍ MẬT =================
         let avatarClicks = 0;
         let clickTimer;
@@ -339,53 +445,37 @@
             avatarClicks++;
             clearTimeout(clickTimer);
             
-            // Nếu click đủ 3 lần
             if(avatarClicks === 3) {
-                // Hiển thị Tab ẩn
                 const adminTab = document.getElementById('tab-admin');
-                adminTab.style.display = 'flex';
+                adminTab.classList.remove('hidden-tab');
                 adminTab.style.animation = 'unlockTab 0.5s ease forwards';
                 
-                // Tự động chuyển sang Tab Admin luôn
                 switchTab('admin');
-                
-                // Kích hoạt lấy IP và Lượt xem ngay lập tức
                 fetchSystemAnalytics();
                 
-                // Reset counter
                 avatarClicks = 0;
             }
             
-            // Nếu ngưng click quá 1 giây thì reset lại từ đầu (Tránh click vô tình)
-            clickTimer = setTimeout(() => {
-                avatarClicks = 0;
-            }, 1000); 
+            clickTimer = setTimeout(() => { avatarClicks = 0; }, 1000); 
         }
 
-        // FETCH ANALYTICS (Gọi API đếm lượt xem + IP)
+        // ================= FETCH ANALYTICS (Gọi API đếm lượt xem + IP) =================
         let isAnalyticsLoaded = false;
         function fetchSystemAnalytics() {
-            if (isAnalyticsLoaded) return; // Tránh gọi API nhiều lần nếu đã tải xong
+            if (isAnalyticsLoaded) return;
             isAnalyticsLoaded = true;
 
-            // 1. Soi Thiết Bị
             const ua = navigator.userAgent;
             let deviceType = "Desktop / PC";
             if (/android/i.test(ua)) deviceType = "Mobile (Android)";
             else if (/iPhone|iPad|iPod/i.test(ua)) deviceType = "Mobile (iOS - iPhone)";
             document.getElementById('user-device').innerText = deviceType;
 
-            // 2. Tăng +1 Lượt Xem Real-Time qua API Counter (Mỗi lần load trang là +1)
             fetch('https://api.counterapi.dev/v1/buiiducthangg_portfolio/visits/up')
                 .then(res => res.json())
-                .then(data => {
-                    document.getElementById('visit-count').innerText = data.value + " lượt";
-                })
-                .catch(() => {
-                    document.getElementById('visit-count').innerText = "1,024 lượt (Chế độ Offline)";
-                });
+                .then(data => { document.getElementById('visit-count').innerText = data.value + " lượt"; })
+                .catch(() => { document.getElementById('visit-count').innerText = "1,024 lượt (Offline)"; });
 
-            // 3. Lấy Vị Trí & IP công khai
             fetch('https://ipapi.co/json/')
                 .then(res => res.json())
                 .then(data => {
@@ -400,7 +490,6 @@
                 });
         }
 
-        // Tự động +1 lượt xem ngầm khi vừa vào web (Dù chưa mở tab Admin)
         window.addEventListener('load', () => {
             fetch('https://api.counterapi.dev/v1/buiiducthangg_portfolio/visits/up').catch(e => e);
         });
@@ -443,7 +532,6 @@
         }
         runBootSequence();
 
-        // ================= XỬ LÝ TABS & PROGRESS BAR =================
         function triggerProgressBars() {
             setTimeout(() => {
                 document.querySelectorAll('.skill-item').forEach(item => {
@@ -477,7 +565,6 @@
 
         function closeViewer() { viewer.style.display = 'none'; }
         viewer.addEventListener('click', (e) => { if (e.target === viewer) closeViewer(); });
-
         function getDistance(touches) { return Math.hypot(touches[0].pageX - touches[1].pageX, touches[0].pageY - touches[1].pageY); }
 
         viewer.addEventListener('touchstart', (e) => { if (e.touches.length === 2) { initialDistance = getDistance(e.touches); e.preventDefault(); } }, {passive: false});
