@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bùi Đức Thắng - Thông Tin</title>
+    <title>Bùi Đức Thắng - Portfolio.js</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,6 +37,7 @@
             display: none; flex-direction: column;
             animation: bootUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             resize: both; overflow: hidden; min-width: 320px; min-height: 400px;
+            position: relative;
         }
 
         @keyframes bootUp { 0% { transform: scale(0.95) translateY(20px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
@@ -124,7 +125,7 @@
 
         /* ================= VS CODE STATUS BAR & MUSIC PLAYER ================= */
         .status-bar {
-            background-color: #007acc; /* Màu xanh chuẩn VS Code */
+            background-color: #007acc;
             color: #ffffff;
             font-size: 12px;
             display: flex;
@@ -135,47 +136,65 @@
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
             user-select: none;
+            position: relative; /* Để neo cái menu playlist */
         }
 
-        .status-left, .status-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .status-left, .status-right { display: flex; align-items: center; gap: 15px; }
+
+        /* Nút phát nhạc & Playlist Toggle */
+        .music-controls { display: flex; align-items: center; gap: 5px; }
+        
+        .music-btn {
+            display: flex; align-items: center; cursor: pointer; padding: 2px 8px;
+            border-radius: 4px; background: rgba(255, 255, 255, 0.1); transition: background 0.2s;
         }
-
-        /* Nút phát nhạc */
-        .music-player {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: background 0.2s;
-        }
-
-        .music-player:hover { background: rgba(255, 255, 255, 0.25); }
-
+        .music-btn:hover { background: rgba(255, 255, 255, 0.25); }
         .play-icon { margin-right: 8px; font-size: 10px;}
         .song-name { max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px;}
 
-        /* Hiệu ứng sóng nhạc (Visualizer) */
-        .audio-bars {
-            display: none; /* Ẩn khi chưa Play */
-            align-items: flex-end;
-            gap: 2px;
-            height: 12px;
-            margin-right: 8px;
+        /* Popup Playlist (Menu chọn nhạc) */
+        .playlist-popup {
+            position: absolute;
+            bottom: 35px; /* Nổi lên từ status bar */
+            left: 10px;
+            background: #252526;
+            border: 1px solid #454545;
+            border-radius: 6px;
+            width: 250px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
         }
-        .audio-bar { width: 3px; background-color: #fff; animation: dance 0.5s ease-in-out infinite alternate; border-radius: 2px;}
-        .audio-bar:nth-child(1) { animation-delay: 0.1s; }
-        .audio-bar:nth-child(2) { animation-delay: 0.3s; }
-        .audio-bar:nth-child(3) { animation-delay: 0.0s; }
-        .audio-bar:nth-child(4) { animation-delay: 0.2s; }
+        .playlist-popup.show { display: flex; animation: slideUp 0.2s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        .playlist-header { padding: 8px 12px; font-weight: bold; font-size: 11px; color: #8b949e; border-bottom: 1px solid #454545; background: #1e1e1e; }
+        .playlist-list { max-height: 200px; overflow-y: auto; }
+        .playlist-list::-webkit-scrollbar { width: 4px; }
+        .playlist-list::-webkit-scrollbar-thumb { background: #454545; border-radius: 2px; }
+        
+        .playlist-item {
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #cccccc;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        .playlist-item:hover { background: #04395e; color: #ffffff; }
+        .playlist-item.active { background: #007acc; color: #ffffff; }
+        .playlist-item::before { content: "♪"; margin-right: 10px; font-size: 10px; opacity: 0.5; }
+
+        /* Hiệu ứng sóng nhạc (Visualizer) */
+        .audio-bars { display: none; align-items: flex-end; gap: 2px; height: 12px; margin-right: 8px; }
+        .audio-bar { width: 3px; background-color: #fff; animation: dance 0.5s ease-in-out infinite alternate; border-radius: 2px;}
+        .audio-bar:nth-child(1) { animation-delay: 0.1s; } .audio-bar:nth-child(2) { animation-delay: 0.3s; }
+        .audio-bar:nth-child(3) { animation-delay: 0.0s; } .audio-bar:nth-child(4) { animation-delay: 0.2s; }
         @keyframes dance { 0% { height: 3px; } 100% { height: 12px; } }
 
-        /* Bố cục icon nhỏ góc phải */
         .status-item { display: flex; align-items: center; gap: 5px; cursor: pointer; transition: color 0.2s; opacity: 0.9;}
         .status-item:hover { opacity: 1; color: #ffd33d; }
 
@@ -197,8 +216,8 @@
             .container { width: 100vw; height: 100vh; max-width: none; border-radius: 0; border: none; resize: none; }
             .image-grid { grid-template-columns: repeat(3, 1fr); }
             .status-bar { border-radius: 0; padding: 8px 10px;}
-            .song-name { max-width: 100px; }
-            .hide-mobile { display: none; } /* Ẩn bớt info trên mobile cho gọn */
+            .song-name { max-width: 90px; }
+            .hide-mobile { display: none; }
         }
 
         @keyframes typing { from { width: 0 } to { width: 100% } }
@@ -230,7 +249,6 @@
                 <div class="tab" id="tab-gallery" onclick="switchTab('gallery')">
                     <span class="file-icon-img">🖼️</span> gallery.png
                 </div>
-                
                 <!-- TAB ẨN -->
                 <div class="tab hidden-tab" id="tab-admin" onclick="switchTab('admin')">
                     <span class="file-icon-admin">🔒</span> admin.log
@@ -241,10 +259,9 @@
         <!-- VIEW 1: TRANG CHÍNH -->
         <div class="view-content" id="main-view">
             <div class="profile-header">
-                <!-- Click Avatar 3 lần để mở khóa bí mật -->
                 <div class="avatar" onclick="handleSecretClick()" title="Nhấp 3 lần để mở khóa bí mật"></div>
                 <div class="dev-name">&lt;Bùi Đức Thắng /&gt;</div>
-                <div class="dev-title"><span class="comment">// Sinh Vien DH Victoria Hoa Binh </span></div>
+                <div class="dev-title"><span class="comment">// IT Student @ Victoria Hoa Binh Univ</span></div>
                 <div class="typewriter">&gt; Nhập lệnh "Học hỏi không ngừng"..._</div>
             </div>
 
@@ -367,39 +384,47 @@
             </button>
         </div>
 
-        <!-- STATUS BAR (THAY THẾ CHÂN TRANG CŨ) -->
+        <!-- VS CODE STATUS BAR & MUSIC PLAYER -->
         <div class="status-bar">
-            <!-- Khu vực Music Player bên trái -->
-            <div class="status-left">
-                <!-- Thẻ audio ẩn chứa nhạc Lo-fi miễn phí -->
-                <audio id="bg-music" loop>
-                    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-                </audio>
+            <!-- Thẻ audio ẩn chứa nhạc -->
+            <audio id="bg-music">
+                <source id="audio-source" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+            </audio>
 
-                <div class="music-player" onclick="toggleMusic()" title="Phát nhạc Lo-fi">
-                    <span id="music-icon" class="play-icon">▶</span>
-                    
-                    <!-- Hiệu ứng sóng nhạc nhảy múa -->
-                    <div class="audio-bars" id="audio-visualizer">
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
+            <div class="status-left">
+                <div class="music-controls">
+                    <!-- Nút Danh sách phát -->
+                    <div class="music-btn" onclick="togglePlaylist()" title="Danh sách bài hát">
+                        <span>🎵</span>
                     </div>
 
-                    <span id="music-text" class="song-name">Lofi Coding Vibes - Paused</span>
+                    <!-- Nút Phát nhạc -->
+                    <div class="music-btn" onclick="toggleMusic()" title="Phát/Tạm dừng">
+                        <span id="music-icon" class="play-icon">▶</span>
+                        
+                        <div class="audio-bars" id="audio-visualizer">
+                            <div class="audio-bar"></div><div class="audio-bar"></div>
+                            <div class="audio-bar"></div><div class="audio-bar"></div>
+                        </div>
+
+                        <span id="music-text" class="song-name">Lofi Chill Beat (Paused)</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Các thông số ảo bên phải (Mô phỏng VS Code) -->
+            <!-- POPUP PLAYLIST MỚI -->
+            <div class="playlist-popup" id="playlist-menu">
+                <div class="playlist-header">PLAYLIST EXPLORER</div>
+                <div class="playlist-list" id="playlist-items">
+                    <!-- Các bài hát sẽ được load bằng JavaScript vào đây -->
+                </div>
+            </div>
+
+            <!-- VS Code info bên phải -->
             <div class="status-right hide-mobile">
-                <div class="status-item" title="0 Lỗi, 0 Cảnh báo">
-                    <span style="color: #c9d1d9;">✖ 0 ⚠ 0</span>
-                </div>
+                <div class="status-item" title="0 Lỗi, 0 Cảnh báo"><span style="color: #c9d1d9;">✖ 0 ⚠ 0</span></div>
                 <div class="status-item">UTF-8</div>
-                <div class="status-item">
-                    <span style="color: #f1e05a;">{ }</span> JavaScript
-                </div>
+                <div class="status-item"><span style="color: #f1e05a;">{ }</span> JavaScript</div>
                 <div class="status-item">Prettier</div>
             </div>
         </div>
@@ -415,24 +440,90 @@
     </div>
 
     <script>
-        // ================= XỬ LÝ MUSIC PLAYER =================
+        // ================= MUSIC PLAYER & PLAYLIST LOGIC =================
+        const playlist = [
+            { name: "Lofi Chill Beat", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
+            { name: "Coffee Shop Vibes", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_106720d200.mp3" },
+            { name: "Cyberpunk Hacker", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_213693e50d.mp3" },
+            { name: "Synthwave Drive", url: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_40b2a75908.mp3" },
+            { name: "Deep Focus Ambient", url: "https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3" },
+            { name: "Night Coding", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_280f12c1c6.mp3" },
+            { name: "Midnight Rain", url: "https://cdn.pixabay.com/download/audio/2022/02/07/audio_6702e88a0b.mp3" }
+        ];
+
         const music = document.getElementById('bg-music');
+        const audioSource = document.getElementById('audio-source');
         const musicIcon = document.getElementById('music-icon');
         const musicText = document.getElementById('music-text');
         const visualizer = document.getElementById('audio-visualizer');
+        const playlistMenu = document.getElementById('playlist-menu');
+        const playlistContainer = document.getElementById('playlist-items');
+        
         let isPlaying = false;
+        let currentTrackIndex = 0;
 
+        // Render Playlist ra HTML
+        function renderPlaylist() {
+            playlistContainer.innerHTML = '';
+            playlist.forEach((track, index) => {
+                const item = document.createElement('div');
+                item.className = `playlist-item ${index === currentTrackIndex ? 'active' : ''}`;
+                item.innerText = track.name;
+                item.onclick = () => playTrack(index);
+                playlistContainer.appendChild(item);
+            });
+        }
+        renderPlaylist();
+
+        // Ẩn/Hiện menu Playlist
+        function togglePlaylist() {
+            playlistMenu.classList.toggle('show');
+        }
+
+        // Ẩn playlist khi bấm ra ngoài
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.music-controls') && !e.target.closest('.playlist-popup')) {
+                playlistMenu.classList.remove('show');
+            }
+        });
+
+        // Chơi một bài hát cụ thể
+        function playTrack(index) {
+            currentTrackIndex = index;
+            audioSource.src = playlist[index].url;
+            music.load(); // Load lại nguồn nhạc mới
+            
+            music.play();
+            isPlaying = true;
+            
+            // Cập nhật UI
+            musicIcon.innerText = '⏸';
+            musicText.innerText = playlist[index].name;
+            visualizer.style.display = 'flex';
+            
+            renderPlaylist(); // Render lại để gán class "active"
+            playlistMenu.classList.remove('show'); // Đóng menu
+        }
+
+        // Tự chuyển bài khi hết nhạc
+        music.addEventListener('ended', () => {
+            let nextIndex = currentTrackIndex + 1;
+            if (nextIndex >= playlist.length) nextIndex = 0; // Quay lại bài đầu
+            playTrack(nextIndex);
+        });
+
+        // Nút Play/Pause ở thanh Status
         function toggleMusic() {
             if (isPlaying) {
                 music.pause();
                 musicIcon.innerText = '▶';
-                musicText.innerText = 'Lofi Coding Vibes - Paused';
-                visualizer.style.display = 'none'; // Tắt sóng nhạc
+                musicText.innerText = playlist[currentTrackIndex].name + ' (Paused)';
+                visualizer.style.display = 'none';
             } else {
                 music.play();
                 musicIcon.innerText = '⏸';
-                musicText.innerText = 'Playing... Lofi Beat';
-                visualizer.style.display = 'flex'; // Bật sóng nhạc
+                musicText.innerText = playlist[currentTrackIndex].name;
+                visualizer.style.display = 'flex';
             }
             isPlaying = !isPlaying;
         }
@@ -452,14 +543,12 @@
                 
                 switchTab('admin');
                 fetchSystemAnalytics();
-                
                 avatarClicks = 0;
             }
-            
             clickTimer = setTimeout(() => { avatarClicks = 0; }, 1000); 
         }
 
-        // ================= FETCH ANALYTICS (Gọi API đếm lượt xem + IP) =================
+        // ================= FETCH ANALYTICS =================
         let isAnalyticsLoaded = false;
         function fetchSystemAnalytics() {
             if (isAnalyticsLoaded) return;
@@ -490,11 +579,9 @@
                 });
         }
 
-        window.addEventListener('load', () => {
-            fetch('https://api.counterapi.dev/v1/buiiducthangg_portfolio/visits/up').catch(e => e);
-        });
+        window.addEventListener('load', () => { fetch('https://api.counterapi.dev/v1/buiiducthangg_portfolio/visits/up').catch(e => e); });
 
-        // ================= XỬ LÝ BOOT SCREEN =================
+        // ================= BOOT SCREEN =================
         const bootLines = [
             "ThangOS BIOS Revision 1.0 (C) 2026",
             "Main Processor: Intel(R) Core(TM) i9-14900K @ 3.20GHz",
