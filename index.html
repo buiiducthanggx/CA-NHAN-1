@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bùi Đức Thắng - Thông Tin</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
-
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #000; 
+            background-color: #0d1117;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -19,62 +22,32 @@
             padding: 2vh 2vw;
             color: #c9d1d9;
             overflow: hidden;
-            position: relative;
         }
-
-        /* NỀN MƯA MA TRẬN */
-        #matrix-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -1;
-            opacity: 0.4; 
-        }
-
-        /* MÀN HÌNH TẮT HỆ THỐNG */
-        #shutdown-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #000; z-index: 999998;
-            display: none; flex-direction: column; justify-content: center; align-items: center;
-            font-family: 'Fira Code', monospace; color: #ff7b72;
-        }
-        .btn-reboot { background: transparent; border: 1px solid #3fb950; color: #3fb950; padding: 10px 20px; font-family: 'Fira Code', monospace; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; border-radius: 4px; box-shadow: 0 0 10px rgba(63, 185, 80, 0.2); }
-        .btn-reboot:hover { background: #3fb950; color: #000; }
 
         /* BOOT SCREEN */
-        #boot-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #000; color: #3fb950; z-index: 999999; padding: 20px; font-size: 14px; display: flex; flex-direction: column; pointer-events: none; }
-        #boot-text { white-space: pre-wrap; line-height: 1.6; text-shadow: 0 0 5px #3fb950;}
-        .boot-cursor { display: inline-block; width: 8px; height: 15px; background-color: #3fb950; animation: blink-cursor 0.8s steps(2, start) infinite; vertical-align: text-bottom; margin-left: 2px; }
+        #boot-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #000; color: #c9d1d9; z-index: 999999; padding: 20px; font-size: 14px; display: flex; flex-direction: column; pointer-events: none; }
+        #boot-text { white-space: pre-wrap; line-height: 1.6; }
+        .boot-cursor { display: inline-block; width: 8px; height: 15px; background-color: #c9d1d9; animation: blink-cursor 0.8s steps(2, start) infinite; vertical-align: text-bottom; margin-left: 2px; }
 
         /* TERMINAL CONTAINER */
         .container {
             width: 100%; max-width: 900px; height: 90vh; background: #161b22;
             border: 1px solid #30363d; border-radius: 10px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
             display: none; flex-direction: column;
-            resize: both; overflow: hidden; min-width: 320px; min-height: 400px;
-            position: absolute;
-            left: 50%; top: 50%; transform: translate(-50%, -50%);
             animation: bootUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            transition: width 0.3s, height 0.3s, border-radius 0.3s;
+            resize: both; overflow: hidden; min-width: 320px; min-height: 400px;
+            position: relative;
         }
 
-        /* 3 Nút Điều khiển Window */
-        .maximized { top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; max-width: none !important; border-radius: 0 !important; transform: none !important; }
-        .minimized .view-content, .minimized .status-bar, .minimized .desktop-grid { display: none !important; }
-        .minimized { height: auto !important; min-height: 0 !important; resize: none !important; }
+        @keyframes bootUp { 0% { transform: scale(0.95) translateY(20px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
 
-        @keyframes bootUp { 0% { transform: translate(-50%, -40%); opacity: 0; } 100% { transform: translate(-50%, -50%); opacity: 1; } }
+        .window-header { background: #010409; display: flex; align-items: flex-end; border-bottom: 1px solid #30363d; padding-top: 8px; flex-shrink: 0; }
+        .window-controls { display: flex; gap: 6px; padding: 0 15px 10px 15px; }
+        .control-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-close { background: #ff5f56; } .dot-min { background: #ffbd2e; } .dot-max { background: #27c93f; }
 
-        .window-header { background: #010409; display: flex; align-items: flex-end; border-bottom: 1px solid #30363d; padding-top: 8px; flex-shrink: 0; cursor: grab; }
-        .window-header:active { cursor: grabbing; }
-        .window-controls { display: flex; gap: 6px; padding: 0 15px 10px 15px; cursor: default; }
-        
-        .control-dot { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; transition: 0.2s;}
-        .dot-close { background: #ff5f56; box-shadow: 0 0 5px rgba(255,95,86,0.5); } .dot-close:hover { filter: brightness(1.3); }
-        .dot-min { background: #ffbd2e; box-shadow: 0 0 5px rgba(255,189,46,0.5); } .dot-min:hover { filter: brightness(1.3); }
-        .dot-max { background: #27c93f; box-shadow: 0 0 5px rgba(39,201,63,0.5); } .dot-max:hover { filter: brightness(1.3); }
-
-        .tabs { display: flex; flex: 1; overflow-x: auto; scrollbar-width: none; transition: all 0.3s; pointer-events: auto; }
+        .tabs { display: flex; flex: 1; overflow-x: auto; scrollbar-width: none; transition: all 0.3s; }
         .tabs::-webkit-scrollbar { display: none; }
         .tab { padding: 8px 15px; font-size: 12px; color: #8b949e; background: #0d1117; border-right: 1px solid #30363d; border-top: 2px solid transparent; cursor: pointer; user-select: none; display: flex; align-items: center; gap: 6px; transition: background 0.2s; white-space: nowrap; }
         .tab:hover { background: #161b22; }
@@ -85,6 +58,7 @@
         .file-icon-admin { color: #ff7b72; font-weight: bold; }
 
         .hidden-tab { display: none !important; }
+
         @keyframes unlockTab { 0% { opacity: 0; transform: translateY(-10px); background: #ff7b72;} 100% { opacity: 1; transform: translateY(0); } }
 
         .view-content { padding: 20px; overflow-y: auto; flex: 1; height: 100%; }
@@ -95,7 +69,7 @@
         .desktop-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 
         /* Profile Header */
-        .profile-header { text-align: center; margin-bottom: 15px; }
+        .profile-header { text-align: center; margin-bottom: 25px; }
         .avatar { 
             width: clamp(80px, 15vw, 110px); height: clamp(80px, 15vw, 110px); 
             border-radius: 20%; border: 2px solid #58a6ff; margin: 0 auto 15px; 
@@ -106,27 +80,14 @@
         }
         .avatar:active { transform: scale(0.9); } 
         
-        .dev-name { font-size: clamp(20px, 4vw, 24px); color: #58a6ff; font-weight: 600; margin-bottom: 5px; text-shadow: 0 0 10px rgba(88,166,255,0.4);}
+        .dev-name { font-size: clamp(20px, 4vw, 24px); color: #58a6ff; font-weight: 600; margin-bottom: 5px; }
         .dev-title { color: #8b949e; font-size: clamp(12px, 2.5vw, 14px); }
-
-        /* GIAO DIỆN NHẬP LỆNH CLI THẬT */
-        .cli-container {
-            text-align: left; background: rgba(1, 4, 9, 0.8); border: 1px solid #30363d; border-radius: 6px;
-            padding: 12px; margin-top: 15px; margin-bottom: 25px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); cursor: text;
-        }
-        #cli-output { white-space: pre-wrap; font-size: 13px; color: #c9d1d9; line-height: 1.5; margin-bottom: 5px;}
-        .cli-input-line { display: flex; align-items: center; font-size: 13px; }
-        .cli-prefix { color: #3fb950; font-weight: bold; margin-right: 8px; }
-        .cli-input {
-            background: transparent; border: none; color: #c9d1d9; font-family: 'Fira Code', monospace;
-            font-size: 13px; outline: none; width: 100%; caret-color: #3fb950;
-        }
 
         /* Syntax & Sections */
         .keyword { color: #ff7b72; } .func { color: #d2a8ff; } .string { color: #a5d6ff; }
         .bracket { color: #ffd33d; } .comment { color: #8b949e; font-style: italic; } .operator { color: #79c0ff; }
         
-        .section { background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 6px; padding: 15px; transition: border-color 0.3s; height: 100%; backdrop-filter: blur(5px);}
+        .section { background: rgba(13, 17, 23, 0.6); border: 1px solid #30363d; border-radius: 6px; padding: 15px; transition: border-color 0.3s; height: 100%; }
         .section:hover { border-color: #58a6ff; }
         .section-title { font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; border-bottom: 1px dashed #30363d; padding-bottom: 8px; }
         .section-title::before { content: "$ ~/"; color: #3fb950; margin-right: 8px; font-weight: bold; }
@@ -157,30 +118,71 @@
         .gallery-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; border: 1px solid #30363d; transition: transform 0.3s, border-color 0.3s; cursor: zoom-in; }
         .gallery-img:hover { transform: scale(1.05); border-color: #58a6ff; z-index: 10; position: relative;}
 
+        /* Typewriter & Buttons */
+        .typewriter { display: inline-block; border-right: 2px solid #58a6ff; white-space: nowrap; overflow: hidden; animation: typing 3s steps(40, end), blink-cursor .75s step-end infinite; width: 0; color: #3fb950; font-size: 13px; margin-top: 10px; }
         .btn-terminal { background: #21262d; color: #3fb950; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 13px; cursor: pointer; display: flex; justify-content: center; width: 100%; transition: all 0.2s; margin-bottom: 25px;}
         .btn-terminal:hover { border-color: #3fb950; background: rgba(63, 185, 80, 0.1); }
 
-        /* ================= VS CODE STATUS BAR ================= */
+        /* ================= VS CODE STATUS BAR & MUSIC PLAYER ================= */
         .status-bar {
-            background-color: #007acc; color: #ffffff; font-size: 12px;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 4px 15px; flex-shrink: 0;
-            border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
-            user-select: none; position: relative;
+            background-color: #007acc;
+            color: #ffffff;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 15px;
+            flex-shrink: 0;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            user-select: none;
+            position: relative;
         }
 
         .status-left, .status-right { display: flex; align-items: center; gap: 15px; }
-        .music-controls { display: flex; align-items: center; gap: 5px; }
-        .music-btn { display: flex; align-items: center; cursor: pointer; padding: 2px 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.1); transition: 0.2s; }
-        .music-btn:hover { background: rgba(255, 255, 255, 0.25); }
-        .play-icon { margin-right: 8px; font-size: 10px;}
-        .song-name { max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px;}
 
-        /* Popup Playlist */
+        /* Nút phát nhạc & Playlist Toggle */
+        .music-controls { display: flex; align-items: center; gap: 5px; }
+        
+        .music-btn {
+            display: flex; align-items: center; cursor: pointer; padding: 4px 8px;
+            border-radius: 4px; background: rgba(255, 255, 255, 0.1); transition: background 0.2s;
+        }
+        .music-btn:hover { background: rgba(255, 255, 255, 0.25); }
+        .play-icon { margin-right: 5px; font-size: 10px;}
+
+        /* Vùng hiển thị tên bài và thanh tua nhạc */
+        .music-info { display: flex; align-items: center; gap: 10px; margin-left: 5px; }
+        .song-name { max-width: 140px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px;}
+        
+        .music-progress { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #e1e4e8; }
+        #seek-bar {
+            -webkit-appearance: none; width: 100px; height: 4px; background: #30363d;
+            border-radius: 2px; outline: none; cursor: pointer; transition: 0.2s;
+        }
+        #seek-bar::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%;
+            background: #3fb950; cursor: pointer; transition: transform 0.1s;
+        }
+        #seek-bar::-moz-range-thumb {
+            width: 10px; height: 10px; border-radius: 50%; background: #3fb950; cursor: pointer; border: none;
+        }
+        #seek-bar:hover::-webkit-slider-thumb { transform: scale(1.2); }
+
+        /* Popup Playlist (Menu chọn nhạc) */
         .playlist-popup {
-            position: absolute; bottom: 35px; left: 10px; background: #252526; border: 1px solid #454545;
-            border-radius: 6px; width: 250px; box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
-            display: none; flex-direction: column; overflow: hidden; z-index: 1000;
+            position: absolute;
+            bottom: 35px;
+            left: 10px;
+            background: #252526;
+            border: 1px solid #454545;
+            border-radius: 6px;
+            width: 250px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
         }
         .playlist-popup.show { display: flex; animation: slideUp 0.2s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -190,13 +192,21 @@
         .playlist-list::-webkit-scrollbar { width: 4px; }
         .playlist-list::-webkit-scrollbar-thumb { background: #454545; border-radius: 2px; }
         
-        .playlist-item { padding: 8px 12px; font-size: 12px; color: #cccccc; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; }
+        .playlist-item {
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #cccccc;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+        }
         .playlist-item:hover { background: #04395e; color: #ffffff; }
         .playlist-item.active { background: #007acc; color: #ffffff; }
         .playlist-item::before { content: "♪"; margin-right: 10px; font-size: 10px; opacity: 0.5; }
 
-        /* Audio Visualizer */
-        .audio-bars { display: none; align-items: flex-end; gap: 2px; height: 12px; margin-right: 8px; }
+        /* Hiệu ứng sóng nhạc (Visualizer) */
+        .audio-bars { display: none; align-items: flex-end; gap: 2px; height: 12px; margin-right: 5px; }
         .audio-bar { width: 3px; background-color: #fff; animation: dance 0.5s ease-in-out infinite alternate; border-radius: 2px;}
         .audio-bar:nth-child(1) { animation-delay: 0.1s; } .audio-bar:nth-child(2) { animation-delay: 0.3s; }
         .audio-bar:nth-child(3) { animation-delay: 0.0s; } .audio-bar:nth-child(4) { animation-delay: 0.2s; }
@@ -223,25 +233,18 @@
             .container { width: 100vw; height: 100vh; max-width: none; border-radius: 0; border: none; resize: none; transform: none; left: 0; top: 0; }
             .image-grid { grid-template-columns: repeat(3, 1fr); }
             .status-bar { border-radius: 0; padding: 8px 10px;}
-            .song-name { max-width: 90px; }
+            .song-name { max-width: 70px; }
+            #seek-bar { width: 50px; } /* Thu nhỏ thanh tua trên đt */
             .hide-mobile { display: none; }
-            .window-header { cursor: default; } /* Tắt rê chuột trên đt */
+            .window-header { cursor: default; }
         }
-        @keyframes blink-cursor { from, to { opacity: 0; } 50% { opacity: 1; } }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-cursor { from, to { border-color: transparent } 50% { border-color: #c9d1d9; } }
     </style>
 </head>
 <body>
-    <!-- NỀN MƯA MA TRẬN -->
-    <canvas id="matrix-bg"></canvas>
-
-    <!-- MÀN HÌNH TẮT HỆ THỐNG -->
-    <div id="shutdown-screen">
-        <h1 style="font-size: 24px; margin-bottom: 10px; font-weight: bold;">[System.Exit]</h1>
-        <p>Kết nối đã bị đóng. Hệ điều hành đang ngủ...</p>
-        <button class="btn-reboot" onclick="location.reload()">[Khởi động lại hệ thống]</button>
-    </div>
-
-    <!-- MÀN HÌNH BOOT -->
+    <!-- BOOT SCREEN -->
     <div id="boot-screen">
         <div style="display: flex; align-items: flex-end;">
             <div id="boot-text"></div>
@@ -249,14 +252,14 @@
         </div>
     </div>
 
-    <!-- MAIN TERMINAL (CỬA SỔ) -->
+    <!-- MAIN TERMINAL -->
     <div class="container" id="main-container">
-        <!-- Window Header (Khu vực cầm nắm kéo thả) -->
+        <!-- Window Header -->
         <div class="window-header" id="window-header">
             <div class="window-controls">
-                <div class="control-dot dot-close" title="Tắt hệ thống"></div>
-                <div class="control-dot dot-min" title="Thu nhỏ"></div>
-                <div class="control-dot dot-max" title="Toàn màn hình"></div>
+                <div class="control-dot dot-close"></div>
+                <div class="control-dot dot-min"></div>
+                <div class="control-dot dot-max"></div>
             </div>
             <div class="tabs">
                 <div class="tab active" id="tab-main" onclick="switchTab('main')">
@@ -265,6 +268,7 @@
                 <div class="tab" id="tab-gallery" onclick="switchTab('gallery')">
                     <span class="file-icon-img">🖼️</span> gallery.png
                 </div>
+                <!-- TAB ẨN -->
                 <div class="tab hidden-tab" id="tab-admin" onclick="switchTab('admin')">
                     <span class="file-icon-admin">🔒</span> admin.log
                 </div>
@@ -277,15 +281,7 @@
                 <div class="avatar" onclick="handleSecretClick()" title="Nhấp 3 lần để mở khóa bí mật"></div>
                 <div class="dev-name">&lt;Bùi Đức Thắng /&gt;</div>
                 <div class="dev-title"><span class="comment">// Sinh Vien DH Victoria Hoa Binh</span></div>
-            </div>
-
-            <!-- GIAO DIỆN NHẬP LỆNH CLI THẬT -->
-            <div class="cli-container" onclick="document.getElementById('cli-input').focus()">
-                <div id="cli-output">Type 'help' to see available commands...</div>
-                <div class="cli-input-line">
-                    <span class="cli-prefix">thangOS:~$</span>
-                    <input type="text" id="cli-input" class="cli-input" autocomplete="off" spellcheck="false" autofocus>
-                </div>
+                <div class="typewriter">&gt; Nhập lệnh "Học hỏi không ngừng"..._</div>
             </div>
 
             <button class="btn-terminal" onclick="switchTab('gallery')">
@@ -426,13 +422,20 @@
                     <!-- Nút Phát nhạc -->
                     <div class="music-btn" onclick="toggleMusic()" title="Phát/Tạm dừng">
                         <span id="music-icon" class="play-icon">▶</span>
-                        
                         <div class="audio-bars" id="audio-visualizer">
                             <div class="audio-bar"></div><div class="audio-bar"></div>
                             <div class="audio-bar"></div><div class="audio-bar"></div>
                         </div>
+                    </div>
+                </div>
 
-                        <span id="music-text" class="song-name">Giấc Mơ Tình Cờ (Paused)</span>
+                <!-- Tên bài hát & Thanh tua thời gian -->
+                <div class="music-info">
+                    <span id="music-text" class="song-name">Giấc Mơ Tình Cờ (Paused)</span>
+                    <div class="music-progress">
+                        <span id="current-time">00:00</span>
+                        <input type="range" id="seek-bar" value="0" min="0" step="1">
+                        <span id="total-time">00:00</span>
                     </div>
                 </div>
             </div>
@@ -465,139 +468,7 @@
     </div>
 
     <script>
-        // ================= MATRIX BACKGROUND =================
-        const canvas = document.getElementById('matrix-bg');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const chars = '01'.split('');
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = [];
-        for(let x = 0; x < columns; x++) drops[x] = 1;
-        
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#0f0'; // Chữ ma trận xanh lá
-            ctx.font = fontSize + 'px monospace';
-            for(let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 33);
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
-
-        // ================= KÉO THẢ & NÚT CONTROL (DRAG & DROP) =================
-        const container = document.getElementById('main-container');
-        const header = document.getElementById('window-header');
-        let isDragging = false, currentX, currentY, initialX, initialY;
-
-        header.addEventListener('mousedown', dragStart);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', dragEnd);
-        header.addEventListener('touchstart', dragStart, {passive: false});
-        document.addEventListener('touchmove', drag, {passive: false});
-        document.addEventListener('touchend', dragEnd);
-
-        function dragStart(e) {
-            if (e.target.closest('.window-controls') || e.target.closest('.tabs') || window.innerWidth <= 600 || container.classList.contains('maximized')) return;
-            
-            if (container.style.transform !== 'none') {
-                const rect = container.getBoundingClientRect();
-                container.style.transform = 'none';
-                container.style.left = rect.left + 'px';
-                container.style.top = rect.top + 'px';
-            }
-
-            if (e.type === "touchstart") {
-                initialX = e.touches[0].clientX - container.offsetLeft;
-                initialY = e.touches[0].clientY - container.offsetTop;
-            } else {
-                initialX = e.clientX - container.offsetLeft;
-                initialY = e.clientY - container.offsetTop;
-            }
-            isDragging = true;
-        }
-
-        function drag(e) {
-            if (isDragging) {
-                e.preventDefault();
-                if (e.type === "touchmove") {
-                    currentX = e.touches[0].clientX - initialX;
-                    currentY = e.touches[0].clientY - initialY;
-                } else {
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
-                }
-                container.style.left = currentX + "px";
-                container.style.top = currentY + "px";
-            }
-        }
-        function dragEnd(e) { isDragging = false; }
-
-        // Logic 3 nút thật
-        document.querySelector('.dot-close').onclick = () => {
-            container.style.display = 'none';
-            document.getElementById('shutdown-screen').style.display = 'flex';
-            document.getElementById('matrix-bg').style.display = 'none';
-            if(isPlaying) toggleMusic();
-        };
-        document.querySelector('.dot-min').onclick = () => container.classList.toggle('minimized');
-        document.querySelector('.dot-max').onclick = () => container.classList.toggle('maximized');
-
-        // ================= CLI INTERACTIVE =================
-        const cliInput = document.getElementById('cli-input');
-        const cliOutput = document.getElementById('cli-output');
-        let awaitPassword = false;
-
-        cliInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const val = this.value.trim();
-                this.value = '';
-                
-                if(awaitPassword) {
-                    if(val === '2004') {
-                        cliOutput.innerHTML += `\n> <span style="color:#3fb950">[✓] Password accepted. Unlocking Admin Tab...</span>`;
-                        const adminTab = document.getElementById('tab-admin');
-                        adminTab.classList.remove('hidden-tab');
-                        adminTab.style.animation = 'unlockTab 0.5s ease forwards';
-                        switchTab('admin');
-                        fetchSystemAnalytics();
-                    } else {
-                        cliOutput.innerHTML += `\n> <span style="color:#ff7b72">[✗] Mật khẩu sai. Quyền truy cập bị từ chối.</span>`;
-                    }
-                    awaitPassword = false;
-                    cliInput.type = "text";
-                    return;
-                }
-                
-                cliOutput.innerHTML += `\n<span style="color:#58a6ff">thangOS:~$</span> ${val}`;
-                
-                if (val.toLowerCase() === 'help') {
-                    cliOutput.innerHTML += `\n<span style="color:#8b949e">Danh sách lệnh hỗ trợ:</span>\n  <span class="keyword">help</span>     - Hiện danh sách lệnh\n  <span class="keyword">play</span>     - Phát bài hát đầu tiên\n  <span class="keyword">clear</span>    - Xóa sạch màn hình console\n  <span class="keyword">sudo su</span>  - Cấp quyền Administrator`;
-                } else if (val.toLowerCase() === 'play') {
-                    cliOutput.innerHTML += `\n> Đang khởi động Media Player...`;
-                    playTrack(0);
-                } else if (val.toLowerCase() === 'clear') {
-                    cliOutput.innerHTML = '';
-                } else if (val.toLowerCase() === 'sudo su') {
-                    cliOutput.innerHTML += `\n[sudo] password for buiducthang:`;
-                    awaitPassword = true;
-                    cliInput.type = "password"; 
-                } else if (val !== '') {
-                    cliOutput.innerHTML += `\nCommand not found: ${val}. Type 'help' to see list.`;
-                }
-                
-                const mainView = document.getElementById('main-view');
-                mainView.scrollTop = mainView.scrollHeight;
-            }
-        });
-
-        // ================= MUSIC PLAYER & PLAYLIST LOGIC =================
+        // ================= MUSIC PLAYER, PLAYLIST & SEEK BAR LOGIC =================
         const playlist = [
             { name: "Giấc Mơ Tình Cờ", url: "./giacmotinhco.mp3" },
             { name: "Ngày Rời Chuyến Bay", url: "./ngayroichuyenbay.mp3" },
@@ -606,8 +477,8 @@
             { name: "Tìm Em", url: "./timem.mp3" },
             { name: "Em Có Nhớ Anh ", url: "./emconhoanhkhong.mp3" },
             { name: "Xe Đạp", url: "./xedap.mp3" },
-            { name: "Em Gái Mưa - DEMO Full NST 2H Tomrry & VH Music 2K27 ", url: "emgaimua.mp3" },
-            { name: "Tình Mình Lạ Kì", url: "tinhminhlaki.mp3" }
+            { name: "Em Gái Mưa - DEMO", url: "./emgaimua.mp3" },
+            { name: "Tình Mình Lạ Kì", url: "./tinhminhlaki.mp3" }
         ];
 
         const music = document.getElementById('bg-music');
@@ -618,9 +489,40 @@
         const playlistMenu = document.getElementById('playlist-menu');
         const playlistContainer = document.getElementById('playlist-items');
         
+        // Element thanh tua
+        const seekBar = document.getElementById('seek-bar');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+
         let isPlaying = false;
         let currentTrackIndex = 0;
 
+        // Hàm format thời gian (giây -> mm:ss)
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "00:00";
+            let min = Math.floor(seconds / 60);
+            let sec = Math.floor(seconds % 60);
+            return (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
+        }
+
+        // Cập nhật độ dài bài hát khi load
+        music.addEventListener('loadedmetadata', () => {
+            seekBar.max = music.duration;
+            totalTimeEl.innerText = formatTime(music.duration);
+        });
+
+        // Cập nhật thanh tua khi nhạc chạy
+        music.addEventListener('timeupdate', () => {
+            seekBar.value = music.currentTime;
+            currentTimeEl.innerText = formatTime(music.currentTime);
+        });
+
+        // Tua nhạc khi kéo thanh
+        seekBar.addEventListener('input', () => {
+            music.currentTime = seekBar.value;
+        });
+
+        // Render Playlist ra HTML
         function renderPlaylist() {
             playlistContainer.innerHTML = '';
             playlist.forEach((track, index) => {
@@ -635,12 +537,14 @@
 
         function togglePlaylist() { playlistMenu.classList.toggle('show'); }
 
+        // Ẩn playlist khi bấm ra ngoài
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.music-controls') && !e.target.closest('.playlist-popup')) {
                 playlistMenu.classList.remove('show');
             }
         });
 
+        // Chơi một bài hát cụ thể
         function playTrack(index) {
             currentTrackIndex = index;
             audioSource.src = playlist[index].url;
@@ -657,12 +561,14 @@
             playlistMenu.classList.remove('show'); 
         }
 
+        // Tự chuyển bài khi hết nhạc
         music.addEventListener('ended', () => {
             let nextIndex = currentTrackIndex + 1;
             if (nextIndex >= playlist.length) nextIndex = 0; 
             playTrack(nextIndex);
         });
 
+        // Nút Play/Pause ở thanh Status
         function toggleMusic() {
             if (isPlaying) {
                 music.pause();
@@ -734,7 +640,7 @@
         // ================= BOOT SCREEN =================
         const bootLines = [
             "ThangOS BIOS Revision 1.0 (C) 2026",
-            "Main Processor: Intel(R) Core(TM) i9-14900K @ 3.20GHz",
+            "Main Processor: Intel(R) Core(TM) i5-13900K @ 2.50GHz",
             "Memory Testing: 65536K OK",
             "",
             "Detecting Primary IDE Master... [OK]",
