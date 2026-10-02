@@ -5,18 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bùi Đức Thắng - Thông Tin</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- TÍCH HỢP TAILWIND CSS DÀNH CHO TAB GAME -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = { corePlugins: { preflight: false } } // Giữ cho Tailwind không phá vỡ giao diện Terminal cũ
-    </script>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #000; /* Chuyển nền thành đen hoàn toàn để hợp với Mưa Ma Trận */
+            background-color: #000; 
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -33,7 +27,7 @@
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1;
-            opacity: 0.4; /* Mờ nhẹ để không rối mắt */
+            opacity: 0.4; 
         }
 
         /* MÀN HÌNH TẮT HỆ THỐNG */
@@ -57,10 +51,10 @@
             border: 1px solid #30363d; border-radius: 10px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1);
             display: none; flex-direction: column;
-            animation: bootUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             resize: both; overflow: hidden; min-width: 320px; min-height: 400px;
             position: absolute;
             left: 50%; top: 50%; transform: translate(-50%, -50%);
+            animation: bootUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             transition: width 0.3s, height 0.3s, border-radius 0.3s;
         }
 
@@ -88,11 +82,9 @@
         
         .file-icon-js { color: #f1e05a; font-weight: bold; } 
         .file-icon-img { color: #a5d6ff; font-weight: bold; }
-        .file-icon-game { color: #ff9800; font-weight: bold; }
         .file-icon-admin { color: #ff7b72; font-weight: bold; }
 
         .hidden-tab { display: none !important; }
-
         @keyframes unlockTab { 0% { opacity: 0; transform: translateY(-10px); background: #ff7b72;} 100% { opacity: 1; transform: translateY(0); } }
 
         .view-content { padding: 20px; overflow-y: auto; flex: 1; height: 100%; }
@@ -117,7 +109,7 @@
         .dev-name { font-size: clamp(20px, 4vw, 24px); color: #58a6ff; font-weight: 600; margin-bottom: 5px; text-shadow: 0 0 10px rgba(88,166,255,0.4);}
         .dev-title { color: #8b949e; font-size: clamp(12px, 2.5vw, 14px); }
 
-        /* KHUNG NHẬP LỆNH CLI THẬT */
+        /* GIAO DIỆN NHẬP LỆNH CLI THẬT */
         .cli-container {
             text-align: left; background: rgba(1, 4, 9, 0.8); border: 1px solid #30363d; border-radius: 6px;
             padding: 12px; margin-top: 15px; margin-bottom: 25px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); cursor: text;
@@ -168,49 +160,27 @@
         .btn-terminal { background: #21262d; color: #3fb950; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 13px; cursor: pointer; display: flex; justify-content: center; width: 100%; transition: all 0.2s; margin-bottom: 25px;}
         .btn-terminal:hover { border-color: #3fb950; background: rgba(63, 185, 80, 0.1); }
 
-        /* ================= VS CODE STATUS BAR & MUSIC PLAYER ================= */
+        /* ================= VS CODE STATUS BAR ================= */
         .status-bar {
-            background-color: #007acc;
-            color: #ffffff;
-            font-size: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 4px 15px;
-            flex-shrink: 0;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            user-select: none;
-            position: relative;
+            background-color: #007acc; color: #ffffff; font-size: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 4px 15px; flex-shrink: 0;
+            border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
+            user-select: none; position: relative;
         }
 
         .status-left, .status-right { display: flex; align-items: center; gap: 15px; }
-
-        /* Nút phát nhạc & Playlist Toggle */
         .music-controls { display: flex; align-items: center; gap: 5px; }
-        
-        .music-btn {
-            display: flex; align-items: center; cursor: pointer; padding: 2px 8px;
-            border-radius: 4px; background: rgba(255, 255, 255, 0.1); transition: background 0.2s;
-        }
+        .music-btn { display: flex; align-items: center; cursor: pointer; padding: 2px 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.1); transition: 0.2s; }
         .music-btn:hover { background: rgba(255, 255, 255, 0.25); }
         .play-icon { margin-right: 8px; font-size: 10px;}
         .song-name { max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px;}
 
-        /* Popup Playlist (Menu chọn nhạc) */
+        /* Popup Playlist */
         .playlist-popup {
-            position: absolute;
-            bottom: 35px;
-            left: 10px;
-            background: #252526;
-            border: 1px solid #454545;
-            border-radius: 6px;
-            width: 250px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 1000;
+            position: absolute; bottom: 35px; left: 10px; background: #252526; border: 1px solid #454545;
+            border-radius: 6px; width: 250px; box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            display: none; flex-direction: column; overflow: hidden; z-index: 1000;
         }
         .playlist-popup.show { display: flex; animation: slideUp 0.2s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -220,20 +190,12 @@
         .playlist-list::-webkit-scrollbar { width: 4px; }
         .playlist-list::-webkit-scrollbar-thumb { background: #454545; border-radius: 2px; }
         
-        .playlist-item {
-            padding: 8px 12px;
-            font-size: 12px;
-            color: #cccccc;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-        }
+        .playlist-item { padding: 8px 12px; font-size: 12px; color: #cccccc; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; }
         .playlist-item:hover { background: #04395e; color: #ffffff; }
         .playlist-item.active { background: #007acc; color: #ffffff; }
         .playlist-item::before { content: "♪"; margin-right: 10px; font-size: 10px; opacity: 0.5; }
 
-        /* Hiệu ứng sóng nhạc (Visualizer) */
+        /* Audio Visualizer */
         .audio-bars { display: none; align-items: flex-end; gap: 2px; height: 12px; margin-right: 8px; }
         .audio-bar { width: 3px; background-color: #fff; animation: dance 0.5s ease-in-out infinite alternate; border-radius: 2px;}
         .audio-bar:nth-child(1) { animation-delay: 0.1s; } .audio-bar:nth-child(2) { animation-delay: 0.3s; }
@@ -258,23 +220,21 @@
         }
         @media (max-width: 600px) {
             body { padding: 0; }
-            /* Cửa sổ fixed trên Mobile, không cho kéo thả */
             .container { width: 100vw; height: 100vh; max-width: none; border-radius: 0; border: none; resize: none; transform: none; left: 0; top: 0; }
-            .window-header { cursor: default; }
             .image-grid { grid-template-columns: repeat(3, 1fr); }
             .status-bar { border-radius: 0; padding: 8px 10px;}
             .song-name { max-width: 90px; }
             .hide-mobile { display: none; }
+            .window-header { cursor: default; } /* Tắt rê chuột trên đt */
         }
-
-        @keyframes blink-cursor { from, to { border-color: transparent } 50% { border-color: #c9d1d9; } }
+        @keyframes blink-cursor { from, to { opacity: 0; } 50% { opacity: 1; } }
     </style>
 </head>
 <body>
     <!-- NỀN MƯA MA TRẬN -->
     <canvas id="matrix-bg"></canvas>
 
-    <!-- MÀN HÌNH SHUTDOWN -->
+    <!-- MÀN HÌNH TẮT HỆ THỐNG -->
     <div id="shutdown-screen">
         <h1 style="font-size: 24px; margin-bottom: 10px; font-weight: bold;">[System.Exit]</h1>
         <p>Kết nối đã bị đóng. Hệ điều hành đang ngủ...</p>
@@ -289,7 +249,7 @@
         </div>
     </div>
 
-    <!-- MAIN TERMINAL CÓ THỂ KÉO THẢ -->
+    <!-- MAIN TERMINAL (CỬA SỔ) -->
     <div class="container" id="main-container">
         <!-- Window Header (Khu vực cầm nắm kéo thả) -->
         <div class="window-header" id="window-header">
@@ -302,13 +262,9 @@
                 <div class="tab active" id="tab-main" onclick="switchTab('main')">
                     <span class="file-icon-js">JS</span> portfolio.js
                 </div>
-                <div class="tab" id="tab-game" onclick="switchTab('game')">
-                    <span class="file-icon-game">🎮</span> freefire.stats
-                </div>
                 <div class="tab" id="tab-gallery" onclick="switchTab('gallery')">
                     <span class="file-icon-img">🖼️</span> gallery.png
                 </div>
-                <!-- TAB ẨN -->
                 <div class="tab hidden-tab" id="tab-admin" onclick="switchTab('admin')">
                     <span class="file-icon-admin">🔒</span> admin.log
                 </div>
@@ -332,14 +288,9 @@
                 </div>
             </div>
 
-            <div style="display:flex; gap: 10px; margin-bottom: 25px;">
-                <button class="btn-terminal" style="margin-bottom: 0;" onclick="switchTab('game')">
-                    > ./check_rank (Game Stats)
-                </button>
-                <button class="btn-terminal" style="margin-bottom: 0;" onclick="switchTab('gallery')">
-                    > ./gallery (Kho ảnh)
-                </button>
-            </div>
+            <button class="btn-terminal" onclick="switchTab('gallery')">
+                > ./gallery (Xem kho ảnh)
+            </button>
 
             <!-- LƯỚI GRID DESKTOP -->
             <div class="desktop-grid">
@@ -391,145 +342,7 @@
             </div>
         </div>
 
-        <!-- VIEW 2: TRANG GAME PROFILE -->
-        <div class="view-content" id="game-view" style="display: none; padding: 0;">
-            <div class="space-y-4 p-5" style="font-family: ui-sans-serif, system-ui, sans-serif;">
-                <div class="relative overflow-hidden rounded-3xl border border-white/12 bg-[linear-gradient(135deg,#493a00e6,#000000f0_20%,#181818_48%,#000_72%,#000000e0)] shadow-[0_18px_45px_rgba(0,0,0,0.32),0_0_32px_-14px_rgba(251,191,36,0.3),inset_0_1px_0_rgba(255,255,255,0.08)]">
-                    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.06),transparent_40%)]"></div>
-                    <div class="absolute top-3 right-3 z-10 flex items-center gap-2">
-                        <button type="button" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-black/30 text-white transition-colors hover:bg-white/10">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-ccw h-3.5 w-3.5"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 16h5v5"></path></svg>
-                        </button>
-                    </div>
-                    <div class="relative grid gap-4 px-5 py-5 sm:grid-cols-[auto_1fr] sm:items-start">
-                        <div class="flex-line relative flex items-center">
-                            <img alt="Hình đại diện Hỏa Băng" loading="lazy" width="96" height="96" decoding="async" class="h-20 w-20 border object-contain sm:h-24 sm:w-24" src="https://storage.mobileverso.com.br/Icon_face_Theboy.png" style="color: transparent;">
-                            <img alt="Nền Cấp độ 70" loading="lazy" width="120" height="120" decoding="async" class="h-20 w-20 border object-contain sm:h-24 sm:w-24" src="https://storage.mobileverso.com.br/Icon_callsign_storebg_Level70.png" style="color: transparent;">
-                        </div>
-                        <div class="min-w-0">
-                            <div class="flex flex-wrap items-center gap-3 sm:pr-20">
-                                <div class="relative min-w-0 shrink grow overflow-hidden" style="flex-basis: 170px;">
-                                    <h2 class="font-ff-symbols text-2xl font-bold tracking-tight text-white sm:text-3xl whitespace-nowrap">ʙᴜɪᴅᴜᴄᴛʜᴀɴɢ</h2>
-                                </div>
-                                <span class="rounded-full border border-white/40 bg-black/30 px-2.5 py-0.5 text-[10px] font-bold text-amber-300">Cấp 71</span>
-                            </div>
-                            <div class="mt-1 flex flex-wrap items-center gap-x-4 gap-y-3 text-xs text-zinc-400">
-                                <span>ID: 1286258322</span>
-                                <span class="inline-flex items-center gap-1 text-zinc-300"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart h-3 w-3 text-rose-300"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path></svg>Lượt thích: 11.435</span>
-                                <span>Khu vực: VN</span>
-                                <span class="rounded-full border border-amber-300/20 bg-amber-400/10 px-2 py-0.5 text-amber-200">7 Tuổi</span>
-                                <span class="inline-flex items-center gap-1 rounded-full border border-amber-300/20 bg-amber-400/10 py-0.5 pr-2 pl-1 text-amber-200" title="Prime 6"><img alt="" aria-hidden="true" loading="lazy" width="16" height="16" decoding="async" class="h-4 w-4" src="https://storage.mobileverso.com.br/prime-6.png" style="color: transparent;">Prime 6</span>
-                            </div>
-                        </div>
-                        <div class="relative col-span-full space-y-3 bg-black/10 py-4">
-                            <div class="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-zinc-300">
-                                <div class="inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days h-3.5 w-3.5 text-zinc-500"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg><span>Tài khoản được tạo vào <span class="text-white">20:23 11 thg 8, 2019</span></span></div>
-                                <div class="inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days h-3.5 w-3.5 text-zinc-500"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg><span><span class="text-white">7 năm và 12 ngày tuổi</span></span></div>
-                                <div class="inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock3 lucide-clock-3 h-3.5 w-3.5 text-zinc-500"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6h4"></path></svg><span>Đăng nhập gần nhất <span class="text-white">10:15 23 thg 8, 2026</span></span></div>
-                            </div>
-                            <div class="border-t border-white/10 pt-3">
-                                <p class="mt-2 mb-3 text-[10px] font-semibold tracking-[0.2em] text-zinc-500 uppercase">Bio</p>
-                                <div class="relative rounded-xl border border-white/10 bg-black/25 px-4 py-3 pr-11">
-                                    <div class="w-full" style="contain: inline-size;">
-                                        <div class="font-ff-symbols whitespace-pre-wrap wrap-break-word text-white" style="font-size: 15px; line-height: 1.65; max-width: 21em;"><span><span><span style="color: rgb(255, 255, 255); font-weight: normal; font-style: normal; text-decoration: none;">ʙᴜɪɪᴅᴜᴄᴛʜᴀɴɢɢ︵²ᵏ⁴</span></span></span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-full border-t border-white/10 pt-3 pb-5">
-                            <p class="text-[10px] font-semibold tracking-[0.2em] text-zinc-500 uppercase">Bang hội</p>
-                            <div class="mt-2 space-y-2">
-                                <a class="inline-flex max-w-full items-center gap-1.5 rounded-full border border-sky-300/25 bg-sky-500/10 px-2.5 py-1 text-xs text-sky-200" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users h-3.5 w-3.5 shrink-0 text-sky-300"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg><span class="font-ff-symbols min-w-0 truncate font-medium underline decoration-sky-300/50 decoration-dotted underline-offset-4">ミ★ᴘʜú_ᴛʜọ★彡</span></a>
-                                <div class="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-zinc-400">
-                                    <span>ID bang hội: <span class="text-zinc-200 tabular-nums">3102678935</span></span>
-                                    <span>Cấp: <span class="text-zinc-200 tabular-nums">2</span></span>
-                                    <span>Thành viên: <span class="text-zinc-200 tabular-nums">10</span></span>
-                                    <span class="inline-flex flex-wrap items-center gap-x-1 gap-y-0.5">
-                                        <span class="inline-flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round h-3.5 w-3.5 shrink-0 text-zinc-500"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>ID đội trưởng: <span class="text-zinc-200 tabular-nums">1103345414</span></span>
-                                        <a class="font-ff-symbols font-medium text-sky-300 underline decoration-sky-300/50 decoration-dotted underline-offset-4" href="#">LêĐTHiền</a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-full mt-2 grid grid-cols-1 gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
-                            <div class="hidden sm:block" aria-hidden="true"></div>
-                            <div class="flex flex-wrap gap-1.5"><span class="rounded-full border border-white/10 bg-black/30 px-2 py-0.5 text-[11px] text-zinc-300">Battle Royale</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <section class="rounded-[20px] border border-cyan-400/15 bg-[linear-gradient(135deg,#001c23e6,#000000f0_20%,#101010_48%,#000_72%,#000000e0)] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.24)]">
-                    <div class="flex flex-wrap items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-medal h-4 w-4 text-cyan-300"><path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"></path><path d="M11 12 5.12 2.2"></path><path d="m13 12 5.88-9.8"></path><path d="M8 7h8"></path><circle cx="12" cy="17" r="5"></circle><path d="M12 18v-2h-.5"></path></svg>
-                        <h3 class="text-sm font-semibold tracking-[0.18em] text-zinc-300 uppercase">Bậc hạng</h3>
-                    </div>
-                    <div class="mt-3 inline-flex rounded-lg border border-white/10 bg-black/20 p-0.5">
-                        <button type="button" aria-pressed="true" class="rounded-md px-3 py-1 text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors bg-white/10 text-white">Battle Royale</button>
-                        <button type="button" aria-pressed="false" class="rounded-md px-3 py-1 text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors text-zinc-500 hover:text-zinc-300">Clash Squad</button>
-                    </div>
-                    <div class="mt-3">
-                        <div class="flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-3">
-                            <div class="relative h-20 w-20 shrink-0">
-                                <img alt="Đại Cao Thủ V" loading="lazy" width="160" height="160" decoding="async" class="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]" src="https://storage.mobileverso.com.br/330.png" style="color: transparent;">
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <p class="truncate text-base font-bold text-white">Đại Cao Thủ V</p>
-                                <p class="mt-0.5 text-xs text-zinc-400">10.057 điểm<span class="text-zinc-600"> · Mùa 52</span></p>
-                                <p class="mt-2 text-[10px] tracking-wide text-amber-300/80 uppercase">Bậc cao nhất</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <div class="relative overflow-hidden rounded-[20px] border border-white/10 bg-[linear-gradient(135deg,#001c23e6,#000000f0_20%,#101010_48%,#000_72%,#000000e0)] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.24)]">
-                    <div class="flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield h-4 w-4 text-cyan-300"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
-                        <h3 class="text-sm font-semibold tracking-[0.18em] text-zinc-300 uppercase">Trang bị</h3>
-                    </div>
-                    <div class="mt-3 grid gap-2 sm:grid-cols-3">
-                        <a class="group flex items-center gap-3 overflow-hidden rounded-xl bg-black/20 p-2.5 transition-colors hover:bg-white/6" href="#">
-                            <span class="relative h-20 w-20 shrink-0"><img alt="Primis" loading="lazy" width="96" height="96" class="relative h-20 w-20 rounded-lg border object-contain p-1 border-zinc-300/20 bg-[linear-gradient(155deg,#161616_55%,rgba(228,228,231,0.06))]" src="https://storage.mobileverso.com.br/Icon_face_male04_head.png" style="color: transparent;"></span>
-                            <div class="min-w-0 flex-1"><p class="text-[10px] tracking-[0.18em] text-zinc-500 uppercase">Nhân vật</p><p class="mt-0.5 text-sm leading-tight font-semibold text-white">Primis</p></div>
-                        </a>
-                        <a class="group flex items-center gap-3 overflow-hidden rounded-xl bg-black/20 p-2.5 transition-colors hover:bg-white/6" href="#">
-                            <span class="relative h-20 w-20 shrink-0"><img alt="Long Quyền" loading="lazy" width="96" height="96" class="relative h-20 w-20 rounded-lg border object-contain p-1 border-amber-400/25 bg-[linear-gradient(155deg,#161616_55%,rgba(251,191,36,0.08))]" src="https://storage.mobileverso.com.br/Icon_FIST_Foursymbols.png" style="color: transparent;"></span>
-                            <div class="min-w-0 flex-1"><p class="text-[10px] tracking-[0.18em] text-zinc-500 uppercase">Vũ khí</p><p class="mt-0.5 text-sm leading-tight font-semibold text-white">Long Quyền</p></div>
-                        </a>
-                        <a class="group flex items-center gap-3 overflow-hidden rounded-xl bg-black/20 p-2.5 transition-colors hover:bg-white/6" href="#">
-                            <span class="relative h-20 w-20 shrink-0"><img alt="Fang" loading="lazy" width="96" height="96" class="relative h-20 w-20 rounded-lg border object-contain p-1 border-amber-400/25 bg-[linear-gradient(155deg,#161616_55%,rgba(251,191,36,0.08))]" src="https://storage.mobileverso.com.br/Icon_Pet_Wolf.png" style="color: transparent;"></span>
-                            <div class="min-w-0 flex-1"><p class="text-[10px] tracking-[0.18em] text-zinc-500 uppercase">Thú cưng</p><p class="mt-0.5 text-sm leading-tight font-semibold text-white">Fang</p></div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="mt-8!">
-                    <div class="flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trophy h-4 w-4 text-amber-300"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"></path><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"></path><path d="M18 9h1.5a1 1 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"></path><path d="M6 9H4.5a1 1 0 0 1 0-5H6"></path></svg>
-                        <h3 class="text-sm font-semibold tracking-[0.18em] text-zinc-300 uppercase">Xếp hạng và thống kê</h3>
-                    </div>
-                    <div class="mt-4 space-y-2 bg-white/3">
-                        <div class="rounded-xl border border-white/10 bg-black/20 p-3">
-                            <div class="flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-swords h-3.5 w-3.5 text-rose-300"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"></polyline><line x1="13" x2="19" y1="19" y2="13"></line><line x1="16" x2="20" y1="16" y2="20"></line><line x1="19" x2="21" y1="21" y2="19"></line><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"></polyline><line x1="5" x2="9" y1="14" y2="18"></line><line x1="7" x2="4" y1="17" y2="20"></line><line x1="3" x2="5" y1="19" y2="21"></line></svg>
-                                <p class="text-xs font-semibold tracking-[0.18em] text-zinc-300 uppercase">Squad</p>
-                            </div>
-                            <div class="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-                                <div class="min-w-0"><p class="truncate text-[10px] tracking-[0.14em] text-zinc-500 uppercase">Trận đấu</p><p class="mt-0.5 text-sm font-bold text-white">5.525</p></div>
-                                <div class="min-w-0"><p class="truncate text-[10px] tracking-[0.14em] text-zinc-500 uppercase">Chiến thắng</p><p class="mt-0.5 text-sm font-bold text-white">822</p></div>
-                                <div class="min-w-0"><p class="truncate text-[10px] tracking-[0.14em] text-zinc-500 uppercase">Tiêu diệt</p><p class="mt-0.5 text-sm font-bold text-white">18.021</p></div>
-                                <div class="min-w-0"><p class="truncate text-[10px] tracking-[0.14em] text-zinc-500 uppercase">Headshot</p><p class="mt-0.5 text-sm font-bold text-white">16.370</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="btn-terminal mt-5" style="margin: 0 20px 20px 20px; width: calc(100% - 40px);" onclick="switchTab('main')">
-                > cd .. (Quay về trang chính)
-            </button>
-        </div>
-
-        <!-- VIEW 3: TRANG ẢNH (GALLERY) -->
+        <!-- VIEW 2: TRANG ẢNH (GALLERY) -->
         <div class="view-content" id="gallery-view" style="display: none;">
             <div class="section-title">/storage/emulated/0/DCIM/</div>
             <div class="comment">// Fetched 35 items. Chạm để phóng to.</div>
@@ -577,7 +390,7 @@
             </button>
         </div>
 
-        <!-- VIEW 4: TRANG ẨN (ADMIN LOG) -->
+        <!-- VIEW 3: TRANG ẨN (ADMIN LOG) -->
         <div class="view-content" id="admin-view" style="display: none;">
             <div class="analytics-title">TOP SECRET // ADMIN DASHBOARD</div>
             <div class="comment" style="margin-bottom: 20px;">// Warning: Unauthorized access is prohibited.</div>
