@@ -174,7 +174,7 @@
         .music-btn:hover { background: rgba(255, 255, 255, 0.25); }
         .play-icon { margin-right: 8px; font-size: 10px;}
         
-        /* CẬP NHẬT: Vùng hiển thị tên bài và thanh tua nhạc */
+        /* Vùng hiển thị tên bài và thanh tua nhạc */
         .music-info { display: flex; align-items: center; gap: 10px; margin-left: 5px; }
         .song-name { max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px;}
         .music-progress { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #e1e4e8; }
@@ -235,13 +235,17 @@
         }
         @media (max-width: 600px) {
             body { padding: 0; }
-            .container { width: 100vw; height: 100vh; max-width: none; border-radius: 0; border: none; resize: none; transform: none; left: 0; top: 0; }
+            .container { 
+                width: 100%; height: 100vh; height: 100dvh; 
+                max-width: none; border-radius: 0; border: none; resize: none; 
+            }
+            .cli-input { font-size: 16px; } /* Tránh iOS auto-zoom khi nhập lệnh */
             .image-grid { grid-template-columns: repeat(3, 1fr); }
-            .status-bar { border-radius: 0; padding: 8px 10px;}
+            .status-bar { border-radius: 0; padding: 8px 5px;}
             .song-name { max-width: 70px; }
-            #seek-bar { width: 60px; } /* Thu nhỏ thanh tua trên đt */
+            #seek-bar { width: 50px; } /* Thu nhỏ thanh tua trên mobile */
             .hide-mobile { display: none; }
-            .window-header { cursor: default; } /* Tắt rê chuột trên đt */
+            .window-header { cursor: default; } /* Tắt icon bàn tay trên mobile */
         }
         @keyframes blink-cursor { from, to { opacity: 0; } 50% { opacity: 1; } }
     </style>
@@ -291,7 +295,7 @@
         <div class="view-content" id="main-view">
             <div class="profile-header">
                 <div class="avatar" onclick="handleSecretClick()" title="Nhấp 3 lần để mở khóa bí mật"></div>
-                <div class="dev-name">&lt;Bùi Đức Thắng/&gt;</div>
+                <div class="dev-name">&lt;Bùi Đức Thắng /&gt;</div>
                 <div class="dev-title"><span class="comment">// Sinh Vien DH Victoria Hoa Binh</span></div>
             </div>
 
@@ -347,7 +351,7 @@
                         <span class="operator">Phone:</span> <a href="tel:0355152212" id="phone-link" class="string">"0355152212"</a>
                     </div>
                     <ul>
-                        <li><img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" style="width:16px; border-radius:4px;"><a href="https://www.facebook.com/share/17cDDQRp2k/?mibextid=wwXIfr">Facebook Tui</a></li>
+                        <li><img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" style="width:16px; border-radius:4px;"><a href="https://www.facebook.com/buiiducthangg.ngthquynhmaii">Facebook Tui</a></li>
                         <li><img src="https://i.pinimg.com/736x/e3/0e/a1/e30ea1834672b38269b337390d76e535.jpg" style="width:16px; border-radius:4px;"><a href="https://www.facebook.com/ngthquynhmai.buiiducthangg">Nóc Nhà ❤️</a></li>
                         <li><img src="https://i.pinimg.com/736x/94/a3/c8/94a3c897a208704724c1e9d575e4d238.jpg" style="width:16px; border-radius:4px;"><a href="https://www.tiktok.com/@buiiducthangg">TikTok</a></li>
                         <li><img src="https://i.pinimg.com/736x/d6/52/06/d6520621938be940f4469d2d3ea9122e.jpg" style="width:16px; border-radius:4px;"><a href="https://locket.cam/buiiducthangg2">Locket</a></li>
